@@ -1,6 +1,8 @@
 package mmt.app.passenger;
 
+import mmt.core.Passenger;
 import mmt.core.TicketOffice;
+
 import mmt.app.exceptions.BadPassengerNameException;
 import mmt.app.exceptions.DuplicatePassengerNameException;
 import mmt.core.exceptions.InvalidPassengerNameException;
@@ -27,7 +29,7 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		//FIXME implement command
+		// Implement necessary methods in TicketOffice
 	}
 
 }

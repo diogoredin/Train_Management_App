@@ -28,7 +28,7 @@ public class CategoryManager {
 	 * @param value value of the last 10 itineraries.
 	 * @return corresponding category.
 	 */
-	private Category getCategory (double value) {
+	public Category getCategory (double value) {
 
 		ListIterator<Category> iter = _categoryList.listIterator();
 		

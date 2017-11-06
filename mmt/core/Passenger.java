@@ -67,7 +67,11 @@ public class Passenger {
 	}
 
 	public void updateCategory(double value) {
-		// Implement CategoryManager somewhere
+		_category = _trainCompany.updateCategory(value);
+	}
+
+	public String toString() {
+		return "" + _id + " - " + _name;
 	}
 
 }

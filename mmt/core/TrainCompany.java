@@ -1,5 +1,8 @@
 package mmt.core;
 
+import mmt.core.categories.CategoryManager;
+import mmt.core.categories.Category;
+
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
@@ -36,10 +39,18 @@ public class TrainCompany implements java.io.Serializable {
 	private Map<Integer, Passenger> _passengersMap = new TreeMap<Integer, Passenger>();
 
 	/**
+	 * The different categories for a passenger.
+	 */
+	private CategoryManager _categories = new CategoryManager();
+
+	/**
 	 * Give each passenger a unique identifier.
 	 */
 	private int _nextId;
 
+	/**
+	 * Constructor.
+	 */
 	public TrainCompany() {
 		_nextId = 0;
 	}
@@ -103,4 +114,9 @@ public class TrainCompany implements java.io.Serializable {
 			return false;
 		return true;
 	} 
+
+	public Category updateCategory(double value) {
+		return _categories.getCategory(value);
+	}
+
 }
