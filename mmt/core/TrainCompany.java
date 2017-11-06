@@ -19,21 +19,21 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
  */
 public class TrainCompany implements java.io.Serializable {
 
-  /** Serial number for serialization. */
-  private static final long serialVersionUID = 201708301010L;
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301010L;
 
-  //FIXME define fields
+	//FIXME define fields
 
-  void importFile(String filename) {
-    //FIXME implement function
-  }
+	void importFile(String filename) {
+		//FIXME implement function
+	}
 
-  /*FIXME
-   * add methods for
-   *   registerPassenger, changePassengerName
-   *   searchItineraries, commitItinerary
-   */
+	/*FIXME
+	 * add methods for
+	 *   registerPassenger, changePassengerName
+	 *   searchItineraries, commitItinerary
+	 */
 
-  //FIXME implement other functions if necessary
+	//FIXME implement other functions if necessary
 
 }

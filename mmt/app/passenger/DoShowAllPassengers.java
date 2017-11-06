@@ -12,17 +12,17 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowAllPassengers extends Command<TicketOffice> {
 
-  /**
-   * @param receiver
-   */
-  public DoShowAllPassengers(TicketOffice receiver) {
-    super(Label.SHOW_ALL_PASSENGERS, receiver);
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoShowAllPassengers(TicketOffice receiver) {
+		super(Label.SHOW_ALL_PASSENGERS, receiver);
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() {
-    //FIXME implement command
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() {
+		//FIXME implement command
+	}
 
 }

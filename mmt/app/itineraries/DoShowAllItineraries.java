@@ -11,17 +11,17 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowAllItineraries extends Command<TicketOffice> {
 
-  /**
-   * @param receiver
-   */
-  public DoShowAllItineraries(TicketOffice receiver) {
-    super(Label.SHOW_ALL_ITINERARIES, receiver);
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoShowAllItineraries(TicketOffice receiver) {
+		super(Label.SHOW_ALL_ITINERARIES, receiver);
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() {
-    //FIXME implement command
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() {
+		//FIXME implement command
+	}
 
 }

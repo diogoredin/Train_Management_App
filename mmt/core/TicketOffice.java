@@ -26,40 +26,40 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
  */
 public class TicketOffice {
 
-  /** The object doing most of the actual work. */
-  private TrainCompany _trainCompany;
+	/** The object doing most of the actual work. */
+	private TrainCompany _trainCompany;
 
-  //FIXME define other fields
+	//FIXME define other fields
 
-  public void reset() {
-    //FIXME implement this function
-  }
+	public void reset() {
+		//FIXME implement this function
+	}
 
-  public void save(String filename) /*FIXME add thrown exceptions*/ {
-    //FIXME implement this function
-  }
+	public void save(String filename) /*FIXME add thrown exceptions*/ {
+		//FIXME implement this function
+	}
 
-  public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-    //FIXME implement this function
-  }
+	public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
+		//FIXME implement this function
+	}
 
-  public void importFile(String datafile) throws ImportFileException {
-    _trainCompany.importFile(datafile);
-  }
+	public void importFile(String datafile) throws ImportFileException {
+		_trainCompany.importFile(datafile);
+	}
 
-  //FIXME complete and implement the itinerary search (and pre-commit store) method
-  public void /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) /*FIXME define thrown exceptions */ {
-    //FIXME implement method
-  }
+	//FIXME complete and implement the itinerary search (and pre-commit store) method
+	public void /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+																							String departureTime) /*FIXME define thrown exceptions */ {
+		//FIXME implement method
+	}
 
-  //FIXME complete and implement the itinerary commit method
-  public void /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
-    //FIXME implement method
-  }
+	//FIXME complete and implement the itinerary commit method
+	public void /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
+		//FIXME implement method
+	}
 
-  //FIXME add methods for passenger registration and passenger name update
+	//FIXME add methods for passenger registration and passenger name update
 
-  //FIXME add other functions if necessary
+	//FIXME add other functions if necessary
 
 }

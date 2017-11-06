@@ -10,18 +10,18 @@ import pt.tecnico.po.ui.Menu;
  */
 public class DoOpenItinerariesMenu extends Command<TicketOffice> {
 
-  /**
-   * @param receiver
-   */
-  public DoOpenItinerariesMenu(TicketOffice receiver) {
-    super(Label.OPEN_ITINERARIES_MENU, receiver);
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoOpenItinerariesMenu(TicketOffice receiver) {
+		super(Label.OPEN_ITINERARIES_MENU, receiver);
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() {
-    Menu menu = new ItinerariesMenu(_receiver);
-    menu.open();
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() {
+		Menu menu = new ItinerariesMenu(_receiver);
+		menu.open();
+	}
 
 }
