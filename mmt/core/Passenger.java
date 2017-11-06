@@ -21,14 +21,17 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 public class Passenger {
 
-	/** The TrainCompany to which this Passenger travels on. */
+	/** The TrainCompany to which this passenger travels on. */
 	private TrainCompany _trainCompany;
 
-	/** The Passenger's unique identifier. */
+	/** The passenger's unique identifier. */
 	protected int _id;
 
-	/** The Passenger's name. */
+	/** The passenger's name. */
 	protected String _name;
+
+	/** The passenger's category. */
+	private Category _category;
 
 	/**
 	 * Creates a passenger that isn't associated with any TrainCompany.
