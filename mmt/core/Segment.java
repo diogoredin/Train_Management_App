@@ -24,25 +24,45 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 public class Segment {
 
-    protected TrainStop _start;
-    protected TrainStop _end;
-    protected double _cost;
+	/** The TrainStop (with time and station) where this segment starts. */
+	protected TrainStop _start;
 
+	/** The TrainStop (with time and station) where this segment ends. */
+	protected TrainStop _end;
+
+	/** The cost of this segment. */
+	protected double _cost;
+
+	/**
+	 * Creates a segment that is associated with a start and end TrainStop.
+	 *
+	 * @param start the TrainStop (with time and station) where this segment starts.
+	 * @param end the TrainStop (with time and station) where this segment ends.
+	 */
 	public Segment(TrainStop start, TrainStop end, double cost) {
-        _start = start;
-        _end = end;
-        _cost = cost;
+		_start = start;
+		_end = end;
+		_cost = cost;
 	}
 
+	/**
+	 * @return segment start and end station names
+	 */
 	public final String showSegment() {
 		return "{ " + _start.getStation().getName() + "->" +  _end.getStation().getName() + "}";
 	}
 
-    public final double getFractionCost() {
+	/**
+	 * @return segment start and end station names
+	 */
+	public final double getFractionCost() {
 		return _cost;
 	}
 
-     public final void getTotalDuration() {
+	/**
+	 * @return segment cost
+	 */
+	public final void getTotalDuration() {
 		//FIXME should be difference between start and end
 	}
 
