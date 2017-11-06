@@ -48,7 +48,6 @@ public class Passenger {
 	 * @param id the passenger's unique identifier.
 	 * @param name the passenger's name.
 	 */
-
 	public Passenger(TrainCompany trainCompany, int id, String name) {
 		this (id, name);
 		_trainCompany = trainCompany;
