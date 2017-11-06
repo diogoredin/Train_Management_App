@@ -23,19 +23,29 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 public class TrainStop {
 
+	/** Stores the station of this TrainStop event. */
     protected Station _station;
-    protected Instant _time;
+    
+	/** Stores the instant of this TrainStop event. */
+	protected Instant _time;
 
+	/**
+	* Creates a TrainStop, which is an event when a train stops at a certain time at a certain station.
+	*
+	* @param name identifies the station.
+	*/
 	public TrainStop(Station station, Instant time) {
         _station = station;
         _time = time;
 	}
 
+	/** @return the station of this TrainStop. */
 	public final Station getStation() {
 		return _station;
 	}
 
-    public final Instant getDepartureTime() {
+	/** @return the time of this TrainStop event. */
+    public final Instant getDepartureTime() { //FIXME rename to getTime
 		return _time;
 	}
 
