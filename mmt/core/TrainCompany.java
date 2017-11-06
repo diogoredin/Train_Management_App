@@ -40,6 +40,10 @@ public class TrainCompany implements java.io.Serializable {
 	 */
 	private int _nextId;
 
+	public TrainCompany() {
+		_nextId = 0;
+	}
+
 	void importFile(String filename) {
 	}		
 

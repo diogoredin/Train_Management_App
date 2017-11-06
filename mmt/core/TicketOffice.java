@@ -29,7 +29,9 @@ public class TicketOffice {
 	/** The object doing most of the actual work. */
 	private TrainCompany _trainCompany;
 
-	
+	public TicketOffice(TrainCompany trainCompany) {
+		_trainCompany = trainCompany;
+	}
 	
 	public void reset() {
 		//FIXME implement this function
