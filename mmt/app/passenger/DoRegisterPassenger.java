@@ -16,8 +16,6 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
-	//FIXME define input fields
-
 	/**
 	 * @param receiver
 	 */

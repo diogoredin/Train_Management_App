@@ -21,7 +21,7 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 	 * @param receiver
 	 */
 	public DoShowPassengerById(TicketOffice receiver) {
-		super(Label.SHOW_PASSENGER_BY_ID, receiver);
+		super(Label.SHOW_PASSENGER_BY_ID, receiver, new PassengerCommandValidity(receiver));
 		//FIXME initialize input fields
 	}
 

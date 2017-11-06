@@ -41,8 +41,7 @@ public class Passenger {
 	 * @param id the passenger's unique identifier.
 	 * @param name the passenger's name.
 	 */
-	public Passenger(int id, String name) {
-		_id = id;
+	public Passenger(String name) {
 		_name = name;
 	}
 
@@ -53,10 +52,10 @@ public class Passenger {
 	 * @param id the passenger's unique identifier.
 	 * @param name the passenger's name.
 	 */
-	public Passenger(TrainCompany trainCompany, int id, String name) {
-		this (id, name);
+	public Passenger(TrainCompany trainCompany, String name) {
+		this (name);
 		_trainCompany = trainCompany;
-		_trainCompany.addPassenger (this);
+		_id = _trainCompany.addPassenger (this);
 	}
 
 	public final int getId() {
@@ -65,6 +64,10 @@ public class Passenger {
 
 	public final String getName() {
 		return _name;
+	}
+
+	public void updateCategory(double value) {
+		// Implement CategoryManager somewhere
 	}
 
 }

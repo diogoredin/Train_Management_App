@@ -64,4 +64,7 @@ public class TicketOffice {
 
 	//FIXME add other functions if necessary
 
+	public int numberPassengers() {
+		return _trainCompany.numberPassengers();
+	}
 }

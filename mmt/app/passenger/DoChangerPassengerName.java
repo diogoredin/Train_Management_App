@@ -24,7 +24,7 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	 * @param receiver
 	 */
 	public DoChangerPassengerName(TicketOffice receiver) {
-		super(Label.CHANGE_PASSENGER_NAME, receiver);
+		super(Label.CHANGE_PASSENGER_NAME, receiver, new PassengerCommandValidity(receiver));
 		//FIXME initilize input fields
 	}
 
