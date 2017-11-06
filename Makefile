@@ -6,6 +6,7 @@ run:
 
 clean:
 	rm -rf PO_Project/* `find ./mmt -name "*.class"`
+	clear
 
 docs:
 	javadoc -cp po-uilib.jar:. `find mmt -name *.java` -d docs
