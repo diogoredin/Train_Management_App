@@ -14,28 +14,28 @@ import java.io.IOException;
  */
 public class DoOpen extends Command<TicketOffice> {
 
-  //FIXME define input fields
+	//FIXME define input fields
 
-  /**
-   * @param receiver
-   */
-  public DoOpen(TicketOffice receiver) {
-    super(Label.OPEN, receiver);
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoOpen(TicketOffice receiver) {
+		super(Label.OPEN, receiver);
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() {
-    /*
-    try {
-      //FIXME implement command
-    } catch (FileNotFoundException fnfe) {
-      _display.popup(Message.fileNotFound());
-    } catch (ClassNotFoundException | IOException e) {
-      // shouldn't happen in a controlled test setup
-      e.printStackTrace();
-    }
-    */
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() {
+		/*
+		try {
+			//FIXME implement command
+		} catch (FileNotFoundException fnfe) {
+			_display.popup(Message.fileNotFound());
+		} catch (ClassNotFoundException | IOException e) {
+			// shouldn't happen in a controlled test setup
+			e.printStackTrace();
+		}
+		*/
+	}
 
 }

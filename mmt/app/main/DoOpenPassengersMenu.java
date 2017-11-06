@@ -10,18 +10,18 @@ import pt.tecnico.po.ui.Menu;
  */
 public class DoOpenPassengersMenu extends Command<TicketOffice> {
 
-  /**
-   * @param receiver
-   */
-  public DoOpenPassengersMenu(TicketOffice receiver) {
-    super(Label.OPEN_PASSENGERS_MENU, receiver);
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoOpenPassengersMenu(TicketOffice receiver) {
+		super(Label.OPEN_PASSENGERS_MENU, receiver);
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() {
-    Menu menu = new PassengersMenu(_receiver);
-    menu.open();
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() {
+		Menu menu = new PassengersMenu(_receiver);
+		menu.open();
+	}
 
 }

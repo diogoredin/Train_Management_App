@@ -9,16 +9,16 @@ import pt.tecnico.po.ui.Menu;
  */
 public class PassengersMenu extends Menu {
 
-  /**
-   * @param receiver
-   */
-  public PassengersMenu(TicketOffice receiver) {
-    super(Label.TITLE, new Command<?>[] { //
-        new DoShowAllPassengers(receiver), //
-        new DoShowPassengerById(receiver), //
-        new DoRegisterPassenger(receiver), //
-        new DoChangerPassengerName(receiver), //
-    });
-  }
+	/**
+	 * @param receiver
+	 */
+	public PassengersMenu(TicketOffice receiver) {
+		super(Label.TITLE, new Command<?>[] { //
+				new DoShowAllPassengers(receiver), //
+				new DoShowPassengerById(receiver), //
+				new DoRegisterPassenger(receiver), //
+				new DoChangerPassengerName(receiver), //
+		});
+	}
 
 }

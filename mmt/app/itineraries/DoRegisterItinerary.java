@@ -23,34 +23,34 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoRegisterItinerary extends Command<TicketOffice> {
 
-  //FIXME define input fields
+	//FIXME define input fields
 
-  /**
-   * @param receiver
-   */
-  public DoRegisterItinerary(TicketOffice receiver) {
-    super(Label.REGISTER_ITINERARY, receiver);
-    //FIXME initialize input fields
-  }
+	/**
+	 * @param receiver
+	 */
+	public DoRegisterItinerary(TicketOffice receiver) {
+		super(Label.REGISTER_ITINERARY, receiver);
+		//FIXME initialize input fields
+	}
 
-  /** @see pt.tecnico.po.ui.Command#execute() */
-  @Override
-  public final void execute() throws DialogException {
-    /*
-    try {
-      //FIXME implement command
-      // must call (at least) _receiver.searchItineraries(...) and _receiver.commitItinerary(...)
-    } catch (NoSuchPassengerIdException e) {
-      throw new NoSuchPassengerException(e.getId());
-    } catch (NoSuchStationNameException e) {
-      throw new NoSuchStationException(e.getName());
-    } catch (NoSuchItineraryChoiceException e) {
-      throw new NoSuchItineraryException(e.getPassengerId(), e.getItineraryId());
-    } catch (BadDateSpecificationException e) {
-      throw new BadDateException(e.getDate());
-    } catch (BadTimeSpecificationException e) {
-      throw new BadTimeException(e.getTime());
-    }
-    */
-  }
+	/** @see pt.tecnico.po.ui.Command#execute() */
+	@Override
+	public final void execute() throws DialogException {
+		/*
+		try {
+			//FIXME implement command
+			// must call (at least) _receiver.searchItineraries(...) and _receiver.commitItinerary(...)
+		} catch (NoSuchPassengerIdException e) {
+			throw new NoSuchPassengerException(e.getId());
+		} catch (NoSuchStationNameException e) {
+			throw new NoSuchStationException(e.getName());
+		} catch (NoSuchItineraryChoiceException e) {
+			throw new NoSuchItineraryException(e.getPassengerId(), e.getItineraryId());
+		} catch (BadDateSpecificationException e) {
+			throw new BadDateException(e.getDate());
+		} catch (BadTimeSpecificationException e) {
+			throw new BadTimeException(e.getTime());
+		}
+		*/
+	}
 }
