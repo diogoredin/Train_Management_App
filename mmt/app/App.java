@@ -3,6 +3,7 @@ package mmt.app;
 import static pt.tecnico.po.ui.Dialog.IO;
 
 import mmt.core.TicketOffice;
+import mmt.core.TrainCompany;
 import mmt.core.exceptions.ImportFileException;
 
 import mmt.app.main.MainMenu;
@@ -16,7 +17,8 @@ public class App {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TicketOffice office = new TicketOffice();
+		TrainCompany company = new TrainCompany();
+		TicketOffice office = new TicketOffice(company);
 
 		String datafile = System.getProperty("import"); //$NON-NLS-1$
 		if (datafile != null) {
