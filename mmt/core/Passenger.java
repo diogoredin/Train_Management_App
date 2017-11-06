@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import mmt.core.categories.*;
+
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
 import mmt.core.exceptions.ImportFileException;
