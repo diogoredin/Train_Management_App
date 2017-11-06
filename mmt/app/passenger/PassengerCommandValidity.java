@@ -12,7 +12,7 @@ public class PassengerCommandValidity extends ValidityPredicate<TicketOffice> {
 	/**
 	 * Constructor.
 	 *
-	 * @param editor the target editor which will be used to check the command visibility.
+	 * @param editor the target TicketOffice which will be used to check the command visibility.
 	 */
 	public PassengerCommandValidity (TicketOffice ticketOffice) {
 		super(ticketOffice);
@@ -24,6 +24,6 @@ public class PassengerCommandValidity extends ValidityPredicate<TicketOffice> {
 	 * @return if the command is visible, returns true, else returns false.
 	 */
 	public boolean isValid() {
-		return _receiver.numberPassengers() > 0;
+		return _receiver.getTrainCompany().numberPassengers() > 0;
 	}
 }

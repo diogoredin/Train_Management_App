@@ -94,6 +94,13 @@ public class TrainCompany implements java.io.Serializable {
 		return getPassenger(id) != null;
 	}
 
+	public String changePassengerName(int id, String newname) {
+		if (passengerExists(id)) {
+			getPassenger(id).setName(newname);
+			return getPassenger(id).toString();
+		}
+		return "";
+	}
 	/**
 	 * Number of passengers held by the editor.
 	 *
@@ -117,6 +124,10 @@ public class TrainCompany implements java.io.Serializable {
 
 	public Category updateCategory(double value) {
 		return _categories.getCategory(value);
+	}
+
+	public String passengerDescription(int id) {
+		return getPassenger(id).toString();
 	}
 
 }

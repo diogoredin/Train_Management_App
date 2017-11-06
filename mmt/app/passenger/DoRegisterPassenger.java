@@ -29,7 +29,13 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		// Implement necessary methods in TicketOffice
+		Input<String> name = _form.addStringInput("Insira o nome do passageiro que quer registar: ");
+		_form.parse();
+		Passenger p = new Passenger(_receiver.getTrainCompany(), name.value());
+		_display.addLine("O registo do passageiro com ID: " + p.toString() + "; foi feito com sucesso.");
+		_display.display();
+		_form.clear();
+
 	}
 
 }

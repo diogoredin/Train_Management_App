@@ -31,6 +31,24 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		//FIXME implement command
+		Input<Integer> id = _form.addIntegerInput("Insira o ID do passageiro cujo nome quer mudar: ");
+		_form.parse();
+
+		if (_receiver.getTrainCompany().passengerExists(id.value())) {
+			_display.addLine("Selecionado o passageiro com ID: " + _receiver.getTrainCompany().passengerDescription(id.value()));
+			_display.display(true);
+
+			Input<String> name = _form.addStringInput("Insira o novo nome do passageiro: ");
+			_form.parse();
+			String newPassenger = _receiver.getTrainCompany().changePassengerName(id.value(), name.value());
+			_display.addLine("A mudança de nome do passageiro com ID: " + newPassenger + "; foi feita com sucesso.");
+
+		} else {
+			_display.addLine("O passageiro que selecionou nao existe.");
+		}
+
+		_form.clear();
+		_display.display();
+		return;
 	}
 }

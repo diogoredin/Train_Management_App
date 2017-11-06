@@ -74,4 +74,8 @@ public class Passenger {
 		return "" + _id + " - " + _name;
 	}
 
+	public void setName(String newname) {
+		_name = newname;
+	}
+
 }

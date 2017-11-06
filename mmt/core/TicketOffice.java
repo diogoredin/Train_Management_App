@@ -32,6 +32,10 @@ public class TicketOffice {
 	public TicketOffice(TrainCompany trainCompany) {
 		_trainCompany = trainCompany;
 	}
+
+	public TrainCompany getTrainCompany() {
+		return _trainCompany;
+	}
 	
 	public void reset() {
 		//FIXME implement this function
@@ -63,8 +67,4 @@ public class TicketOffice {
 	//FIXME add methods for passenger registration and passenger name update
 
 	//FIXME add other functions if necessary
-
-	public int numberPassengers() {
-		return _trainCompany.numberPassengers();
-	}
 }
