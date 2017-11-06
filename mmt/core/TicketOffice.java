@@ -29,8 +29,8 @@ public class TicketOffice {
 	/** The object doing most of the actual work. */
 	private TrainCompany _trainCompany;
 
-	//FIXME define other fields
-
+	
+	
 	public void reset() {
 		//FIXME implement this function
 	}
@@ -49,7 +49,7 @@ public class TicketOffice {
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
 	public void /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-																							String departureTime) /*FIXME define thrown exceptions */ {
+		String departureTime) /*FIXME define thrown exceptions */ {
 		//FIXME implement method
 	}
 
