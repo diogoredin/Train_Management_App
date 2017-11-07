@@ -8,6 +8,6 @@ package mmt.core.categories;
 public class SpecialCategory extends Category {
 
 	public SpecialCategory() {
-		super("Especial", 2500.0, 50.0);
+		super("ESPECIAL", 2500.0, 50.0);
 	}
 }

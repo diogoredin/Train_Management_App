@@ -1,6 +1,11 @@
 package mmt.app.passenger;
 
+import mmt.core.Passenger;
+
 import mmt.core.TicketOffice;
+
+import java.util.Collection;
+
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
@@ -22,7 +27,13 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() {
-		//FIXME implement command
+		Collection<Passenger> passengers = _receiver.getTrainCompany().getPassengers();
+		passengers.forEach((Passenger passenger)-> {
+			_display.addLine(passenger.toString());
+		});
+
+		_display.display();
+
 	}
 
 }

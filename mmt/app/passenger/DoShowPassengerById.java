@@ -28,7 +28,14 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		//FIXME implement command
+		String m = Message.requestPassengerId();
+
+		Input<Integer> id = _form.addIntegerInput(m);
+		_form.parse();
+		_form.clear();
+
+		_display.addLine(_receiver.getTrainCompany().getPassengerDescription(id.value()));
+		_display.display();
 	}
 
 }

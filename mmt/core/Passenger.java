@@ -35,6 +35,9 @@ public class Passenger {
 	/** The passenger's category. */
 	private Category _category;
 
+	/** The passenger's last 10 Itinerary values (FIXME) */
+	private double _lastValues = 0;
+
 	/**
 	 * Creates a passenger that isn't associated with any TrainCompany.
 	 *
@@ -56,6 +59,7 @@ public class Passenger {
 		this (name);
 		_trainCompany = trainCompany;
 		_id = _trainCompany.addPassenger (this);
+		updateCategory(_lastValues);
 	}
 
 	public final int getId() {
@@ -71,7 +75,17 @@ public class Passenger {
 	}
 
 	public String toString() {
-		return "" + _id + " - " + _name;
+		int id = getId();
+		String name = getName();
+		String catName = _category.getName();
+		double values = getLastValues();
+		String time = "0:00";
+
+		return "" + id + "|" + name +"|"+ catName+"|"+ values +"|"+ time;
+	}
+
+	public double getLastValues() {
+		return _lastValues;
 	}
 
 	public void setName(String newname) {

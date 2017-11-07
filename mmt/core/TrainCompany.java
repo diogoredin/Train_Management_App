@@ -126,8 +126,18 @@ public class TrainCompany implements java.io.Serializable {
 		return _categories.getCategory(value);
 	}
 
-	public String passengerDescription(int id) {
+	public String getPassengerDescription(int id) {
 		return getPassenger(id).toString();
+	}	
+	/**
+	 * Collection of all the passengers part of this trainCompany.
+	 *
+	 * @return the collection of passengers of this trainCompany ordered by ID.
+	 */
+	public Collection<Passenger> getPassengers() {
+		Collection<Passenger> passengers = _passengersMap.values();
+		return Collections.unmodifiableCollection(passengers);
 	}
+	
 
 }

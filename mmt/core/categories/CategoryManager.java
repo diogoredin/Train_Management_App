@@ -31,17 +31,16 @@ public class CategoryManager {
 	public Category getCategory (double value) {
 
 		ListIterator<Category> iter = _categoryList.listIterator();
-		
-		Category category = iter.next();
+
+		Category category = null;
 
 		while (iter.hasNext()) {
-			if (iter.hasNext() == false && category.getMinimumValue() < value)  {
-				return category;
+			category = iter.next();
+			if (category.getMinimumValue() > value) {
 
-			} else if (iter.hasPrevious() == true && category.getMinimumValue() > value) {
+				iter.previous();
 				return iter.previous();
 			}
-			category = iter.next();
 		}
 		return category;
 	}

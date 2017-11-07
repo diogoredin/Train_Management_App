@@ -1,12 +1,15 @@
 package mmt.app.passenger;
 
 import mmt.core.TicketOffice;
+import mmt.core.TrainCompany;
+
 import mmt.app.exceptions.BadPassengerNameException;
 import mmt.app.exceptions.DuplicatePassengerNameException;
 import mmt.app.exceptions.NoSuchPassengerException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
+
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
@@ -31,24 +34,22 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		Input<Integer> id = _form.addIntegerInput("Insira o ID do passageiro cujo nome quer mudar: ");
+		String m = Message.requestPassengerId();
+
+		Input<Integer> id = _form.addIntegerInput(m);
 		_form.parse();
+		_form.clear();
 
-		if (_receiver.getTrainCompany().passengerExists(id.value())) {
-			_display.addLine("Selecionado o passageiro com ID: " + _receiver.getTrainCompany().passengerDescription(id.value()));
-			_display.display(true);
+		TrainCompany company = _receiver.getTrainCompany();
 
-			Input<String> name = _form.addStringInput("Insira o novo nome do passageiro: ");
+		if (company.passengerExists(id.value())) {
+
+			m = Message.requestPassengerName();
+			Input<String> name = _form.addStringInput(m);
 			_form.parse();
-			String newPassenger = _receiver.getTrainCompany().changePassengerName(id.value(), name.value());
-			_display.addLine("A mudança de nome do passageiro com ID: " + newPassenger + "; foi feita com sucesso.");
-
-		} else {
-			_display.addLine("O passageiro que selecionou nao existe.");
+			company.changePassengerName(id.value(), name.value());
 		}
 
 		_form.clear();
-		_display.display();
-		return;
 	}
 }
