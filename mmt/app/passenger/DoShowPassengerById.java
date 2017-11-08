@@ -22,20 +22,24 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 	 */
 	public DoShowPassengerById(TicketOffice receiver) {
 		super(Label.SHOW_PASSENGER_BY_ID, receiver, new PassengerCommandValidity(receiver));
-		//FIXME initialize input fields
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		String m = Message.requestPassengerId();
+		try {
+			String m = Message.requestPassengerId();
 
-		Input<Integer> id = _form.addIntegerInput(m);
-		_form.parse();
-		_form.clear();
+			Input<Integer> id = _form.addIntegerInput(m);
+			_form.parse();
+			_form.clear();
 
-		_display.addLine(_receiver.getTrainCompany().getPassengerDescription(id.value()));
-		_display.display();
+			_display.addLine(_receiver.getTrainCompany().getPassengerDescription(id.value()));
+			_display.display();
+
+		} catch (NoSuchPassengerIdException e) {
+			throw new NoSuchPassengerException(e.getId());
+		}
 	}
 
 }

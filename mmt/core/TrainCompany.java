@@ -94,12 +94,13 @@ public class TrainCompany implements java.io.Serializable {
 		return getPassenger(id) != null;
 	}
 
-	public String changePassengerName(int id, String newname) {
+	public String changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		if (passengerExists(id)) {
 			getPassenger(id).setName(newname);
 			return getPassenger(id).toString();
+		} else {
+			throw new NoSuchPassengerIdException(id);
 		}
-		return "";
 	}
 	/**
 	 * Number of passengers held by the editor.
@@ -126,8 +127,12 @@ public class TrainCompany implements java.io.Serializable {
 		return _categories.getCategory(value);
 	}
 
-	public String getPassengerDescription(int id) {
-		return getPassenger(id).toString();
+	public String getPassengerDescription(int id) throws NoSuchPassengerIdException {
+		if (passengerExists(id)) {
+			return getPassenger(id).toString();
+		} else {
+			throw new NoSuchPassengerIdException(id);
+		}
 	}	
 	/**
 	 * Collection of all the passengers part of this trainCompany.

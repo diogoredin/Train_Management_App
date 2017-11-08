@@ -1,5 +1,7 @@
 package mmt.app.main;
 
+import pt.tecnico.po.ui.DialogException;
+
 import mmt.core.TicketOffice;
 import mmt.app.passenger.PassengersMenu;
 import pt.tecnico.po.ui.Command;

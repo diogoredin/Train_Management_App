@@ -11,8 +11,6 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
-//FIXME import other classes if necessary
-
 /**
  * §3.3.3. Register passenger.
  */
@@ -28,13 +26,15 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-
-		String m = Message.requestPassengerName();
-		Input<String> name = _form.addStringInput(m);
-		_form.parse();
-		Passenger p = new Passenger(_receiver.getTrainCompany(), name.value());
-		
-		_form.clear();
+		try {
+			String m = Message.requestPassengerName();
+			Input<String> name = _form.addStringInput(m);
+			_form.parse();
+			_form.clear();
+			Passenger p = new Passenger(_receiver.getTrainCompany(), name.value());
+		} catch (InvalidPassengerNameException e) {
+			throw new BadPassengerNameException (e.getName());
+		}
 
 	}
 
