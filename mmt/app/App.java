@@ -31,14 +31,12 @@ public class App {
 			try {
 				office.importFile(datafile);
 			} catch (ImportFileException e) {
-				e.printStackTrace(); // no behavior described: just present the problem
+				e.printStackTrace(); // No behavior described: just present the problem
 			}
-
-		/* Normal Interaction */
-		} else {
-			Menu menu = new MainMenu(office);
-			menu.open();
 		}
+
+		Menu menu = new MainMenu(office);
+		menu.open();
 
 		IO.close();
 	}

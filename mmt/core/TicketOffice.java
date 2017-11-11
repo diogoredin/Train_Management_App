@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import mmt.core.NewParser;
+
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
 import mmt.core.exceptions.ImportFileException;
@@ -48,7 +50,8 @@ public class TicketOffice {
 	}
 
 	public void importFile(String datafile) throws ImportFileException {
-		_trainCompany.importFile(datafile);
+		NewParser parser = new NewParser(_trainCompany);
+		parser.parseFile(datafile);
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method

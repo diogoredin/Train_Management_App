@@ -8,11 +8,27 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 
 import mmt.core.exceptions.ImportFileException;
+import mmt.core.exceptions.InvalidPassengerNameException;
 
 public class NewParser {
 
+	/** The train company associated with the parser. */
 	private TrainCompany _trainCompany;
 
+	/**
+	 * Creates a parser which has associated a train company.
+	 *
+	 * @param TrainCompany associated with the parser.
+	 */
+	public NewParser(TrainCompany trainCompany) throws ImportFileException {
+		_trainCompany = trainCompany;
+	}
+
+	/**
+	 * Parses a given file and adds the data to our app.
+	 *
+	 * @param fileName a file with data.
+	 */
 	public void parseFile(String fileName) throws ImportFileException {
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -51,6 +67,20 @@ public class NewParser {
 	private void parsePassenger(String[] components) throws ImportFileException {
 		if (components.length != 2) {
 			throw new ImportFileException("invalid number of arguments in passenger line: " + components.length);
+		}
+
+		/* Registers the passenger */
+		try {
+			
+			/* Grabs the full name of the passenger */
+			String name = "";
+			for (int i = 0; i < components.length; i++) {
+				name = name + components[i];
+			}
+
+			Passenger p = new Passenger(_trainCompany, name);
+
+		} catch (InvalidPassengerNameException e) {
 		}
 	}
 

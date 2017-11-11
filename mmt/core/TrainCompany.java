@@ -55,16 +55,6 @@ public class TrainCompany implements java.io.Serializable {
 		_nextId = 0;
 	}
 
-	/*
-	 * Imports a file to parse and add info to the app.
-	 */
-	void importFile(String filename) throws ImportFileException {
-
-		/* Creates a Parser and parses our file */
-		NewParser parser = new NewParser();
-		parser.parseFile(filename);
-	}
-
 	/**
 	 * Add passenger.
 	 * 

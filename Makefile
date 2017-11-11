@@ -2,7 +2,7 @@ all:
 	javac -cp po-uilib.jar:. `find mmt -name *.java`
 
 run:
-	java -cp po-uilib.jar:. mmt.app.App
+	java -Dimport=default.imp -cp po-uilib.jar:. mmt.app.App
 
 test:
 	java -Dimport=test.imp -Dout=test.outhyp -cp po-uilib.jar:. mmt.app.App
