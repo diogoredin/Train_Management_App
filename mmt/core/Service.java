@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.Duration;
+
+import java.util.Iterator;
 import java.util.ArrayList;
 
 import mmt.core.exceptions.BadDateSpecificationException;
@@ -80,26 +85,28 @@ public class Service {
 	 * @return the total cost of this service (sum of the cost of all segments that compose the service).
 	 */
     public final double getTotalCost() {
-
         double totalCost = 0;
 
         for (Segment segment : _segments ) {
-			totalCost = totalCost + segment.getFractionCost();
+			totalCost = totalCost + segment.getCost();
 		}
 
 		return totalCost;
 	}
 
-    /* public final Double getTotalDuration() {
+	/**
+	 * @return the total duration of a segment.
+	 */
+    public final Duration getTotalDuration() {
 
-        Double totalDuration = 0;
+		Duration totalDuration = Duration.ofSeconds(0);
 
-        for (Segement segment : this._segments ) {
-			totalDuration = totalDuration + segment.getTotalDuration();
+		for (Segment segment : this._segments ) {
+			totalDuration.plus( segment.getDuration() );
 		}
 
 		return totalDuration;
-	} */
+	}
 
 	/**
 	 * @return the id that identifies this service.

@@ -4,6 +4,9 @@ all:
 run:
 	java -cp po-uilib.jar:. mmt.app.App
 
+test:
+	java -Dimport=test.imp -Dout=test.outhyp -cp po-uilib.jar:. mmt.app.App
+
 clean:
 	rm -rf PO_Project/* `find ./mmt -name "*.class"`
 	clear

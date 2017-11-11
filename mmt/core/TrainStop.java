@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.time.Instant;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
@@ -27,14 +28,14 @@ public class TrainStop {
     protected Station _station;
     
 	/** Stores the instant of this TrainStop event. */
-	protected Instant _time;
+	protected LocalTime _time;
 
 	/**
 	* Creates a TrainStop, which is an event when a train stops at a certain time at a certain station.
 	*
 	* @param name identifies the station.
 	*/
-	public TrainStop(Station station, Instant time) {
+	public TrainStop(Station station, LocalTime time) {
         _station = station;
         _time = time;
 	}
@@ -45,7 +46,7 @@ public class TrainStop {
 	}
 
 	/** @return the time of this TrainStop event. */
-    public final Instant getDepartureTime() { //FIXME rename to getTime
+    public final LocalTime getTime() {
 		return _time;
 	}
 

@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.time.Instant;
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.Duration;
+
 import java.util.ArrayList;
 
 import mmt.core.exceptions.BadDateSpecificationException;
@@ -46,24 +49,27 @@ public class Segment {
 	}
 
 	/**
-	 * @return segment start and end station names
+	 * @return start and end station names
 	 */
 	public final String showSegment() {
 		return "{ " + _start.getStation().getName() + "->" +  _end.getStation().getName() + "}";
 	}
 
 	/**
-	 * @return segment start and end station names
+	 * @return segment duration
 	 */
-	public final double getFractionCost() {
+	public final double getCost() {
 		return _cost;
 	}
 
 	/**
 	 * @return segment cost
 	 */
-	public final void getTotalDuration() {
-		//FIXME should be difference between start and end
+	public final Duration getDuration() {
+
+		Duration duration = Duration.between(_start.getTime(), _end.getTime());
+		return duration;
+
 	}
 
 }

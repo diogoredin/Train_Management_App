@@ -2,6 +2,7 @@ package mmt.core;
 
 import mmt.core.categories.CategoryManager;
 import mmt.core.categories.Category;
+import mmt.core.NewParser;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadEntryException;
 import mmt.core.exceptions.BadTimeSpecificationException;
@@ -21,8 +23,6 @@ import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
-
-//FIXME import other classes if necessary
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -55,8 +55,15 @@ public class TrainCompany implements java.io.Serializable {
 		_nextId = 0;
 	}
 
-	void importFile(String filename) {
-	}		
+	/*
+	 * Imports a file to parse and add info to the app.
+	 */
+	void importFile(String filename) throws ImportFileException {
+
+		/* Creates a Parser and parses our file */
+		NewParser parser = new NewParser();
+		parser.parseFile(filename);
+	}
 
 	/**
 	 * Add passenger.
@@ -94,6 +101,14 @@ public class TrainCompany implements java.io.Serializable {
 		return getPassenger(id) != null;
 	}
 
+	/**
+	 * Changes a given passenger name.
+	 * 
+	 * @param id of the passenger.
+	 * @param newname the new name to give the passenger.
+	 * 
+	 * @return the new passengers name.
+	 */
 	public String changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		if (passengerExists(id)) {
 			getPassenger(id).setName(newname);
@@ -102,6 +117,7 @@ public class TrainCompany implements java.io.Serializable {
 			throw new NoSuchPassengerIdException(id);
 		}
 	}
+
 	/**
 	 * Number of passengers held by the editor.
 	 *
@@ -133,7 +149,8 @@ public class TrainCompany implements java.io.Serializable {
 		} else {
 			throw new NoSuchPassengerIdException(id);
 		}
-	}	
+	}
+
 	/**
 	 * Collection of all the passengers part of this trainCompany.
 	 *
@@ -143,6 +160,12 @@ public class TrainCompany implements java.io.Serializable {
 		Collection<Passenger> passengers = _passengersMap.values();
 		return Collections.unmodifiableCollection(passengers);
 	}
-	
+
+	/**
+	 * Resetes the passengers list of this train company.
+	 */
+	public void deletePassengers() {
+		_passengersMap.clear();
+	}
 
 }

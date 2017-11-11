@@ -19,8 +19,6 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-//FIXME import other classes if necessary
-
 /**
  * Façade for handling persistence and other functions.
  */
@@ -36,12 +34,12 @@ public class TicketOffice {
 	public TrainCompany getTrainCompany() {
 		return _trainCompany;
 	}
-	
+
 	public void reset() {
-		//FIXME implement this function
+		_trainCompany.deletePassengers();
 	}
 
-	public void save(String filename) /*FIXME add thrown exceptions*/ {
+	public void save(String filename) {
 		//FIXME implement this function
 	}
 
@@ -54,17 +52,18 @@ public class TicketOffice {
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
-	public void /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-		String departureTime) /*FIXME define thrown exceptions */ {
+	public void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+		String departureTime) {
+		/* FIXME define thrown exceptions */
 		//FIXME implement method
 	}
 
 	//FIXME complete and implement the itinerary commit method
-	public void /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
+	public void commitItinerary(int passengerId, int itineraryNumber) {
+		/*FIXME define thrown exceptions */
 		//FIXME implement method
 	}
 
 	//FIXME add methods for passenger registration and passenger name update
-
 	//FIXME add other functions if necessary
 }

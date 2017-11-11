@@ -24,7 +24,7 @@ import mmt.core.exceptions.InvalidPassengerNameException;
 
 /**
  * Class which describes a passenger associated with a train company.
- * <p>
+ *
  * Passengers have a name and a unique identifier. They can also have associated itineraries,
  * and depending on their cost, be part of different categories. A Passenger's name may be changed,
  * but other attributes cannot be changed manually.
@@ -74,7 +74,7 @@ public class Passenger {
 	public Passenger(TrainCompany trainCompany, String name) throws InvalidPassengerNameException {
 		this (name);
 		_trainCompany = trainCompany;
-		_id = _trainCompany.addPassenger (this);
+		_id = _trainCompany.addPassenger(this);
 		updateCategory(_lastValues);
 	}
 

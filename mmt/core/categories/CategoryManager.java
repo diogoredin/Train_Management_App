@@ -90,6 +90,6 @@ public class CategoryManager {
 		double minimum = getCategoryMinimum(value);
 		double percentage = getCategoryDiscount(value);
 
-		return "Categoria " + name +" | Valor Minimo de Entrada: " + minimum + " | Valor de Desconto: " + percentage;
+		return "Categoria " + name + " | Valor Minimo de Entrada: " + minimum + " | Valor de Desconto: " + percentage;
 	}
 }
