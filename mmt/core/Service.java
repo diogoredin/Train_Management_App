@@ -83,7 +83,7 @@ public class Service {
     public final Station getStartStation() throws NoSegmentsException {
 
 		if (_segments != null && !_segments.isEmpty()) {
-			Segment segment = _segments.get(_segments.size()-1);
+			Segment segment = _segments.get(0);
 			TrainStop startStop = segment.getStart();
 			Station station = startStop.getStation();
 
