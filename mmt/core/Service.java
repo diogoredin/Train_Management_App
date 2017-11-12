@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+import mmt.core.exceptions.NoSegmentsException;
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
 import mmt.core.exceptions.ImportFileException;
@@ -37,61 +38,77 @@ public class Service {
 	/** The station where this service ends. */
     protected Station _end;
 
+	/** The cost of this service. */
+    protected double _cost;
+
 	/** The segments that compose this service. */
-    protected ArrayList<Segment> _segments;
+    protected ArrayList<Segment> _segments = new ArrayList<Segment>();
 
 	/**
 	 * Creates a service that is associated with an end and start station.
 	 *
-	 * @param id identifies this service
-	 * @param start the station where this service starts.
-	 * @param end the station where this service ends.
+	 * @param id identifies uniquely this service.
 	 */
-	public Service(int id, Station start, Station end) {
+	public Service(int id, double cost) {
 		_id = id;
-        _start = start;
-        _end = end;
+		_cost = cost;
+	}
+
+	/** 
+	 * @return the service unique identifier.
+	 */
+	public final int getId() {
+		return _id;
 	}
 
 	/**
-	 * @return service with it's id and segments.
+	 * @return service cost.
 	 */
-	public final String showService() {
+	public final double getCost() {
+		return _cost;
+	}
 
-        String serviceTxt = "Service ( " + _id + ") : ";
-
-        for (Segment segment : _segments ) {
-			serviceTxt = serviceTxt + segment.showSegment();
-		}
-
-		return serviceTxt;
+	/**
+	 * Adds a segment to the service.
+	 *
+	 * @param segment to add to the service.
+	 */
+	public final void addSegment(Segment segment) {
+		_segments.add(segment);
 	}
 
 	/**
 	 * @return the station where this service starts.
 	 */
-    public final Station getStartStation() {
-		return _start;
+    public final Station getStartStation() throws NoSegmentsException {
+
+		if (_segments != null && !_segments.isEmpty()) {
+			Segment segment = _segments.get(_segments.size()-1);
+			TrainStop startStop = segment.getStart();
+			Station station = startStop.getStation();
+
+			return station;
+		} else {
+			throw new NoSegmentsException();
+		}
+
 	}
 
 	/**
 	 * @return the station where this service ends.
 	 */
-    public final Station getEndStation() {
-		return _end;
-	}
+    public final Station getEndStation() throws NoSegmentsException {
 
-	/**
-	 * @return the total cost of this service (sum of the cost of all segments that compose the service).
-	 */
-    public final double getTotalCost() {
-        double totalCost = 0;
+		if (_segments != null && !_segments.isEmpty()) {
+			Segment segment = _segments.get(_segments.size()-1);
+			TrainStop endStop = segment.getEnd();
+			Station station = endStop.getStation();
 
-        for (Segment segment : _segments ) {
-			totalCost = totalCost + segment.getCost();
+			return station;
+		} else {
+			throw new NoSegmentsException();
 		}
 
-		return totalCost;
 	}
 
 	/**
@@ -115,4 +132,28 @@ public class Service {
 		return _id;
 	}
 
+	/**
+	 * @return String description of a service.
+	 */
+	public String toString() {
+
+		/* Basic properties */
+		int id = getId();
+		double cost = getCost();
+
+		/* Stores all properties */
+		String result = "" + id + "|" + cost + "|";
+
+		/* Adds segment information */
+		for (Segment segment : _segments ) {
+
+			TrainStop start = segment.getStart();
+			Station station = start.getStation();
+			String name = station.getName();
+
+			result = result + name;
+		}
+
+		return result;
+	}
 }

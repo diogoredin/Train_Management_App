@@ -34,9 +34,14 @@ public class TrainCompany implements java.io.Serializable {
 	private static final long serialVersionUID = 201708301010L;
 
 	/**
-	 * The passengers held by the editor indexed by unique identifier.
+	 * The passengers held by the train company indexed by unique identifier.
 	 */
 	private Map<Integer, Passenger> _passengersMap = new TreeMap<Integer, Passenger>();
+
+	/**
+	 * The services held by the train company indexed by unique identifier.
+	 */
+	private Map<Integer, Service> _servicesMap = new TreeMap<Integer, Service>();
 
 	/**
 	 * The different categories for a passenger.
@@ -46,13 +51,19 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Give each passenger a unique identifier.
 	 */
-	private int _nextId;
+	private int _nextPassengerId;
+
+	/**
+	 * Give each service a unique identifier.
+	 */
+	private int _nextServiceId;
 
 	/**
 	 * Constructor.
 	 */
 	public TrainCompany() {
-		_nextId = 0;
+		_nextPassengerId = 0;
+		_nextServiceId = 0;
 	}
 
 	/**
@@ -63,7 +74,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @return the added passengers's id.
 	 */
 	public final int addPassenger(Passenger p) {
-		int id = ++_nextId;
+		int id = ++_nextPassengerId;
 		_passengersMap.put(id, p);
 		return id;
 	}
@@ -128,7 +139,7 @@ public class TrainCompany implements java.io.Serializable {
 			return false;
 		return true;
 	} 
-
+	
 	public Category updateCategory(double value) {
 		return _categories.getCategory(value);
 	}
@@ -157,5 +168,59 @@ public class TrainCompany implements java.io.Serializable {
 	public void deletePassengers() {
 		_passengersMap.clear();
 	}
+
+	/**
+	 * Add Service.
+	 * 
+	 * @param theservice to add.
+	 * 
+	 * @return the added service id.
+	 */
+	public final int addService(Service s) {
+		int id = ++_nextServiceId;
+		_servicesMap.put(id, s);
+		return id;
+	}
+
+	/**
+	 * Get a service given its identifier.
+	 * 
+	 * @param id the service's identifier.
+	 * 
+	 * @return the service with the given identifier, or null if the service does not
+	 *         exist.
+	 */
+	private final Service getService(int id) {
+		return _servicesMap.get(id);
+	}
+
+	/**
+	 * Check whether a service exists (given an identifier).
+	 * 
+	 * @param id the identifier to check.
+	 * 
+	 * @return true, if the service exists; false, otherwise.
+	 */
+	public final boolean serviceExists(int id) {
+		return getService(id) != null;
+	}
+
+	/**
+	 * Collection of all the services part of this trainCompany.
+	 *
+	 * @return the collection of services of this trainCompany ordered by ID.
+	 */
+	public Collection<Service> getServices() {
+		Collection<Service> services = _servicesMap.values();
+		return Collections.unmodifiableCollection(services);
+	}
+
+	/**
+	 * Resetes the services list of this train company.
+	 */
+	public void deleteServices() {
+		_servicesMap.clear();
+	}
+
 
 }

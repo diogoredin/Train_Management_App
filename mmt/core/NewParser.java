@@ -43,6 +43,11 @@ public class NewParser {
 
 	}
 
+	/**
+	 * Parses a given line of a data file.
+	 *
+	 * @param line the line to parse.
+	 */
 	private void parseLine(String line) throws ImportFileException {
 		String[] components = line.split("\\|");
 
@@ -64,6 +69,11 @@ public class NewParser {
 		}
 	}
 
+	/**
+	 * Parses a passenger, i.e. grabs its properties and adds it to the app.
+	 *
+	 * @param components the properties required for the passenger.
+	 */
 	private void parsePassenger(String[] components) throws ImportFileException {
 		if (components.length != 2) {
 			throw new ImportFileException("invalid number of arguments in passenger line: " + components.length);
@@ -71,32 +81,63 @@ public class NewParser {
 
 		/* Registers the passenger */
 		try {
-			
+
 			/* Grabs the full name of the passenger */
 			String name = "";
 			for (int i = 0; i < components.length; i++) {
 				name = name + components[i];
 			}
 
+			/* Creates a new passenger for the Train Company */
 			Passenger p = new Passenger(_trainCompany, name);
 
 		} catch (InvalidPassengerNameException e) {
 		}
 	}
 
+	/**
+	 * Parses a service, i.e. grabs its properties and adds it to the app.
+	 *
+	 * @param components the properties required for the service.
+	 */
 	private void parseService(String[] components) {
-		double cost = Double.parseDouble(components[2]);
-		int serviceId = Integer.parseInt(components[1]);
 
-		// criar o serviço com o id e custo e associar ao TrainCompany
+		/* Service properties */
+		double cost = Double.parseDouble(components[3]);
+		int serviceId = Integer.parseInt(components[2]);
+
+		/* Creates the Service and adds it to Train Company */
+		Service service = new Service(serviceId, cost);
 		
-		for (int i = 3; i < components.length; i += 2) {
+		/* Adds the segments of this Service */
+		for (int i = 4; i < components.length; i += 2) {
+
+			/* Segment properties */
 			String time = components[i];
 			String stationName = components[i + 1];
 			LocalTime ltime = LocalTime.parse(time);
 
-			// adicionar TrainStop com ltime e Station com o nome stationName
+			/* Builds train stations */
+			Station startStation = new Station(stationName);
+			Station endStation = new Station(stationName);
+
+			/* Builds train stops */
+			TrainStop start = new TrainStop(startStation, ltime);
+			TrainStop end = new TrainStop(endStation, ltime);
+
+			/* Builds segment */
+			Segment segment = new Segment(start, end);
+
+			/* Adds segment to the service */
+			service.addSegment( segment );
+
+			/* Adds service to Passenger */
+			// TODO userID in components[1];
+	
 		}
+
+		/* Adds the service to the train company */
+		_trainCompany.addService(service);
 	}
 
 	private void parseItinerary(String[] components) throws ImportFileException {

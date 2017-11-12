@@ -33,43 +33,37 @@ public class Segment {
 	/** The TrainStop (with time and station) where this segment ends. */
 	protected TrainStop _end;
 
-	/** The cost of this segment. */
-	protected double _cost;
-
 	/**
 	 * Creates a segment that is associated with a start and end TrainStop.
 	 *
 	 * @param start the TrainStop (with time and station) where this segment starts.
 	 * @param end the TrainStop (with time and station) where this segment ends.
 	 */
-	public Segment(TrainStop start, TrainStop end, double cost) {
+	public Segment(TrainStop start, TrainStop end) {
 		_start = start;
 		_end = end;
-		_cost = cost;
 	}
 
 	/**
-	 * @return start and end station names
-	 */
-	public final String showSegment() {
-		return "{ " + _start.getStation().getName() + "->" +  _end.getStation().getName() + "}";
-	}
-
-	/**
-	 * @return segment duration
-	 */
-	public final double getCost() {
-		return _cost;
-	}
-
-	/**
-	 * @return segment cost
+	 * @return segment duration.
 	 */
 	public final Duration getDuration() {
-
 		Duration duration = Duration.between(_start.getTime(), _end.getTime());
 		return duration;
+	}
 
+	/**
+	 * @return segment start data (station and timestamp)
+	 */
+	public final TrainStop getStart() {
+		return _start;
+	}
+
+	/**
+	 * @return segment end data (station and timestamp)
+	 */
+	public final TrainStop getEnd() {
+		return _end;
 	}
 
 }
