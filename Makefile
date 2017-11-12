@@ -5,10 +5,12 @@ run:
 	java -Dimport=default.imp -cp po-uilib.jar:. mmt.app.App
 
 test:
-	java -Dimport=test.imp -Dout=test.outhyp -cp po-uilib.jar:. mmt.app.App
+	sh runtests.sh
 
 clean:
 	rm -rf PO_Project/* `find ./mmt -name "*.class"`
+	rm -rf PO_Project/* `find ./ -name "*.diff"`
+	rm -rf PO_Project/* `find ./ -name "*.outhyp"`
 	clear
 
 docs:
