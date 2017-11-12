@@ -31,7 +31,6 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
 		try {
 			String m = Message.requestStationName();
 			Input<String> search = _form.addStringInput(m);
-			String term = search.toString();
 
 			_form.parse();
 			_form.clear();
@@ -42,8 +41,7 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
 			/* Search for the service */
 			for ( Service service : services ) {
 
-				String station = service.getEndStation().getName().toString();
-				if ( station.equals(term) ) {
+				if ( search.value().equals( service.getEndStation().getName() ) ) {
 					_display.addLine(service.toString());
 				}
 			}

@@ -1,35 +1,55 @@
 package mmt.app.service;
 
+import mmt.core.Service;
 import mmt.core.TicketOffice;
-import mmt.core.exceptions.NoSuchStationNameException;
-import mmt.app.exceptions.NoSuchStationException;
-import pt.tecnico.po.ui.Command;
+
+import java.util.Collection;
+import java.lang.String;
+
 import pt.tecnico.po.ui.DialogException;
-import pt.tecnico.po.ui.Input;
+import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
+import pt.tecnico.po.ui.Input;
 
-
-//FIXME import other classes if necessary
+import mmt.app.exceptions.NoSuchStationException;
+import mmt.core.exceptions.NoSegmentsException;
 
 /**
  * 3.2.3 Show services departing from station.
  */
 public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 
-	//FIXME define input fields
-
 	/**
 	 * @param receiver
 	 */
 	public DoShowServicesDepartingFromStation(TicketOffice receiver) {
 		super(Label.SHOW_SERVICES_DEPARTING_FROM_STATION, receiver);
-		//FIXME initialize input fields
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		//FIXME implement command
+		try {
+			String m = Message.requestStationName();
+			Input<String> search = _form.addStringInput(m);
+
+			_form.parse();
+			_form.clear();
+
+			/* Gets all services */
+			Collection<Service> services = _receiver.getTrainCompany().getServices();
+
+			/* Search for the service */
+			for ( Service service : services ) {
+
+				if ( search.value().equals( service.getStartStation().getName() ) ) {
+					_display.addLine(service.toString());
+				}
+			}
+
+			_display.display();
+		}
+		catch (NoSegmentsException e) {
+		}
 	}
 
 }
