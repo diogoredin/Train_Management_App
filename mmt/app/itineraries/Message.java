@@ -87,6 +87,15 @@ public final class Message {
 		return "O identificador '" + name + "' está em uso na definição de '" + dependent + "'.";
 	}
 
+	/* IMPLEMENTED BY US FROM HERE ON ... (not sure if we can or if its needed ...) */
+
+	/**
+	 * @return prompt for identifier
+	 */
+	public static String requestServiceId() {
+		return "Identificador do serviço: ";
+	}
+
 	/** Prevent instantiation. */
 	private Message() {
 		// EMPTY

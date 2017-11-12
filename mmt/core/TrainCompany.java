@@ -87,7 +87,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @return the passenger with the given identifier, or null if the passenger does not
 	 *         exist.
 	 */
-	private final Passenger getPassenger(int id) {
+	private final Passenger getPassenger(int id) throws NoSuchPassengerIdException {
 		return _passengersMap.get(id);
 	}
 
@@ -98,7 +98,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return true, if the passenger exists; false, otherwise.
 	 */
-	public final boolean passengerExists(int id) {
+	public final boolean passengerExists(int id) throws NoSuchPassengerIdException {
 		return getPassenger(id) != null;
 	}
 
@@ -190,7 +190,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @return the service with the given identifier, or null if the service does not
 	 *         exist.
 	 */
-	private final Service getService(int id) {
+	public final Service getService(int id) throws NoSuchServiceIdException {
 		return _servicesMap.get(id);
 	}
 
@@ -201,8 +201,8 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return true, if the service exists; false, otherwise.
 	 */
-	public final boolean serviceExists(int id) {
-		return getService(id) != null;
+	public final boolean serviceExists(int id) throws NoSuchServiceIdException {
+		return ( getService(id) != null );
 	}
 
 	/**
