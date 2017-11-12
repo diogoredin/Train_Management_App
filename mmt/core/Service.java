@@ -142,16 +142,17 @@ public class Service {
 		double cost = getCost();
 
 		/* Stores all properties */
-		String result = "" + id + "|" + cost + "|";
+		String result = "" + id + "|" + cost;
 
 		/* Adds segment information */
 		for (Segment segment : _segments ) {
 
 			TrainStop start = segment.getStart();
+			LocalTime ltime = start.getTime();
 			Station station = start.getStation();
 			String name = station.getName();
 
-			result = result + name;
+			result = result + "|" + ltime.toString() + "|" + name;
 		}
 
 		return result;
