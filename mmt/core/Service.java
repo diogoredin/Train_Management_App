@@ -31,19 +31,19 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 public class Service implements java.io.Serializable {
 
 	/** The id that identifies this service. */
-	protected int _id;
+	private int _id;
 
 	/** The station where this service starts. */
-    protected Station _start;
+    private Station _start;
 
 	/** The station where this service ends. */
-    protected Station _end;
+    private Station _end;
 
 	/** The cost of this service. */
-    protected double _cost;
+    private double _cost;
 
 	/** The segments that compose this service. */
-    protected ArrayList<Segment> _segments = new ArrayList<Segment>();
+    private ArrayList<Segment> _segments = new ArrayList<Segment>();
 
 	/**
 	 * Creates a service that is associated with an end and start station.

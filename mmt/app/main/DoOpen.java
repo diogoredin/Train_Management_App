@@ -22,11 +22,17 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoOpen extends Command<TicketOffice> {
 
+	/** The name of the file to open. */
+	private Input<String> _input;
+
 	/**
 	 * @param receiver
 	 */
 	public DoOpen(TicketOffice receiver) {
 		super(Label.OPEN, receiver);
+		
+		String m = Message.openFile(); 
+		_input = _form.addStringInput(m);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
@@ -34,13 +40,11 @@ public class DoOpen extends Command<TicketOffice> {
 	public final void execute() {
 
 		try {
-			String m = Message.openFile();
-			Input<String> input = _form.addStringInput(m);
 
 			_form.parse();
 			_form.clear();
 
-			FileInputStream fileIn = new FileInputStream(input.value());
+			FileInputStream fileIn = new FileInputStream(_input.value());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 
 			TrainCompany t = (TrainCompany) in.readObject();

@@ -40,10 +40,10 @@ public class Passenger implements java.io.Serializable {
 	private TrainCompany _trainCompany;
 
 	/** The passenger's unique identifier. */
-	protected int _id;
+	private int _id;
 
 	/** The passenger's name. */
-	protected String _name;
+	private String _name;
 
 	/** The passenger's category. */
 	private Category _category;

@@ -22,6 +22,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
 
 	@Override
 	public final void execute() {
+		
 		Collection<Service> services = _receiver.getTrainCompany().getServices();
 		services.forEach((Service service)-> {
 			_display.addLine(service.toString());

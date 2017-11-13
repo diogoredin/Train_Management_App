@@ -19,21 +19,24 @@ import mmt.core.exceptions.NoSegmentsException;
  */
 public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 
+	/** Station name to search. */
+	private Input<String> _search;
+
 	/**
 	 * @param receiver
 	 */
 	public DoShowServicesDepartingFromStation(TicketOffice receiver) {
 		super(Label.SHOW_SERVICES_DEPARTING_FROM_STATION, receiver);
+
+		String m = Message.requestStationName();
+		_search = _form.addStringInput(m);
 	}
 
 	@Override
 	public final void execute() throws DialogException {
 		try {
-			String m = Message.requestStationName();
-			Input<String> search = _form.addStringInput(m);
-
+			
 			_form.parse();
-			_form.clear();
 
 			/* Gets all services */
 			Collection<Service> services = _receiver.getTrainCompany().getServices();
@@ -41,7 +44,7 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 			/* Search for the service */
 			for ( Service service : services ) {
 
-				if ( search.value().equals( service.getStartStation().getName() ) ) {
+				if ( _search.value().equals( service.getStartStation().getName() ) ) {
 					_display.addLine(service.toString());
 				}
 			}

@@ -22,11 +22,17 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoSave extends Command<TicketOffice> {
 	
+	/** New name of save file. */
+	private Input<String> _file;
+
 	/**
 	 * @param receiver
 	 */
 	public DoSave(TicketOffice receiver) {
 		super(Label.SAVE, receiver);
+
+		String m = Message.newSaveAs();
+		_file = _form.addStringInput(m);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
@@ -34,13 +40,10 @@ public class DoSave extends Command<TicketOffice> {
 	public final void execute() {
 		
 		try {
-			String m = Message.newSaveAs();
-			Input<String> file = _form.addStringInput(m);
 
 			_form.parse();
-			_form.clear();
 
-			FileOutputStream fileOut = new FileOutputStream(file.value());
+			FileOutputStream fileOut = new FileOutputStream(_file.value());
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
 			out.writeObject(_receiver.getTrainCompany());
