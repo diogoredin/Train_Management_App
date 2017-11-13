@@ -14,24 +14,27 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowPassengerById extends Command<TicketOffice> {
 
+	/** The requested id. */
+	private Input<Integer> _id;
+
 	/**
 	 * @param receiver
 	 */
 	public DoShowPassengerById(TicketOffice receiver) {
 		super(Label.SHOW_PASSENGER_BY_ID, receiver);
+
+		String m = Message.requestPassengerId();
+		_id = _form.addIntegerInput(m);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
 		try {
-			String m = Message.requestPassengerId();
-			Input<Integer> id = _form.addIntegerInput(m);
 			
 			_form.parse();
-			_form.clear();
 
-			_display.addLine(_receiver.getTrainCompany().getPassengerDescription(id.value()));
+			_display.addLine(_receiver.getTrainCompany().getPassengerDescription(_id.value()));
 			_display.display();
 
 		} catch (NoSuchPassengerIdException e) {

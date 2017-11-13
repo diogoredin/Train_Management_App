@@ -16,22 +16,27 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
+	/** Request name for new passenger. */
+	private Input<String> _name;
+
 	/**
 	 * @param receiver
 	 */
 	public DoRegisterPassenger(TicketOffice receiver) {
 		super(Label.REGISTER_PASSENGER, receiver);
+
+		String m = Message.requestPassengerName();
+		_name = _form.addStringInput(m);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
 		try {
-			String m = Message.requestPassengerName();
-			Input<String> name = _form.addStringInput(m);
+
 			_form.parse();
-			_form.clear();
-			Passenger p = new Passenger(_receiver.getTrainCompany(), name.value());
+			Passenger p = new Passenger(_receiver.getTrainCompany(), _name.value());
+
 		} catch (InvalidPassengerNameException e) {
 			throw new BadPassengerNameException (e.getName());
 		}
