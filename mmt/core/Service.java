@@ -15,6 +15,7 @@ import java.time.Duration;
 
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import mmt.core.exceptions.NoSegmentsException;
 import mmt.core.exceptions.BadDateSpecificationException;
@@ -26,10 +27,6 @@ import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 public class Service implements java.io.Serializable {
 
@@ -141,11 +138,9 @@ public class Service implements java.io.Serializable {
 	 */
 	public String toString() {
 
-		DecimalFormat df = new DecimalFormat("#0.00", DecimalFormatSymbols.getInstance(Locale.US));
-
 		/* Basic properties */
 		int id = getId();
-		String cost = df.format(getCost());
+		String cost = String.format(Locale.US, "%.2f", getCost());
 
 		/* Stores all properties */
 		String result = "Serviço #" + id + " @ " + cost;
