@@ -34,7 +34,7 @@ public class DoSave extends Command<TicketOffice> {
 	public final void execute() {
 		
 		try {
-			String m = Message.saveAs();
+			String m = Message.newSaveAs();
 			Input<String> file = _form.addStringInput(m);
 
 			_form.parse();
@@ -46,8 +46,6 @@ public class DoSave extends Command<TicketOffice> {
 			out.writeObject(_receiver.getTrainCompany());
 			out.close();
 			fileOut.close();
-
-			System.out.printf("Serialized data is saved in trainCompany.ser");
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
