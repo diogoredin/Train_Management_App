@@ -16,21 +16,16 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
 
-//FIXME import other classes if necessary
-
 /**
  * §3.4.3. Add new itinerary.
  */
 public class DoRegisterItinerary extends Command<TicketOffice> {
-
-	//FIXME define input fields
 
 	/**
 	 * @param receiver
 	 */
 	public DoRegisterItinerary(TicketOffice receiver) {
 		super(Label.REGISTER_ITINERARY, receiver);
-		//FIXME initialize input fields
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
