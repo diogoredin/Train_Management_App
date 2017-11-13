@@ -19,11 +19,22 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoChangerPassengerName extends Command<TicketOffice> {
 
+	/** The requested id. */
+	private Input<Integer> _id;
+
+	/** The new passanger's name. */
+	private Input<String> _name;
+
 	/**
 	 * @param receiver the associated TicketOffice.
 	 */
 	public DoChangerPassengerName(TicketOffice receiver) {
 		super(Label.CHANGE_PASSENGER_NAME, receiver);
+		
+		String m = Message.requestPassengerId();
+		_id = _form.addIntegerInput(m);
+		m = Message.requestPassengerName();
+		_name = _form.addStringInput(m);
 	}
 
 	/** 
@@ -32,20 +43,12 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	@Override
 	public final void execute() throws DialogException {
 
-		String m = Message.requestPassengerId();
-
-		Input<Integer> id = _form.addIntegerInput(m);
-		_form.parse();
-		_form.clear();
 
 		TrainCompany company = _receiver.getTrainCompany();
 
 		try {
-			m = Message.requestPassengerName();
-			Input<String> name = _form.addStringInput(m);
 			_form.parse();
-			_form.clear();
-			company.changePassengerName(id.value(), name.value());
+			company.changePassengerName(_id.value(), _name.value());
 
 		} catch (NoSuchPassengerIdException e) {
 			throw new NoSuchPassengerException(e.getId());
