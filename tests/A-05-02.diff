@@ -1,0 +1,30 @@
+*** tests/A-05-02.out	2017-11-13 12:05:50.983900859 +0000
+--- tests/A-05-02.outhyp	2017-11-13 12:32:43.664748393 +0000
+***************
+*** 12,30 ****
+  3 - Mostrar serviços com início em estação
+  4 - Mostrar serviços com término em estação
+  0 - Sair
+! Escolha uma opção: Identificador do serviço: Mostrar serviço com um dado número: Operação inválida: O serviço com o número 123 não existe.
+! Consulta de serviços
+! 1 - Mostrar todos os serviços
+! 2 - Mostrar serviço com um dado número
+! 3 - Mostrar serviços com início em estação
+! 4 - Mostrar serviços com término em estação
+! 0 - Sair
+! Escolha uma opção: Menu principal
+! 1 - Reiniciar
+! 2 - Abrir
+! 3 - Guardar
+! 4 - Consulta de serviços
+! 5 - Gestão de passageiros
+! 6 - Gestão de itinerários
+! 0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 12,15 ----
+  3 - Mostrar serviços com início em estação
+  4 - Mostrar serviços com término em estação
+  0 - Sair
+! Escolha uma opção: Identificador do serviço: 
+\ No newline at end of file

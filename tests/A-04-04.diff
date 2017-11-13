@@ -1,0 +1,54 @@
+*** tests/A-04-04.out	2017-11-13 12:05:50.983900859 +0000
+--- tests/A-04-04.outhyp	2017-11-13 12:32:43.272742087 +0000
+***************
+*** 22,28 ****
+  0 - Sair
+  Escolha uma opção: 0|António Costa|NORMAL|0|0.00|00:00
+  1|Marcelo Rebelo de Sousa|NORMAL|0|0.00|00:00
+! 2|Jedi|NORMAL|0|0.00|00:00
+  3|Darth Vader|NORMAL|0|0.00|00:00
+  Menu de gestão de passageiros
+  1 - Mostrar todos os passageiros
+--- 22,28 ----
+  0 - Sair
+  Escolha uma opção: 0|António Costa|NORMAL|0|0.00|00:00
+  1|Marcelo Rebelo de Sousa|NORMAL|0|0.00|00:00
+! 2|Luke Skywalker|NORMAL|0|0.00|00:00
+  3|Darth Vader|NORMAL|0|0.00|00:00
+  Menu de gestão de passageiros
+  1 - Mostrar todos os passageiros
+***************
+*** 76,91 ****
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Menu principal
+! 1 - Reiniciar
+! 2 - Abrir
+! 3 - Guardar
+! 4 - Consulta de serviços
+! 5 - Gestão de passageiros
+! 6 - Gestão de itinerários
+! 0 - Sair
+! Escolha uma opção: Ficheiro a abrir: O ficheiro não existe.
+! Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
+--- 76,82 ----
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Ficheiro sem nome. Guardar ficheiro como: Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
+***************
+*** 93,96 ****
+--- 84,88 ----
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
++ Escolha uma opção: Número inválido!
+  Escolha uma opção: 
+\ No newline at end of file

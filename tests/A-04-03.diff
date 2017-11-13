@@ -1,0 +1,31 @@
+*** tests/A-04-03.out	2017-11-13 12:05:50.983900859 +0000
+--- tests/A-04-03.outhyp	2017-11-13 12:32:43.032738225 +0000
+***************
+*** 34,40 ****
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
+--- 34,40 ----
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Ficheiro sem nome. Guardar ficheiro como: Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
+***************
+*** 42,45 ****
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 42,45 ----
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Fim de entrada de dados (R-EOF): pt.tecnico.po.io.RuntimeEOFException: Fim do fluxo de dados de entrada

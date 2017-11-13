@@ -22,6 +22,10 @@ import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 /**
  * Class which describes a passenger associated with a train company.
  *
@@ -113,11 +117,13 @@ public class Passenger implements java.io.Serializable {
 	 */
 	public String toString() {
 
+		DecimalFormat df = new DecimalFormat("#0.00", DecimalFormatSymbols.getInstance(Locale.US));
+
 		int id = getId();
 		String name = getName();
 		String catName = _category.getName();
 		int itineraries = getNumberOfItineraries();
-		String values = String.format("%.02f", getLastValues() );
+		String values = df.format(getLastValues());
 		String time = "00:00";
 
 		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;

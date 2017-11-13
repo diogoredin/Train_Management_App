@@ -27,6 +27,10 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class Service implements java.io.Serializable {
 
 	/** The id that identifies this service. */
@@ -137,9 +141,11 @@ public class Service implements java.io.Serializable {
 	 */
 	public String toString() {
 
+		DecimalFormat df = new DecimalFormat("#0.00", DecimalFormatSymbols.getInstance(Locale.US));
+
 		/* Basic properties */
 		int id = getId();
-		String cost = String.format("%.02f", getCost() );
+		String cost = df.format(getCost());
 
 		/* Stores all properties */
 		String result = "Serviço #" + id + " @ " + cost;
