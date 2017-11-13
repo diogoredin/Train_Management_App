@@ -112,14 +112,15 @@ public class Passenger {
 	 * @return String description of a passenger.
 	 */
 	public String toString() {
+
 		int id = getId();
 		String name = getName();
 		String catName = _category.getName();
 		int itineraries = getNumberOfItineraries();
-		double values = getLastValues();
-		String time = "0:00";
+		String values = String.format("%.02f", getLastValues() );
+		String time = "00:00";
 
-		return "" + id + "|" + name +"|"+ catName +"|"+ itineraries +"|"+ values +"|"+ time;
+		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;
 	}
 
 	/**

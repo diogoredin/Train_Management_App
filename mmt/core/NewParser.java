@@ -84,7 +84,7 @@ public class NewParser {
 
 			/* Grabs the full name of the passenger */
 			String name = "";
-			for (int i = 0; i < components.length; i++) {
+			for (int i = 1; i < components.length; i++) {
 				name = name + components[i];
 			}
 

@@ -62,8 +62,8 @@ public class TrainCompany implements java.io.Serializable {
 	 * Constructor.
 	 */
 	public TrainCompany() {
-		_nextPassengerId = 0;
-		_nextServiceId = 0;
+		_nextPassengerId = -1;
+		_nextServiceId = -1;
 	}
 
 	/**
