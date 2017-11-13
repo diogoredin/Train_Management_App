@@ -23,7 +23,7 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	 * @param receiver the associated TicketOffice.
 	 */
 	public DoChangerPassengerName(TicketOffice receiver) {
-		super(Label.CHANGE_PASSENGER_NAME, receiver, new PassengerCommandValidity(receiver));
+		super(Label.CHANGE_PASSENGER_NAME, receiver);
 	}
 
 	/** 

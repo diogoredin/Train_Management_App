@@ -14,9 +14,9 @@ public class PassengersMenu extends Menu {
 	 */
 	public PassengersMenu(TicketOffice receiver) {
 		super(Label.TITLE, new Command<?>[] {
-				new DoRegisterPassenger(receiver),
 				new DoShowAllPassengers(receiver),
 				new DoShowPassengerById(receiver),
+				new DoRegisterPassenger(receiver),
 				new DoChangerPassengerName(receiver),
 		});
 	}

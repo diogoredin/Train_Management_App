@@ -17,7 +17,7 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
 	 * @param receiver
 	 */
 	public DoShowAllPassengers(TicketOffice receiver) {
-		super(Label.SHOW_ALL_PASSENGERS, receiver, new PassengerCommandValidity(receiver));
+		super(Label.SHOW_ALL_PASSENGERS, receiver);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */

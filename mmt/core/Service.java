@@ -142,7 +142,7 @@ public class Service {
 		double cost = getCost();
 
 		/* Stores all properties */
-		String result = "" + id + "|" + cost;
+		String result = "Serviço #" + id + " @ " + cost + "\n";
 
 		/* Adds segment information */
 		for (Segment segment : _segments ) {
@@ -152,7 +152,7 @@ public class Service {
 			Station station = start.getStation();
 			String name = station.getName();
 
-			result = result + "|" + ltime.toString() + "|" + name;
+			result = result + ltime.toString() + " " + name + "\n";
 		}
 
 		return result;
