@@ -70,7 +70,7 @@ public class NewParser {
 	}
 
 	/**
-	 * Parses a passenger, i.e. grabs its properties and adds it to the app.
+	 * Parses a passenger, i.e. grabs its properties and adds it to the train company.
 	 *
 	 * @param components the properties required for the passenger.
 	 */

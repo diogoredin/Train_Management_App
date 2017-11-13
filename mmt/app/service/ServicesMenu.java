@@ -11,11 +11,11 @@ public class ServicesMenu extends Menu {
 	 * @param receiver
 	 */
 	public ServicesMenu(TicketOffice receiver) {
-		super(Label.TITLE, new Command<?>[] { //
-				new DoShowAllServices(receiver), //
-				new DoShowServiceByNumber(receiver), //
-				new DoShowServicesDepartingFromStation(receiver), //
-				new DoShowServicesArrivingAtStation(receiver), //
+		super(Label.TITLE, new Command<?>[] {
+				new DoShowAllServices(receiver),
+				new DoShowServiceByNumber(receiver),
+				new DoShowServicesDepartingFromStation(receiver),
+				new DoShowServicesArrivingAtStation(receiver),
 		});
 	}
 
