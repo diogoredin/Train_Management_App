@@ -34,7 +34,7 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
 			_form.parse();
 			_form.clear();
 
-			_display.addLine(_receiver.getTrainCompany().getService(id.value()).toString());
+			_display.addLine(_receiver.getTrainCompany().getService( id.value() ).toString() );
 			_display.display();
 
 		} catch (NoSuchServiceIdException e) {

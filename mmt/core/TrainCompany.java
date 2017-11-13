@@ -63,7 +63,6 @@ public class TrainCompany implements java.io.Serializable {
 	 */
 	public TrainCompany() {
 		_nextPassengerId = -1;
-		_nextServiceId = -1;
 	}
 
 	/**
@@ -176,8 +175,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return the added service id.
 	 */
-	public final int addService(Service s) {
-		int id = ++_nextServiceId;
+	public final int addService(int id, Service s) {
 		_servicesMap.put(id, s);
 		return id;
 	}

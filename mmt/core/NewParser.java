@@ -134,7 +134,7 @@ public class NewParser {
 		}
 
 		/* Adds the service to the train company */
-		_trainCompany.addService(service);
+		_trainCompany.addService(serviceId, service);
 	}
 
 	private void parseItinerary(String[] components) throws ImportFileException {
