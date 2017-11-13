@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
+
+import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
+import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 /**
@@ -30,7 +34,13 @@ public class DoSave extends Command<TicketOffice> {
 	public final void execute() {
 		
 		try {
-			FileOutputStream fileOut = new FileOutputStream("trainCompany.ser");
+			String m = Message.saveAs();
+			Input<String> file = _form.addStringInput(m);
+
+			_form.parse();
+			_form.clear();
+
+			FileOutputStream fileOut = new FileOutputStream(file.value());
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
 			out.writeObject(_receiver.getTrainCompany());

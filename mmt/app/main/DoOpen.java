@@ -11,7 +11,10 @@ import java.io.ObjectOutputStream;
 
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
+
+import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
+import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 /**
@@ -31,7 +34,13 @@ public class DoOpen extends Command<TicketOffice> {
 	public final void execute() {
 
 		try {
-			FileInputStream fileIn = new FileInputStream("trainCompany.ser");
+			String m = Message.openFile();
+			Input<String> input = _form.addStringInput(m);
+
+			_form.parse();
+			_form.clear();
+
+			FileInputStream fileIn = new FileInputStream(input.value());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 
 			TrainCompany t = (TrainCompany) in.readObject();
@@ -43,6 +52,7 @@ public class DoOpen extends Command<TicketOffice> {
 		} catch (IOException i) {
 			i.printStackTrace();
 			return;
+
 		} catch (ClassNotFoundException c) {
 			System.out.println("TrainCompany class not found");
 			c.printStackTrace();
