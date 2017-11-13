@@ -27,7 +27,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-public class Service {
+public class Service implements java.io.Serializable {
 
 	/** The id that identifies this service. */
 	protected int _id;

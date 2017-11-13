@@ -19,7 +19,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-public class Station {
+public class Station implements java.io.Serializable {
 
 	/** Stores the name of the station. */
     protected String _name;

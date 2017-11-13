@@ -2,7 +2,7 @@ package mmt.core.categories;
 /**
  * Generic Category class which will define specific categories.
  */
-public abstract class Category {
+public abstract class Category implements java.io.Serializable {
 
 	/** The category's name. */
 	private String _name;

@@ -22,7 +22,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-public class TrainStop {
+public class TrainStop implements java.io.Serializable {
 
 	/** Stores the station of this TrainStop event. */
     protected Station _station;

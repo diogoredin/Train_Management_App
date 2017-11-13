@@ -37,6 +37,10 @@ public class TicketOffice {
 		return _trainCompany;
 	}
 
+	public void setTrainCompany(TrainCompany traincompany) {
+		_trainCompany = traincompany;
+	}
+
 	public void reset() {
 		_trainCompany.deletePassengers();
 	}

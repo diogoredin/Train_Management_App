@@ -25,7 +25,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-public class Segment {
+public class Segment implements java.io.Serializable {
 
 	/** The TrainStop (with time and station) where this segment starts. */
 	protected TrainStop _start;

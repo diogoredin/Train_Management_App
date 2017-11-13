@@ -32,7 +32,7 @@ import mmt.core.exceptions.InvalidPassengerNameException;
  * @author Grupo 22
  * @version 2.0
  */
-public class Passenger {
+public class Passenger implements java.io.Serializable {
 
 	/** The TrainCompany to which this passenger travels on. */
 	private TrainCompany _trainCompany;

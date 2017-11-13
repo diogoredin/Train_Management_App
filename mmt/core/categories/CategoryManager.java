@@ -8,7 +8,7 @@ import java.util.ListIterator;
  * Class which manages the categories, updates the passenger's given category and keeps a list of categories.
  */
 
-public class CategoryManager {
+public class CategoryManager implements java.io.Serializable {
 
 	/** List of available categories. */
 	private List<Category> _categoryList = new ArrayList<Category>();
