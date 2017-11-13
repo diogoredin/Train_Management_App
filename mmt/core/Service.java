@@ -139,10 +139,10 @@ public class Service {
 
 		/* Basic properties */
 		int id = getId();
-		double cost = getCost();
+		String cost = String.format("%.02f", getCost() );
 
 		/* Stores all properties */
-		String result = "Serviço #" + id + " @ " + cost + "\n";
+		String result = "Serviço #" + id + " @ " + cost;
 
 		/* Adds segment information */
 		for (Segment segment : _segments ) {
@@ -152,7 +152,7 @@ public class Service {
 			Station station = start.getStation();
 			String name = station.getName();
 
-			result = result + ltime.toString() + " " + name + "\n";
+			result = result + "\n" + ltime.toString() + " " + name;
 		}
 
 		return result;

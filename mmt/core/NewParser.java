@@ -103,14 +103,14 @@ public class NewParser {
 	private void parseService(String[] components) {
 
 		/* Service properties */
-		double cost = Double.parseDouble(components[3]);
-		int serviceId = Integer.parseInt(components[2]);
+		double cost = Double.parseDouble(components[2]);
+		int serviceId = Integer.parseInt(components[1]);
 
 		/* Creates the Service and adds it to Train Company */
 		Service service = new Service(serviceId, cost);
-		
+
 		/* Adds the segments of this Service */
-		for (int i = 4; i < components.length; i += 2) {
+		for (int i = 3; i < components.length; i += 2) {
 
 			/* Segment properties */
 			String time = components[i];
@@ -130,9 +130,6 @@ public class NewParser {
 
 			/* Adds segment to the service */
 			service.addSegment( segment );
-
-			/* Adds service to Passenger */
-			// TODO userID in components[1];
 	
 		}
 
