@@ -12,7 +12,6 @@ import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 import mmt.app.exceptions.NoSuchStationException;
-import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * 3.2.4 Show services arriving at station.

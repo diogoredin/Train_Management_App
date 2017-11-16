@@ -12,7 +12,6 @@ import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 import mmt.app.exceptions.NoSuchStationException;
-import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * 3.2.3 Show services departing from station.
@@ -50,7 +49,6 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 		}
 
 		_display.display();
-	
 	}
 
 }

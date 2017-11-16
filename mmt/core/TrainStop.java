@@ -25,10 +25,10 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 public class TrainStop implements java.io.Serializable {
 
 	/** Stores the station of this TrainStop event. */
-    protected Station _station;
-    
+    private Station _station;
+
 	/** Stores the instant of this TrainStop event. */
-	protected LocalTime _time;
+	private LocalTime _time;
 
 	/**
 	* Creates a TrainStop, which is an event when a train stops at a certain time at a certain station.
