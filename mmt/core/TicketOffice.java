@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import mmt.core.NewParser;
+import mmt.core.NewParser;
 
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
@@ -46,7 +47,7 @@ public class TicketOffice {
 		//_trainCompany.deleteItineraries();
 	}
 
-	public void save(String filename) throws FileNotFoundException, IOException {
+	public void save(String filename) throws IOException {
 	
 		/* Opens the given file */
 		FileOutputStream fileOut = new FileOutputStream(filename);
@@ -61,7 +62,7 @@ public class TicketOffice {
 
 	}
 
-	public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public void load(String filename) throws IOException, ClassNotFoundException {
 
 		/* Opens the given file */
 		FileInputStream fileIn = new FileInputStream(filename);
@@ -73,6 +74,7 @@ public class TicketOffice {
 		/* Closes the pipe */
 		in.close();
 		fileIn.close();
+		
 	}
 
 	public void importFile(String datafile) throws ImportFileException {

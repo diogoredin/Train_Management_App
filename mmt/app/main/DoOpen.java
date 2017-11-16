@@ -1,6 +1,7 @@
 package mmt.app.main;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
@@ -35,8 +36,12 @@ public class DoOpen extends Command<TicketOffice> {
 		try {
 
 			_form.parse();
-
 			_receiver.load( _input.value() );
+
+		} catch (FileNotFoundException i) {
+			_display.addLine( Message.fileNotFound( _input.value() ) );
+			_display.display();
+			return;
 
 		} catch (IOException i) {
 			i.printStackTrace();
@@ -45,6 +50,7 @@ public class DoOpen extends Command<TicketOffice> {
 		} catch (ClassNotFoundException i) {
 			i.printStackTrace();
 			return;
+
 		}
 
 	}
