@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.time.LocalTime;
-import java.time.LocalDate;
-import java.time.Duration;
-
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.Duration;
 
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;

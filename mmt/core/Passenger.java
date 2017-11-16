@@ -1,15 +1,7 @@
 package mmt.core;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import java.util.Locale;
+
 import java.time.Duration;
 
 import mmt.core.categories.*;
@@ -60,12 +52,14 @@ public class Passenger implements java.io.Serializable {
 	 * @param name the passenger's name (non-null, must not be an empty String).
 	 */
 	public Passenger(int id, String name) throws InvalidPassengerNameException {
+
 		if (name != null && !name.isEmpty()) {
 			_name = name;
+			_id = id;
+			
 		} else {
 			throw new InvalidPassengerNameException (name);
 		}
-		_id = id;
 	}
 
 	/** 
