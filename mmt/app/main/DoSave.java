@@ -18,6 +18,9 @@ public class DoSave extends Command<TicketOffice> {
 	/** New name of save file. */
 	private Input<String> _file;
 
+	/** Named of saved file. */
+	private String _fileName;
+
 	/**
 	 * @param receiver
 	 */
@@ -26,6 +29,7 @@ public class DoSave extends Command<TicketOffice> {
 
 		String m = Message.newSaveAs();
 		_file = _form.addStringInput(m);
+		_fileName = "";
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
@@ -34,11 +38,12 @@ public class DoSave extends Command<TicketOffice> {
 
 		try {
 
-			if ( _file.value().isEmpty() ) {
+			if ( _fileName.isEmpty() ) {
 				_form.parse();
+				_fileName = _file.value();
 			}
 
-			_receiver.save( _file.value() );
+			_receiver.save( _fileName );
 
 		} catch (IOException i) {
 			i.printStackTrace();
