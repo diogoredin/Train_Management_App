@@ -36,9 +36,6 @@ import java.util.Locale;
  */
 public class Passenger implements java.io.Serializable {
 
-	/** The TrainCompany to which this passenger travels on. */
-	private TrainCompany _trainCompany;
-
 	/** The passenger's unique identifier. */
 	private int _id;
 
@@ -75,9 +72,8 @@ public class Passenger implements java.io.Serializable {
 	 */
 	public Passenger(TrainCompany trainCompany, String name) throws InvalidPassengerNameException {
 		this (name);
-		_trainCompany = trainCompany;
-		_id = _trainCompany.addPassenger(this);
-		updateCategory(_lastValues);
+		_id = trainCompany.addPassenger(this);
+		_category = trainCompany.updateCategory(_lastValues);
 	}
 
 	/** 
@@ -92,15 +88,6 @@ public class Passenger implements java.io.Serializable {
 	 */
 	public final String getName() {
 		return _name;
-	}
-
-	/**
-	 * Updates the passenger's category based on the value of their last 10 itineraries.
-	 *
-	 * @param value the value of the passenger's last 10 itineraries.
-	 */
-	public void updateCategory(double value) {
-		_category = _trainCompany.updateCategory(value);
 	}
 
 	/**
@@ -143,6 +130,10 @@ public class Passenger implements java.io.Serializable {
 		} else {
 			throw new InvalidPassengerNameException (newname);
 		}
+	}
+
+	public void setCategory(Category category) {
+		_category = category;
 	}
 
 }

@@ -75,6 +75,7 @@ public class TrainCompany implements java.io.Serializable {
 	public final int addPassenger(Passenger p) {
 		int id = ++_nextPassengerId;
 		_passengersMap.put(id, p);
+		p.setCategory ( updateCategory( p.getLastValues() ) );
 		return id;
 	}
 
@@ -138,7 +139,7 @@ public class TrainCompany implements java.io.Serializable {
 			return false;
 		return true;
 	} 
-	
+
 	public Category updateCategory(double value) {
 		return _categories.getCategory(value);
 	}
