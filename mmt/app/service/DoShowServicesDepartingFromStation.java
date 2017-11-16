@@ -12,7 +12,7 @@ import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 import mmt.app.exceptions.NoSuchStationException;
-import mmt.core.exceptions.NoSegmentsException;
+import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * 3.2.3 Show services departing from station.
@@ -33,26 +33,24 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 	}
 
 	@Override
-	public final void execute() throws DialogException {
-		try {
-			
-			_form.parse();
+	public final void execute() {
 
-			/* Gets all services */
-			Collection<Service> services = _receiver.getTrainCompany().getServices();
+		_form.parse();
 
-			/* Search for the service */
-			for ( Service service : services ) {
+		/* Gets all services */
+		Collection<Service> services = _receiver.getTrainCompany().getServices();
 
-				if ( _search.value().equals( service.getStartStation().getName() ) ) {
-					_display.addLine(service.toString());
-				}
+		/* Search for the service */
+		for ( Service service : services ) {
+
+			if ( _search.value().equals( service.getStartStation().getName() ) ) {
+				_display.addLine(service.toString());
 			}
 
-			_display.display();
 		}
-		catch (NoSegmentsException e) {
-		}
+
+		_display.display();
+	
 	}
 
 }

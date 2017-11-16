@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import mmt.core.exceptions.NoSegmentsException;
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
 import mmt.core.exceptions.ImportFileException;
@@ -81,35 +80,25 @@ public class Service implements java.io.Serializable {
 	/**
 	 * @return the station where this service starts.
 	 */
-    public final Station getStartStation() throws NoSegmentsException {
+    public final Station getStartStation() {
 
-		if (_segments != null && !_segments.isEmpty()) {
-			Segment segment = _segments.get(0);
-			TrainStop startStop = segment.getStart();
-			Station station = startStop.getStation();
+		Segment segment = _segments.get(0);
+		TrainStop startStop = segment.getStart();
+		Station station = startStop.getStation();
 
-			return station;
-		} else {
-			throw new NoSegmentsException();
-		}
-
+		return station;
 	}
 
 	/**
 	 * @return the station where this service ends.
 	 */
-    public final Station getEndStation() throws NoSegmentsException {
+    public final Station getEndStation() {
+		
+		Segment segment = _segments.get(_segments.size()-1);
+		TrainStop endStop = segment.getEnd();
+		Station station = endStop.getStation();
 
-		if (_segments != null && !_segments.isEmpty()) {
-			Segment segment = _segments.get(_segments.size()-1);
-			TrainStop endStop = segment.getEnd();
-			Station station = endStop.getStation();
-
-			return station;
-		} else {
-			throw new NoSegmentsException();
-		}
-
+		return station;
 	}
 
 	/**

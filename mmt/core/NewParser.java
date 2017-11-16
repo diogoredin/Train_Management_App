@@ -65,7 +65,7 @@ public class NewParser {
 				break;
 
 		 default:
-			 throw new ImportFileException("invalid type of line: " + components[0]);
+			throw new ImportFileException("invalid type of line: " + components[0]);
 		}
 	}
 

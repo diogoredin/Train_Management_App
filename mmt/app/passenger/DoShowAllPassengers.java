@@ -26,7 +26,6 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
 		Collection<Passenger> passengers = _receiver.getTrainCompany().getPassengers();
 
 		passengers.forEach((Passenger passenger)-> {
-			
 			_display.addLine(passenger.toString());
 		});
 
