@@ -142,6 +142,11 @@ public class Passenger implements java.io.Serializable {
 		}
 	}
 
+	/**
+	 * Sets a passenger's category.
+	 *
+	 * @param category the passenger's new category.
+	 */
 	public void setCategory(Category category) {
 		_category = category;
 	}

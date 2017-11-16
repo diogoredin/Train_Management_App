@@ -88,7 +88,11 @@ public class TrainCompany implements java.io.Serializable {
 	 *         exist.
 	 */
 	private final Passenger getPassenger(int id) throws NoSuchPassengerIdException {
-		return _passengersMap.get(id);
+		if (passengerExists(id)) {
+			return _passengersMap.get(id);
+		} else {
+			throw new NoSuchPassengerIdException (id);
+		}
 	}
 
 	/**
@@ -98,8 +102,8 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return true, if the passenger exists; false, otherwise.
 	 */
-	public final boolean passengerExists(int id) throws NoSuchPassengerIdException {
-		return getPassenger(id) != null;
+	public final boolean passengerExists(int id) {
+		return _passengersMap.get(id) != null;
 	}
 
 	/**
@@ -163,7 +167,7 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
-	 * Resetes the passengers list of this train company.
+	 * Resets the passengers list of this train company.
 	 */
 	public void deletePassengers() {
 		_passengersMap.clear();
@@ -190,7 +194,11 @@ public class TrainCompany implements java.io.Serializable {
 	 *         exist.
 	 */
 	public final Service getService(int id) throws NoSuchServiceIdException {
-		return _servicesMap.get(id);
+		if (serviceExists(id)) {
+			return _servicesMap.get(id);
+		} else {
+			throw new NoSuchServiceIdException(id);
+		}
 	}
 
 	/**
@@ -200,8 +208,8 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return true, if the service exists; false, otherwise.
 	 */
-	public final boolean serviceExists(int id) throws NoSuchServiceIdException {
-		return ( getService(id) != null );
+	public final boolean serviceExists(int id) {
+		return ( _servicesMap.get(id) != null );
 	}
 
 	/**
