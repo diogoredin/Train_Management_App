@@ -1,11 +1,12 @@
 package mmt.app.main;
 
-import pt.tecnico.po.ui.DialogException;
+import pt.tecnico.po.ui.Command;
+import pt.tecnico.po.ui.Menu;
 
 import mmt.core.TicketOffice;
 import mmt.app.passenger.PassengersMenu;
-import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.Menu;
+
+import pt.tecnico.po.ui.DialogException;
 
 /**
  * §3.1.2. Open menu for managing identifiers and expressions.

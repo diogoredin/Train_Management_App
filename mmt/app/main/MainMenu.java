@@ -1,8 +1,9 @@
 package mmt.app.main;
 
-import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Menu;
+
+import mmt.core.TicketOffice;
 
 /** Main menu. */
 public class MainMenu extends Menu {

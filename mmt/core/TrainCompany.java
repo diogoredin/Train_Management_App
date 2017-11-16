@@ -2,9 +2,6 @@ package mmt.core;
 
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -12,17 +9,9 @@ import mmt.core.categories.CategoryManager;
 import mmt.core.categories.Category;
 import mmt.core.NewParser;
 
-import mmt.core.exceptions.ImportFileException;
-import mmt.core.exceptions.BadDateSpecificationException;
-import mmt.core.exceptions.BadEntryException;
-import mmt.core.exceptions.BadTimeSpecificationException;
 import mmt.core.exceptions.InvalidPassengerNameException;
-import mmt.core.exceptions.NoSuchDepartureException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
-import mmt.core.exceptions.NoSuchStationNameException;
-import mmt.core.exceptions.NoSuchItineraryChoiceException;
-import mmt.core.exceptions.NonUniquePassengerNameException;
 
 /**
  * A train company has schedules (services) for its trains and passengers that

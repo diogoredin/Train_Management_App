@@ -1,12 +1,12 @@
 package mmt.app.service;
 
-import mmt.core.Service;
-import mmt.core.TicketOffice;
-
 import java.util.Collection;
 
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
+
+import mmt.core.Service;
+import mmt.core.TicketOffice;
 
 /**
  * 3.2.1 Show all services.

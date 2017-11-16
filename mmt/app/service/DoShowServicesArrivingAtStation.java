@@ -1,17 +1,14 @@
 package mmt.app.service;
 
-import mmt.core.Service;
-import mmt.core.TicketOffice;
-
 import java.util.Collection;
-import java.lang.String;
 
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
-import mmt.app.exceptions.NoSuchStationException;
+import mmt.core.Service;
+import mmt.core.TicketOffice;
 
 /**
  * 3.2.4 Show services arriving at station.

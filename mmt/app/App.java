@@ -1,13 +1,15 @@
 package mmt.app;
 
 import static pt.tecnico.po.ui.Dialog.IO;
+import pt.tecnico.po.ui.Menu;
+
+import mmt.app.main.MainMenu;
 
 import mmt.core.TicketOffice;
 import mmt.core.TrainCompany;
+
 import mmt.core.exceptions.ImportFileException;
 
-import mmt.app.main.MainMenu;
-import pt.tecnico.po.ui.Menu;
 
 /**
  * Main driver for the travel management application.

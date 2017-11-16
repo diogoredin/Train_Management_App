@@ -1,10 +1,9 @@
 package mmt.app.main;
 
-import mmt.core.TrainCompany;
-import mmt.core.TicketOffice;
-
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Input;
+
+import mmt.core.TicketOffice;
 
 /**
  * §3.1.1. Reset the ticket office.

@@ -1,8 +1,9 @@
 package mmt.app.service;
 
-import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Menu;
+
+import mmt.core.TicketOffice;
 
 /** Menu builder for operations on schedules. */
 public class ServicesMenu extends Menu {

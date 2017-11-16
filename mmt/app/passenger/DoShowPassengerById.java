@@ -1,13 +1,14 @@
 package mmt.app.passenger;
 
-import mmt.core.TicketOffice;
-import mmt.core.exceptions.NoSuchPassengerIdException;
-import mmt.app.exceptions.NoSuchPassengerException;
-
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
+
+import mmt.core.TicketOffice;
+
+import mmt.app.exceptions.NoSuchPassengerException;
+import mmt.core.exceptions.NoSuchPassengerIdException;
 
 /**
  * §3.3.2. Show specific passenger.
