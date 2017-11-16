@@ -1,13 +1,6 @@
 package mmt.app.main;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
@@ -38,19 +31,18 @@ public class DoSave extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() {
-		
+
 		try {
 
-			_form.parse();
+			if ( _file.value().isEmpty() ) {
+				_form.parse();
+			}
 
-			FileOutputStream fileOut = new FileOutputStream(_file.value());
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			_receiver.save( _file.value() );
 
-			out.writeObject(_receiver.getTrainCompany());
-			out.close();
-			fileOut.close();
 		} catch (IOException i) {
 			i.printStackTrace();
+			return;
 		}
 
 	}

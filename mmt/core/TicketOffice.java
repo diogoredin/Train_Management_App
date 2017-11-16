@@ -43,25 +43,50 @@ public class TicketOffice {
 
 	public void reset() {
 		_trainCompany.deletePassengers();
+		//_trainCompany.deleteItineraries();
 	}
 
-	public void save(String filename) {
-		//FIXME implement this function
+	public void save(String filename) throws FileNotFoundException, IOException {
+	
+		/* Opens the given file */
+		FileOutputStream fileOut = new FileOutputStream(filename);
+		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+		/* Writes new content */
+		out.writeObject(_trainCompany);
+
+		/* Closes the pipe */
+		out.close();
+		fileOut.close();
+
 	}
 
 	public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-		//FIXME implement this function
+
+		/* Opens the given file */
+		FileInputStream fileIn = new FileInputStream(filename);
+		ObjectInputStream in = new ObjectInputStream(fileIn);
+
+		/* Replaces the TrainCompany */
+		_trainCompany = (TrainCompany) in.readObject();
+
+		/* Closes the pipe */
+		in.close();
+		fileIn.close();
 	}
 
 	public void importFile(String datafile) throws ImportFileException {
+
+		/* Creates Parser */
 		NewParser parser = new NewParser(_trainCompany);
+
+		/* Parses the File */
 		parser.parseFile(datafile);
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
 	public void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
 		String departureTime) {
-		/* FIXME define thrown exceptions */
 		//FIXME implement method
 	}
 

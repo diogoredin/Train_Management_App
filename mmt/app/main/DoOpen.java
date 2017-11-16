@@ -1,13 +1,6 @@
 package mmt.app.main;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
@@ -41,25 +34,18 @@ public class DoOpen extends Command<TicketOffice> {
 
 		try {
 
-			_form.parse();
-			_form.clear();
+			if ( _input.value().isEmpty() ) {
+				_form.parse();
+			}
 
-			FileInputStream fileIn = new FileInputStream(_input.value());
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-
-			TrainCompany t = (TrainCompany) in.readObject();
-			in.close();
-			fileIn.close();
-
-			_receiver.setTrainCompany(t);
+			_receiver.load( _input.value() );
 
 		} catch (IOException i) {
 			i.printStackTrace();
 			return;
 
-		} catch (ClassNotFoundException c) {
-			System.out.println("TrainCompany class not found");
-			c.printStackTrace();
+		} catch (ClassNotFoundException i) {
+			i.printStackTrace();
 			return;
 		}
 
