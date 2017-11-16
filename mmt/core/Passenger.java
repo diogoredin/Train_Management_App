@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.util.Locale;
+import java.time.Duration;
+
 import mmt.core.categories.*;
 
 import mmt.core.exceptions.BadDateSpecificationException;
@@ -22,7 +25,6 @@ import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 
-import java.util.Locale;
 
 /**
  * Class which describes a passenger associated with a train company.
@@ -107,7 +109,15 @@ public class Passenger implements java.io.Serializable {
 		String catName = _category.getName();
 		int itineraries = getNumberOfItineraries();
 		String values = String.format(Locale.US, "%.2f", getLastValues());
-		String time = "00:00";
+
+		// Formatting time
+		Duration duration = Duration.ZERO; // FIXME: Itineraries
+
+		String formatHours = String.format("%02d", duration.toHours());
+		duration = duration.minusHours(duration.toHours());
+		String formatMinutes = String.format("%02d", duration.toMinutes());
+		String time = formatHours +":"+ formatMinutes;
+
 
 		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;
 	}

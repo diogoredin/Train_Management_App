@@ -22,7 +22,7 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 public class Station implements java.io.Serializable {
 
 	/** Stores the name of the station. */
-    protected String _name;
+	protected String _name;
 
 	/**
 	 * Creates a station with a name.
@@ -30,11 +30,11 @@ public class Station implements java.io.Serializable {
 	 * @param name identifies the station.
 	 */
 	public Station(String name) {
-        _name = name;
+		_name = name;
 	}
 
 	/** @return the name of the station. */
-    public final String getName() {
+	public final String getName() {
 		return _name;
 	}
 
