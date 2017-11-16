@@ -2,6 +2,7 @@ package mmt.app.passenger;
 
 import mmt.core.Passenger;
 import mmt.core.TicketOffice;
+import mmt.core.TrainCompany;
 
 import mmt.app.exceptions.BadPassengerNameException;
 import mmt.app.exceptions.DuplicatePassengerNameException;
@@ -35,7 +36,11 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 		try {
 
 			_form.parse();
-			Passenger p = new Passenger(_receiver.getTrainCompany(), _name.value());
+
+			TrainCompany company = _receiver.getTrainCompany();
+			int id = company.getNextPassengerId();
+			Passenger p = new Passenger(id, _name.value());
+			company.addPassenger(p);
 
 		} catch (InvalidPassengerNameException e) {
 			throw new BadPassengerNameException (e.getName());

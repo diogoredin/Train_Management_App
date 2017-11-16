@@ -27,8 +27,6 @@ public abstract class Category implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the category's name.
-	 *
 	 * @return the category's name.
 	 */
 	public String getName () {
@@ -36,8 +34,6 @@ public abstract class Category implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the category's minimum value.
-	 *
 	 * @return the category's minimum value.
 	 */
 	public double getMinimumValue () {
@@ -45,8 +41,6 @@ public abstract class Category implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the category's discount percentage.
-	 *
 	 * @return the category's discount percentage.
 	 */
 	public double getDiscountPercentage () {

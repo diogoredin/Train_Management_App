@@ -1,9 +1,5 @@
 package mmt.core;
 
-import mmt.core.categories.CategoryManager;
-import mmt.core.categories.Category;
-import mmt.core.NewParser;
-
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
@@ -11,6 +7,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+
+import mmt.core.categories.CategoryManager;
+import mmt.core.categories.Category;
+import mmt.core.NewParser;
 
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.BadDateSpecificationException;
@@ -62,7 +62,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * Constructor.
 	 */
 	public TrainCompany() {
-		_nextPassengerId = -1;
+		_nextPassengerId = 0;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @return the added passengers's id.
 	 */
 	public final int addPassenger(Passenger p) {
-		int id = ++_nextPassengerId;
+		int id = _nextPassengerId++;
 		_passengersMap.put(id, p);
 		p.setCategory ( updateCategory( p.getLastValues() ) );
 		return id;
@@ -93,6 +93,10 @@ public class TrainCompany implements java.io.Serializable {
 		} else {
 			throw new NoSuchPassengerIdException (id);
 		}
+	}
+
+	public int getNextPassengerId() {
+		return _nextPassengerId;
 	}
 
 	/**

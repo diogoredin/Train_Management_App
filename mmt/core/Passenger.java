@@ -39,7 +39,7 @@ import mmt.core.exceptions.InvalidPassengerNameException;
 public class Passenger implements java.io.Serializable {
 
 	/** The passenger's unique identifier. */
-	private int _id;
+	private final int _id;
 
 	/** The passenger's name. */
 	private String _name;
@@ -54,28 +54,18 @@ public class Passenger implements java.io.Serializable {
 	private int _numberOfItineraries = 0;
 
 	/**
-	 * Creates a passenger that isn't associated with any TrainCompany.
+	 * Creates a passenger that is associated with a trainCompany, id comes for the trainCompany
 	 *
+	 * @param id the passenger's unique id.
 	 * @param name the passenger's name (non-null, must not be an empty String).
 	 */
-	private Passenger(String name) throws InvalidPassengerNameException {
-		if (name != null && !name.isEmpty()){
+	public Passenger(int id, String name) throws InvalidPassengerNameException {
+		if (name != null && !name.isEmpty()) {
 			_name = name;
 		} else {
 			throw new InvalidPassengerNameException (name);
 		}
-	}
-
-	/**
-	 * Creates a passenger that is associated with a TrainCompany.
-	 *
-	 * @param trainCompany the train company the passenger travels on.
-	 * @param name the passenger's name (non-null, must not be an empty String).
-	 */
-	public Passenger(TrainCompany trainCompany, String name) throws InvalidPassengerNameException {
-		this (name);
-		_id = trainCompany.addPassenger(this);
-		_category = trainCompany.updateCategory(_lastValues);
+		_id = id;
 	}
 
 	/** 
@@ -85,12 +75,15 @@ public class Passenger implements java.io.Serializable {
 		return _id;
 	}
 
+
 	/**
 	 * @return the passenger's name.
 	 */
 	public final String getName() {
 		return _name;
 	}
+
+
 
 	/**
 	 * @return the passenger's associated number of itineraries.

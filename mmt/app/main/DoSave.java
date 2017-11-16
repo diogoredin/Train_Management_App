@@ -3,13 +3,14 @@ package mmt.app.main;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import mmt.core.TrainCompany;
-import mmt.core.TicketOffice;
-
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
+
+import mmt.core.TrainCompany;
+import mmt.core.TicketOffice;
+
 
 /**
  * §3.1.1. Save to file under current name (if unnamed, query for name).

@@ -90,7 +90,9 @@ public class NewParser {
 			}
 
 			/* Creates a new passenger for the Train Company */
-			Passenger p = new Passenger(_trainCompany, name);
+			int id = _trainCompany.getNextPassengerId();
+			Passenger p = new Passenger(id, name);
+			_trainCompany.addPassenger(p);
 
 		} catch (InvalidPassengerNameException e) {
 		}
