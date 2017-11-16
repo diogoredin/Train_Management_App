@@ -29,23 +29,20 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 public class Service implements java.io.Serializable {
 
-	/** The id that identifies this service. */
+	/** The id that identifies the service. */
 	private int _id;
-
-	/** The station where this service starts. */
-    private Station _start;
-
-	/** The station where this service ends. */
-    private Station _end;
 
 	/** The cost of this service. */
     private double _cost;
 
-	/** The segments that compose this service. */
-    private ArrayList<Segment> _segments = new ArrayList<Segment>();
+	/** The train stops that compose this service. */
+    private ArrayList<TrainStop> _startTrainStops = new ArrayList<TrainStop>();
+
+	/** The train stops that compose this service. */
+    private ArrayList<TrainStop> _endTrainStops = new ArrayList<TrainStop>();
 
 	/**
-	 * Creates a service that is associated with an end and start station.
+	 * Creates a service that is associated with an id and cost.
 	 *
 	 * @param id identifies uniquely this service.
 	 */
@@ -69,12 +66,21 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
-	 * Adds a segment to the service.
+	 * Adds a start train stop to the service.
 	 *
-	 * @param segment to add to the service.
+	 * @param TrainStop to add to the service.
 	 */
-	public final void addSegment(Segment segment) {
-		_segments.add(segment);
+	public final void addStart(TrainStop trainstop) {
+		_startTrainStops.add(trainstop);
+	}
+
+	/**
+	 * Adds an end train stop to the service.
+	 *
+	 * @param TrainStop to add to the service.
+	 */
+	public final void addEnd(TrainStop trainstop) {
+		_endTrainStops.add(trainstop);
 	}
 
 	/**
@@ -82,8 +88,7 @@ public class Service implements java.io.Serializable {
 	 */
     public final Station getStartStation() {
 
-		Segment segment = _segments.get(0);
-		TrainStop startStop = segment.getStart();
+		TrainStop startStop = _startTrainStops.get(0);
 		Station station = startStop.getStation();
 
 		return station;
@@ -93,23 +98,22 @@ public class Service implements java.io.Serializable {
 	 * @return the station where this service ends.
 	 */
     public final Station getEndStation() {
-		
-		Segment segment = _segments.get(_segments.size()-1);
-		TrainStop endStop = segment.getEnd();
+
+		TrainStop endStop = _endTrainStops.get(_endTrainStops.size()-1);
 		Station station = endStop.getStation();
 
 		return station;
 	}
 
 	/**
-	 * @return the total duration of a segment.
+	 * @return the total duration of a service.
 	 */
     public final Duration getTotalDuration() {
 
 		Duration totalDuration = Duration.ofSeconds(0);
 
-		for (Segment segment : this._segments ) {
-			totalDuration.plus( segment.getDuration() );
+		for (TrainStop trainstop : this._startTrainStops ) {
+			totalDuration.plus( trainstop.getSegment().getDuration() );
 		}
 
 		return totalDuration;
@@ -134,16 +138,21 @@ public class Service implements java.io.Serializable {
 		/* Stores all properties */
 		String result = "Serviço #" + id + " @ " + cost;
 
-		/* Adds segment information */
-		for (Segment segment : _segments ) {
+		/* Adds last train stop temporarly */
+		_startTrainStops.add( _endTrainStops.get(_endTrainStops.size()-1) );
 
-			TrainStop start = segment.getStart();
+		/* Adds segment information */
+		for (TrainStop start : _startTrainStops ) {
+
 			LocalTime ltime = start.getTime();
 			Station station = start.getStation();
 			String name = station.getName();
 
 			result = result + "\n" + ltime.toString() + " " + name;
 		}
+
+		/* Removes last train stop added temporarly */
+		_startTrainStops.remove( _startTrainStops.size()-1 );
 
 		return result;
 	}

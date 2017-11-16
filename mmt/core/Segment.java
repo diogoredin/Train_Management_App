@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.time.LocalTime;
-import java.time.LocalDate;
 import java.time.Duration;
 
 import java.util.ArrayList;
@@ -27,11 +25,9 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 public class Segment implements java.io.Serializable {
 
-	/** The TrainStop (with time and station) where this segment starts. */
-	protected TrainStop _start;
-
-	/** The TrainStop (with time and station) where this segment ends. */
-	protected TrainStop _end;
+	/** The cost and duration of this segment. */
+	private double _cost;
+	private Duration _duration;
 
 	/**
 	 * Creates a segment that is associated with a start and end TrainStop.
@@ -39,31 +35,23 @@ public class Segment implements java.io.Serializable {
 	 * @param start the TrainStop (with time and station) where this segment starts.
 	 * @param end the TrainStop (with time and station) where this segment ends.
 	 */
-	public Segment(TrainStop start, TrainStop end) {
-		_start = start;
-		_end = end;
+	public Segment(double cost, Duration duration) {
+		_cost = cost;
+		_duration = duration;
 	}
 
 	/**
 	 * @return segment duration.
 	 */
 	public final Duration getDuration() {
-		Duration duration = Duration.between(_start.getTime(), _end.getTime());
-		return duration;
+		return _duration;
 	}
 
 	/**
-	 * @return segment start data (station and timestamp)
+	 * @return segment cost.
 	 */
-	public final TrainStop getStart() {
-		return _start;
-	}
-
-	/**
-	 * @return segment end data (station and timestamp)
-	 */
-	public final TrainStop getEnd() {
-		return _end;
+	public final double getCost() {
+		return _cost;
 	}
 
 }

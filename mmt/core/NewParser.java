@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.Duration;
 
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.InvalidPassengerNameException;
@@ -109,27 +110,40 @@ public class NewParser {
 		/* Creates the Service and adds it to Train Company */
 		Service service = new Service(serviceId, cost);
 
+		/* Calculate cost of each segment */
+		int totalSegments = ( components.length - 3 ) / 2;
+		double segmentCost = cost / totalSegments;
+
 		/* Adds the segments of this Service */
-		for (int i = 3; i < components.length; i += 2) {
+		for (int i = 3; i+2 < components.length; i += 2) {
 
-			/* Segment properties */
-			String time = components[i];
-			String stationName = components[i + 1];
-			LocalTime ltime = LocalTime.parse(time);
+			/* Segment Duration */
+			String startTime = components[i];
+			LocalTime stime = LocalTime.parse(startTime);
 
-			/* Builds train stations */
-			Station startStation = new Station(stationName);
-			Station endStation = new Station(stationName);
+			String endTime = components[i + 2];
+			LocalTime etime = LocalTime.parse(endTime);
 
-			/* Builds train stops */
-			TrainStop start = new TrainStop(startStation, ltime);
-			TrainStop end = new TrainStop(endStation, ltime);
+			Duration duration = Duration.between(stime, etime);
 
-			/* Builds segment */
-			Segment segment = new Segment(start, end);
+			/* Segment Station Names */
+			String startStationName = components[i + 1];
+			String endStationName = components[i + 3];
 
-			/* Adds segment to the service */
-			service.addSegment( segment );
+			/* Segment Train Stations */
+			Station startStation = new Station(startStationName);
+			Station endStation = new Station(endStationName);
+
+			/* Builds Segment */
+			Segment segment = new Segment(segmentCost, duration);
+
+			/* Builds Train Stops */
+			TrainStop start = new TrainStop(startStation, stime, segment);
+			TrainStop end = new TrainStop(endStation, etime, segment);
+
+			/* Adds train stops to the service */
+			service.addStart( start );
+			service.addEnd( end );
 	
 		}
 
