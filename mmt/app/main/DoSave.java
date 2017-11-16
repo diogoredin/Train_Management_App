@@ -30,7 +30,7 @@ public class DoSave extends Command<TicketOffice> {
 
 		String m = Message.newSaveAs();
 		_file = _form.addStringInput(m);
-		_fileName = "";
+
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
@@ -39,12 +39,12 @@ public class DoSave extends Command<TicketOffice> {
 
 		try {
 
-			if ( _fileName.isEmpty() ) {
+			if ( !_receiver.hasAssociatedFile() ) {
 				_form.parse();
-				_fileName = _file.value();
+				_receiver.setFileName( _file.value() );
 			}
 
-			_receiver.save( _fileName );
+			_receiver.save( _receiver.getFileName() );
 
 		} catch (FileNotFoundException i) {
 			_display.addLine( Message.fileNotFound( _file.value() ) );

@@ -30,8 +30,12 @@ public class TicketOffice {
 	/** The object doing most of the actual work. */
 	private TrainCompany _trainCompany;
 
+	/** The current file with data associated to this ticket office. */
+	private String _fileName;
+
 	public TicketOffice(TrainCompany trainCompany) {
 		_trainCompany = trainCompany;
+		_fileName = "";
 	}
 
 	public TrainCompany getTrainCompany() {
@@ -45,6 +49,19 @@ public class TicketOffice {
 	public void reset() {
 		_trainCompany.deletePassengers();
 		//_trainCompany.deleteItineraries();
+		setFileName("");
+	}
+
+	public void setFileName(String filename) {
+		_fileName = filename;
+	}
+
+	public String getFileName() {
+		return _fileName;
+	}
+
+	public boolean hasAssociatedFile() {
+		return !_fileName.isEmpty();
 	}
 
 	public void save(String filename) throws IOException {

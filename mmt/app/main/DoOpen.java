@@ -17,7 +17,7 @@ import pt.tecnico.po.ui.Input;
 public class DoOpen extends Command<TicketOffice> {
 
 	/** The input file to open. */
-	private Input<String> _input;
+	private Input<String> _file;
 
 	/**
 	 * @param receiver
@@ -26,7 +26,7 @@ public class DoOpen extends Command<TicketOffice> {
 		super(Label.OPEN, receiver);
 		
 		String m = Message.openFile(); 
-		_input = _form.addStringInput(m);
+		_file = _form.addStringInput(m);
 	}
 
 	/** @see pt.tecnico.po.ui.Command#execute() */
@@ -34,12 +34,12 @@ public class DoOpen extends Command<TicketOffice> {
 	public final void execute() {
 
 		try {
-
 			_form.parse();
-			_receiver.load( _input.value() );
+			_receiver.setFileName( _file.value() );
+			_receiver.load( _file.value() );
 
 		} catch (FileNotFoundException i) {
-			_display.addLine( Message.fileNotFound( _input.value() ) );
+			_display.addLine( Message.fileNotFound() );
 			_display.display();
 			return;
 
