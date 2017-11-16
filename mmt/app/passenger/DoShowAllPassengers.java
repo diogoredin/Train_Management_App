@@ -1,12 +1,12 @@
 package mmt.app.passenger;
 
-import mmt.core.Passenger;
-import mmt.core.TicketOffice;
-
 import java.util.Collection;
 
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
+
+import mmt.core.Passenger;
+import mmt.core.TicketOffice;
 
 /**
  * §3.3.1. Show all passengers.

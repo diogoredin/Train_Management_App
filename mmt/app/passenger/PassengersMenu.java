@@ -1,8 +1,9 @@
 package mmt.app.passenger;
 
-import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Menu;
+
+import mmt.core.TicketOffice;
 
 /**
  * Menu builder for passenger operations.

@@ -1,18 +1,17 @@
 package mmt.app.passenger;
 
+import pt.tecnico.po.ui.Command;
+import pt.tecnico.po.ui.DialogException;
+import pt.tecnico.po.ui.Input;
+
 import mmt.core.TicketOffice;
 import mmt.core.TrainCompany;
 
 import mmt.app.exceptions.BadPassengerNameException;
-import mmt.app.exceptions.DuplicatePassengerNameException;
 import mmt.app.exceptions.NoSuchPassengerException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
-import mmt.core.exceptions.NonUniquePassengerNameException;
 
-import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
-import pt.tecnico.po.ui.Input;
 
 /**
  * §3.3.4. Change passenger name.

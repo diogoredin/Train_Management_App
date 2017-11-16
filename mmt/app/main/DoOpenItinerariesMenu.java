@@ -1,9 +1,10 @@
 package mmt.app.main;
 
-import mmt.core.TicketOffice;
-import mmt.app.itineraries.ItinerariesMenu;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Menu;
+
+import mmt.app.itineraries.ItinerariesMenu;
+import mmt.core.TicketOffice;
 
 /**
  * §3.1.2. Open itineraries menu.
