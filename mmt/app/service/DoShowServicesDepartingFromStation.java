@@ -49,7 +49,6 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 		}
 
 		_display.display();
-	
 	}
 
 }
