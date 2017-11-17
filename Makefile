@@ -17,4 +17,4 @@ docs:
 	javadoc -cp po-uilib.jar:. `find mmt -name *.java` -d docs
 
 jar:
-	jar cvf mmt.jar .
+	jar cvf mmt.jar ./mmt
