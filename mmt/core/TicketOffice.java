@@ -24,8 +24,8 @@ public class TicketOffice {
 	/** The current file with data associated to this ticket office. */
 	private String _fileName;
 
-	public TicketOffice(TrainCompany trainCompany) {
-		_trainCompany = trainCompany;
+	public TicketOffice() {
+		_trainCompany = new TrainCompany();
 		_fileName = "";
 	}
 

@@ -9,18 +9,18 @@ import mmt.core.Passenger;
 import mmt.core.TicketOffice;
 
 /**
- * §3.3.1. Show all passengers.
+ * §3.3.1. Show all passengers ordered by id.
  */
 public class DoShowAllPassengers extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowAllPassengers(TicketOffice receiver) {
 		super(Label.SHOW_ALL_PASSENGERS, receiver);
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** Executes the command. */
 	@Override
 	public final void execute() {
 		Collection<Passenger> passengers = _receiver.getTrainCompany().getPassengers();

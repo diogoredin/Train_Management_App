@@ -44,14 +44,15 @@ public class Passenger implements java.io.Serializable {
 	 * @param name the passenger's name (non-null, must not be an empty String).
 	 */
 	public Passenger(int id, String name) throws InvalidPassengerNameException {
+		setName(name);
+		_id = id;
+	}
 
-		if (name != null && !name.isEmpty()) {
-			_name = name;
-			_id = id;
-			
-		} else {
-			throw new InvalidPassengerNameException (name);
-		}
+	/** 
+	 * @return if a name is valid (non-null and not an empty string), returns true; else false.
+	 */
+	public boolean validName(String name) {
+		return name != null && !name.isEmpty();
 	}
 
 	/** 
@@ -83,6 +84,7 @@ public class Passenger implements java.io.Serializable {
 	 */
 	public String toString() {
 
+		// Basic attributes
 		int id = getId();
 		String name = getName();
 		String catName = _category.getName();
@@ -114,7 +116,7 @@ public class Passenger implements java.io.Serializable {
 	 * @param newname the new name of the passenger (non-null, must not be an empty string).
 	 */
 	public void setName(String newname) throws InvalidPassengerNameException {
-		if (newname != null || !newname.isEmpty()) {
+		if (validName(newname)) {
 			_name = newname;
 		} else {
 			throw new InvalidPassengerNameException (newname);
@@ -129,5 +131,4 @@ public class Passenger implements java.io.Serializable {
 	public void setCategory(Category category) {
 		_category = category;
 	}
-
 }

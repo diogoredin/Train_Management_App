@@ -21,9 +21,8 @@ public class App {
 	 */
 	public static void main(String[] args) {
 
-		/* Creates a train company and ticket office for our app */
-		TrainCompany company = new TrainCompany();
-		TicketOffice office = new TicketOffice(company);
+		/* Creates a TicketOffice for our app */
+		TicketOffice office = new TicketOffice();
 
 		/* Checks if our using the app through the terminal or with import files */
 		String datafile = System.getProperty("import");

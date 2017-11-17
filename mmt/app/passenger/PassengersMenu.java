@@ -18,7 +18,7 @@ public class PassengersMenu extends Menu {
 				new DoShowAllPassengers(receiver),
 				new DoShowPassengerById(receiver),
 				new DoRegisterPassenger(receiver),
-				new DoChangerPassengerName(receiver),
+				new DoChangePassengerName(receiver),
 		});
 	}
 

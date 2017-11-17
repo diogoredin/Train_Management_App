@@ -16,7 +16,7 @@ import mmt.core.exceptions.NoSuchPassengerIdException;
 /**
  * §3.3.4. Change passenger name.
  */
-public class DoChangerPassengerName extends Command<TicketOffice> {
+public class DoChangePassengerName extends Command<TicketOffice> {
 
 	/** The requested id. */
 	private Input<Integer> _id;
@@ -27,7 +27,7 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 	/**
 	 * @param receiver the associated TicketOffice.
 	 */
-	public DoChangerPassengerName(TicketOffice receiver) {
+	public DoChangePassengerName(TicketOffice receiver) {
 		super(Label.CHANGE_PASSENGER_NAME, receiver);
 		
 		String m = Message.requestPassengerId();

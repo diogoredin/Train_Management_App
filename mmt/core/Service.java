@@ -11,6 +11,10 @@ import java.time.Duration;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
 
+/**
+ * Class describing a service.
+ * <p> Services have associated train stops, total cost and total duration of the service.
+ */
 public class Service implements java.io.Serializable {
 
 	/** The id that identifies the service. */
@@ -19,10 +23,10 @@ public class Service implements java.io.Serializable {
 	/** The cost of this service. */
     private double _cost;
 
-	/** The train stops that compose this service. */
+	/** The departure train stops that compose this service. */
     private ArrayList<TrainStop> _startTrainStops = new ArrayList<TrainStop>();
 
-	/** The train stops that compose this service. */
+	/** The arrival train stops that compose this service. */
     private ArrayList<TrainStop> _endTrainStops = new ArrayList<TrainStop>();
 
 	/**
