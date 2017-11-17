@@ -7,6 +7,9 @@ package mmt.core.categories;
  */
 public class FrequentCategory extends Category implements java.io.Serializable {
 
+	/**
+	 * Constructor.
+	 */
 	public FrequentCategory() {
 		super("FREQUENTE", 250.0, 15.0);
 	}

@@ -9,14 +9,14 @@ import mmt.core.TicketOffice;
 public class ServicesMenu extends Menu {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public ServicesMenu(TicketOffice receiver) {
 		super(Label.TITLE, new Command<?>[] {
-				new DoShowAllServices(receiver),
-				new DoShowServiceByNumber(receiver),
-				new DoShowServicesDepartingFromStation(receiver),
-				new DoShowServicesArrivingAtStation(receiver),
+			new DoShowAllServices(receiver),
+			new DoShowServiceByNumber(receiver),
+			new DoShowServicesDepartingFromStation(receiver),
+			new DoShowServicesArrivingAtStation(receiver),
 		});
 	}
 

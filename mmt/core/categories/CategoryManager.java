@@ -16,7 +16,7 @@ public class CategoryManager implements java.io.Serializable {
 	/** 
 	 * Constructor for Category Manager. Creates a list of the available categories.
 	 * <p>
-	 * If new Categories are added, they should be added in order of minimum value.
+	 * If new Categories are added, they should be sorted in order of minimum value.
 	 */
 	public CategoryManager() {
 		_categoryList.add(new NormalCategory());

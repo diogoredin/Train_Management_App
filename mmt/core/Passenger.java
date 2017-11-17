@@ -62,15 +62,12 @@ public class Passenger implements java.io.Serializable {
 		return _id;
 	}
 
-
 	/**
 	 * @return the passenger's name.
 	 */
 	public final String getName() {
 		return _name;
 	}
-
-
 
 	/**
 	 * @return the passenger's associated number of itineraries.

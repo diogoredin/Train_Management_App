@@ -11,14 +11,14 @@ import mmt.core.TicketOffice;
 public class PassengersMenu extends Menu {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public PassengersMenu(TicketOffice receiver) {
 		super(Label.TITLE, new Command<?>[] {
-				new DoShowAllPassengers(receiver),
-				new DoShowPassengerById(receiver),
-				new DoRegisterPassenger(receiver),
-				new DoChangePassengerName(receiver),
+			new DoShowAllPassengers(receiver),
+			new DoShowPassengerById(receiver),
+			new DoRegisterPassenger(receiver),
+			new DoChangePassengerName(receiver),
 		});
 	}
 

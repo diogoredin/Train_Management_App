@@ -13,7 +13,8 @@ import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * Class describing a service.
- * <p> Services have associated train stops, total cost and total duration of the service.
+ * <p> 
+ * Services have associated train stops, total cost and total duration of the service.
  */
 public class Service implements java.io.Serializable {
 
@@ -32,7 +33,8 @@ public class Service implements java.io.Serializable {
 	/**
 	 * Creates a service that is associated with an id and cost.
 	 *
-	 * @param id identifies uniquely this service.
+	 * @param id the new service's unique identifier.
+	 * @param cost the new service's cost.
 	 */
 	public Service(int id, double cost) {
 		_id = id;
@@ -40,14 +42,14 @@ public class Service implements java.io.Serializable {
 	}
 
 	/** 
-	 * @return the service unique identifier.
+	 * @return the service's unique identifier.
 	 */
 	public final int getId() {
 		return _id;
 	}
 
 	/**
-	 * @return service cost.
+	 * @return the service's cost.
 	 */
 	public final double getCost() {
 		return _cost;
@@ -108,13 +110,6 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
-	 * @return the id that identifies this service.
-	 */
-    public final int requestServiceID() {
-		return _id;
-	}
-
-	/**
 	 * @return String description of a service.
 	 */
 	public String toString() {
@@ -132,11 +127,11 @@ public class Service implements java.io.Serializable {
 		/* Adds segment information */
 		for (TrainStop start : _startTrainStops ) {
 
-			LocalTime ltime = start.getTime();
+			LocalTime time = start.getTime();
 			Station station = start.getStation();
 			String name = station.getName();
 
-			result = result + "\n" + ltime.toString() + " " + name;
+			result = result + "\n" + time.toString() + " " + name;
 		}
 
 		/* Removes last train stop added temporarly */

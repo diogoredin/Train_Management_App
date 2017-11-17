@@ -21,7 +21,7 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 	/** The requested id. */
 	private Input<Integer> _id;
 
-	/** The new passanger's name. */
+	/** The new passenger's name. */
 	private Input<String> _name;
 
 	/**
@@ -38,6 +38,7 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 
 	/** 
 	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
 	public final void execute() throws DialogException {
@@ -54,7 +55,6 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 
 		} catch (InvalidPassengerNameException e) {
 			throw new BadPassengerNameException(e.getName());
-
 		}
 	}
 }

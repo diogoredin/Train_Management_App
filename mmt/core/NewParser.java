@@ -153,6 +153,11 @@ public class NewParser {
 		_trainCompany.addService(serviceId, service);
 	}
 
+	/**
+	 * Parses an itinerary, i.e. grabs its properties and adds it to the app.
+	 *
+	 * @param components the properties required for the itinerary.
+	 */
 	private void parseItinerary(String[] components) throws ImportFileException {
 		if (components.length < 4)
 			throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);

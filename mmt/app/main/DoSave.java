@@ -24,7 +24,7 @@ public class DoSave extends Command<TicketOffice> {
 	private String _fileName;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoSave(TicketOffice receiver) {
 		super(Label.SAVE, receiver);
@@ -34,12 +34,15 @@ public class DoSave extends Command<TicketOffice> {
 
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 
 		try {
-
+			
 			if ( !_receiver.hasAssociatedFile() ) {
 				_form.parse();
 				_receiver.setFileName( _file.value() );

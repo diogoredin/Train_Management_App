@@ -19,7 +19,7 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
 	private Input<String> _search;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowServicesArrivingAtStation(TicketOffice receiver) {
 		super(Label.SHOW_SERVICES_ARRIVING_AT_STATION, receiver);
@@ -28,6 +28,10 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
 		_search = _form.addStringInput(m);
 	}
 
+	/**
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 

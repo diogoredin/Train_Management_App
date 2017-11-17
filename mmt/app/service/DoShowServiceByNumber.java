@@ -17,11 +17,12 @@ import mmt.app.exceptions.NoSuchServiceException;
  * 3.2.2 Show service by number.
  */
 public class DoShowServiceByNumber extends Command<TicketOffice> {
+
 	/** The service id to search. */
 	private Input<Integer> _id;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowServiceByNumber(TicketOffice receiver) {
 		super(Label.SHOW_SERVICE_BY_NUMBER, receiver);
@@ -30,6 +31,10 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
 		_id = _form.addIntegerInput(m);
 	}
 
+	/**
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() throws DialogException {
 		try {

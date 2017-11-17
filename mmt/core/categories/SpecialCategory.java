@@ -7,6 +7,9 @@ package mmt.core.categories;
  */
 public class SpecialCategory extends Category implements java.io.Serializable {
 
+	/**
+	 * Constructor.
+	 */
 	public SpecialCategory() {
 		super("ESPECIAL", 2500.0, 50.0);
 	}

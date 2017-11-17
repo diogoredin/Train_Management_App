@@ -14,51 +14,73 @@ import java.io.IOException;
 import mmt.core.exceptions.ImportFileException;
 
 /**
- * Façade for handling persistence and other functions.
+ * Facade for handling persistence and other functions.
  */
 public class TicketOffice {
 
 	/** The object doing most of the actual work. */
 	private TrainCompany _trainCompany;
 
-	/** The current file with data associated to this ticket office. */
+	/** The name of the current file with data associated to this ticket office. */
 	private String _fileName;
 
+	/**
+	 * Constructor.
+	 */
 	public TicketOffice() {
 		_trainCompany = new TrainCompany();
 		_fileName = "";
 	}
 
+	/**
+	 * @return the associated TrainCompany.
+	 */
 	public TrainCompany getTrainCompany() {
 		return _trainCompany;
 	}
 
-	public void setTrainCompany(TrainCompany traincompany) {
-		_trainCompany = traincompany;
-	}
-
+	/**
+	 * Resets a TrainCompany, deleting its associated Passengers and Itineraries,
+	 * but not its associated Services.
+	 */
 	public void reset() {
 		_trainCompany.deletePassengers();
 		//_trainCompany.deleteItineraries();
 		setFileName("");
 	}
 
-	public void setFileName(String filename) {
-		_fileName = filename;
+	/**
+	 * Sets a new associated file name.
+	 *
+	 * @param fileName the new associated file's name.
+	 */
+	public void setFileName(String fileName) {
+		_fileName = fileName;
 	}
 
+	/**
+	 * @return the associated file's name.
+	 */
 	public String getFileName() {
 		return _fileName;
 	}
 
+	/**
+	 * @return if the TicketOffice has an associated file, return true; else, return false.
+	 */
 	public boolean hasAssociatedFile() {
-		return !_fileName.isEmpty();
+		return _fileName != null && !_fileName.isEmpty();
 	}
 
-	public void save(String filename) throws IOException {
+	/**
+	 * Saves the associated TrainCompany's data to a file.
+	 *
+	 * @param fileName the name of the file to be saved.
+	 */
+	public void save(String fileName) throws IOException {
 	
 		/* Opens the given file */
-		FileOutputStream fileOut = new FileOutputStream(filename);
+		FileOutputStream fileOut = new FileOutputStream(fileName);
 		ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
 		/* Writes new content */
@@ -70,10 +92,15 @@ public class TicketOffice {
 
 	}
 
-	public void load(String filename) throws IOException, ClassNotFoundException {
+	/**
+	 * Loads the new TrainCompany data from a file.
+	 *
+	 * @param fileName the name of the file from which the data will be loaded.
+	 */
+	public void load(String fileName) throws IOException, ClassNotFoundException {
 
 		/* Opens the given file */
-		FileInputStream fileIn = new FileInputStream(filename);
+		FileInputStream fileIn = new FileInputStream(fileName);
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 
 		/* Replaces the TrainCompany */
@@ -85,13 +112,18 @@ public class TicketOffice {
 		
 	}
 
-	public void importFile(String datafile) throws ImportFileException {
+	/**
+	 * Imports the default Services, Passengers and Itineraries from a file.
+	 *
+	 * @param fileName the name of the import file.
+	 */
+	public void importFile(String fileName) throws ImportFileException {
 
 		/* Creates Parser */
 		NewParser parser = new NewParser(_trainCompany);
 
 		/* Parses the File */
-		parser.parseFile(datafile);
+		parser.parseFile(fileName);
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
@@ -105,7 +137,6 @@ public class TicketOffice {
 		/*FIXME define thrown exceptions */
 		//FIXME implement method
 	}
-
-	//FIXME add methods for passenger registration and passenger name update
+	
 	//FIXME add other functions if necessary
 }

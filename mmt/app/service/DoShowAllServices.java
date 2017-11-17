@@ -14,12 +14,16 @@ import mmt.core.TicketOffice;
 public class DoShowAllServices extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowAllServices(TicketOffice receiver) {
 		super(Label.SHOW_ALL_SERVICES, receiver);
 	}
 
+	/**
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 		
@@ -29,5 +33,4 @@ public class DoShowAllServices extends Command<TicketOffice> {
 		});
 		_display.display();
 	}
-
 }

@@ -57,15 +57,13 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Add passenger.
 	 * 
-	 * @param thepassenger to add.
-	 * 
-	 * @return the added passengers's id.
+	 * @param p the passenger to add.
 	 */
-	public final int addPassenger(Passenger p) {
+	public final void addPassenger(Passenger p) {
 		int id = _nextPassengerId++;
 		_passengersMap.put(id, p);
 		p.setCategory ( updateCategory( p.getLastValues() ) );
-		return id;
+
 	}
 
 	/**
@@ -84,6 +82,9 @@ public class TrainCompany implements java.io.Serializable {
 		}
 	}
 
+	/**
+	 * @return the next passenger's assigned id.
+	 */
 	public int getNextPassengerId() {
 		return _nextPassengerId;
 	}
@@ -103,23 +104,18 @@ public class TrainCompany implements java.io.Serializable {
 	 * Changes a given passenger name.
 	 * 
 	 * @param id of the passenger.
-	 * @param newname the new name to give the passenger.
-	 * 
-	 * @return the new passengers name.
+	 * @param newname the new name to give the passenger (non-null, must not be an empty String).
 	 */
-	public String changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
+	public void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		if (passengerExists(id)) {
 			getPassenger(id).setName(newname);
-			return getPassenger(id).toString();
 		} else {
 			throw new NoSuchPassengerIdException(id);
 		}
 	}
 
 	/**
-	 * Number of passengers held by the editor.
-	 *
-	 * @return the number of passengers held by the editor.
+	 * @return the number of passengers associated to the TrainCompany.
 	 */
 	public int numberPassengers() {
 		return _passengersMap.size();
@@ -129,18 +125,26 @@ public class TrainCompany implements java.io.Serializable {
 	 * Remove a given passenger (by id).
 	 * 
 	 * @param id the identifier of the passenger to be removed.
-	 * @return true if the editor contains a passenger with the specified identifier, false otherwise
 	 */
-	public boolean remove(int id) {
-		if (_passengersMap.remove(id) == null)
-			return false;
-		return true;
+	public void remove(int id) {
+		_passengersMap.remove(id);
 	} 
 
+	/**
+	 * Returns the category associated with the minimum value.
+	 *
+	 * @return associated category.
+	 */
 	public Category updateCategory(double value) {
 		return _categories.getCategory(value);
 	}
 
+	/**
+	 * Returns a passenger's String description, given it's id.
+	 *
+	 * @param id the passenger's id.
+	 * @return passenger String description.
+	 */
 	public String getPassengerDescription(int id) throws NoSuchPassengerIdException {
 		if (passengerExists(id)) {
 			return getPassenger(id).toString();
@@ -150,9 +154,7 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
-	 * Collection of all the passengers part of this trainCompany.
-	 *
-	 * @return the collection of passengers of this trainCompany ordered by ID.
+	 * @return the collection of passengers of this trainCompany ordered by id.
 	 */
 	public Collection<Passenger> getPassengers() {
 		Collection<Passenger> passengers = _passengersMap.values();
@@ -169,22 +171,18 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Add Service.
 	 * 
-	 * @param theservice to add.
-	 * 
-	 * @return the added service id.
+	 * @param id the service's id.
+	 * @param service the service to add.
 	 */
-	public final int addService(int id, Service s) {
-		_servicesMap.put(id, s);
-		return id;
+	public final void addService(int id, Service service) {
+		_servicesMap.put(id, service);
 	}
 
 	/**
 	 * Get a service given its identifier.
 	 * 
 	 * @param id the service's identifier.
-	 * 
-	 * @return the service with the given identifier, or null if the service does not
-	 *         exist.
+	 * @return the service with the given identifier.
 	 */
 	public final Service getService(int id) throws NoSuchServiceIdException {
 		if (serviceExists(id)) {
@@ -198,7 +196,6 @@ public class TrainCompany implements java.io.Serializable {
 	 * Check whether a service exists (given an identifier).
 	 * 
 	 * @param id the identifier to check.
-	 * 
 	 * @return true, if the service exists; false, otherwise.
 	 */
 	public final boolean serviceExists(int id) {
@@ -206,21 +203,10 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
-	 * Collection of all the services part of this trainCompany.
-	 *
-	 * @return the collection of services of this trainCompany ordered by ID.
+	 * @return the collection of services of this trainCompany ordered by id.
 	 */
 	public Collection<Service> getServices() {
 		Collection<Service> services = _servicesMap.values();
 		return Collections.unmodifiableCollection(services);
 	}
-
-	/**
-	 * Resetes the services list of this train company.
-	 */
-	public void deleteServices() {
-		_servicesMap.clear();
-	}
-
-
 }

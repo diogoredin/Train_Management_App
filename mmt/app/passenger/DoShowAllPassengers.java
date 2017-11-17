@@ -20,7 +20,10 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
 		super(Label.SHOW_ALL_PASSENGERS, receiver);
 	}
 
-	/** Executes the command. */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 		Collection<Passenger> passengers = _receiver.getTrainCompany().getPassengers();

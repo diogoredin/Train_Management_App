@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import java.time.Duration;
 
+/**
+ * A Segment is a class which keeps the cost and duration of a trip between
+ * two TrainStops.
+ */
 public class Segment implements java.io.Serializable {
 
 	/** The cost and duration of this segment. */
@@ -11,10 +15,10 @@ public class Segment implements java.io.Serializable {
 	private Duration _duration;
 
 	/**
-	 * Creates a segment that is associated with a start and end TrainStop.
+	 * Creates a segment.
 	 *
-	 * @param start the TrainStop (with time and station) where this segment starts.
-	 * @param end the TrainStop (with time and station) where this segment ends.
+	 * @param cost the segment's cost.
+	 * @param duration the segment's duration.
 	 */
 	public Segment(double cost, Duration duration) {
 		_cost = cost;
@@ -22,14 +26,14 @@ public class Segment implements java.io.Serializable {
 	}
 
 	/**
-	 * @return segment duration.
+	 * @return the segment duration.
 	 */
 	public final Duration getDuration() {
 		return _duration;
 	}
 
 	/**
-	 * @return segment cost.
+	 * @return the segment cost.
 	 */
 	public final double getCost() {
 		return _cost;

@@ -11,13 +11,16 @@ import mmt.core.TicketOffice;
 public class DoReset extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoReset(TicketOffice receiver) {
 		super(Label.RESET, receiver);
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 		_receiver.reset();

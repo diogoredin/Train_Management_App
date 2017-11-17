@@ -19,7 +19,7 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 	private Input<Integer> _id;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowPassengerById(TicketOffice receiver) {
 		super(Label.SHOW_PASSENGER_BY_ID, receiver);
@@ -28,7 +28,10 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 		_id = _form.addIntegerInput(m);
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() throws DialogException {
 		try {

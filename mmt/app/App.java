@@ -6,7 +6,6 @@ import pt.tecnico.po.ui.Menu;
 import mmt.app.main.MainMenu;
 
 import mmt.core.TicketOffice;
-import mmt.core.TrainCompany;
 
 import mmt.core.exceptions.ImportFileException;
 
@@ -16,9 +15,6 @@ import mmt.core.exceptions.ImportFileException;
  */
 public class App {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		/* Creates a TicketOffice for our app */

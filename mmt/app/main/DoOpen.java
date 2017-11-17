@@ -20,7 +20,7 @@ public class DoOpen extends Command<TicketOffice> {
 	private Input<String> _file;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoOpen(TicketOffice receiver) {
 		super(Label.OPEN, receiver);
@@ -29,7 +29,10 @@ public class DoOpen extends Command<TicketOffice> {
 		_file = _form.addStringInput(m);
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() {
 

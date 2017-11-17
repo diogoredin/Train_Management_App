@@ -22,7 +22,7 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 	private Input<String> _name;
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoRegisterPassenger(TicketOffice receiver) {
 		super(Label.REGISTER_PASSENGER, receiver);
@@ -31,7 +31,10 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 		_name = _form.addStringInput(m);
 	}
 
-	/** @see pt.tecnico.po.ui.Command#execute() */
+	/** 
+	 * Executes the command.
+	 * @see pt.tecnico.po.ui.Command#execute()
+	 */
 	@Override
 	public final void execute() throws DialogException {
 		try {
