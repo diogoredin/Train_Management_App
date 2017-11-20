@@ -12,6 +12,8 @@ import mmt.core.NewParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import mmt.core.exceptions.ImportFileException;
+import mmt.core.exceptions.InvalidPassengerNameException;
+import mmt.core.exceptions.NoSuchPassengerIdException;
 
 /**
  * Facade for handling persistence and other functions.
@@ -125,6 +127,16 @@ public class TicketOffice {
 		/* Parses the File */
 		parser.parseFile(fileName);
 	}
+	
+	/**
+	 * Changes a given passenger name.
+	 * 
+	 * @param id of the passenger.
+	 * @param newname the new name to give the passenger (non-null, must not be an empty String).
+	 */
+	public void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
+		_trainCompany.changePassengerName(id, newname);
+	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
 	public void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
@@ -137,6 +149,4 @@ public class TicketOffice {
 		/*FIXME define thrown exceptions */
 		//FIXME implement method
 	}
-	
-	//FIXME add other functions if necessary
 }

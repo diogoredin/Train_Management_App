@@ -22,6 +22,9 @@ import mmt.core.exceptions.InvalidPassengerNameException;
  */
 public class Passenger implements java.io.Serializable {
 
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301011L;
+
 	/** The passenger's unique identifier. */
 	private final int _id;
 

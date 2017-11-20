@@ -10,6 +10,9 @@ import java.time.Duration;
  */
 public class Segment implements java.io.Serializable {
 
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301019L;
+
 	/** The cost and duration of this segment. */
 	private double _cost;
 	private Duration _duration;

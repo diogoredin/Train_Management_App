@@ -1,15 +1,15 @@
 package mmt.app.main;
 
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import pt.tecnico.po.ui.DialogException;
 
 /**
  * §3.1.1. Open existing document.
@@ -34,7 +34,7 @@ public class DoOpen extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 
 		try {
 			_form.parse();
@@ -44,15 +44,12 @@ public class DoOpen extends Command<TicketOffice> {
 		} catch (FileNotFoundException i) {
 			_display.addLine( Message.fileNotFound() );
 			_display.display();
-			return;
 
 		} catch (IOException i) {
 			i.printStackTrace();
-			return;
 
 		} catch (ClassNotFoundException i) {
 			i.printStackTrace();
-			return;
 
 		}
 

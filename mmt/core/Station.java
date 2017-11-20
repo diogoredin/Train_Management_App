@@ -1,8 +1,12 @@
 package mmt.core;
+
 /**
  * Class describing a Station where a train stops.
  */
 public class Station implements java.io.Serializable {
+
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301013L;
 
 	/** Stores the name of the station. */
 	private String _name;

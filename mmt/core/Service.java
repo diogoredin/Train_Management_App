@@ -18,6 +18,9 @@ import mmt.core.exceptions.NoSuchStationNameException;
  */
 public class Service implements java.io.Serializable {
 
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301012L;
+
 	/** The id that identifies the service. */
 	private int _id;
 
@@ -103,7 +106,7 @@ public class Service implements java.io.Serializable {
 		Duration totalDuration = Duration.ofSeconds(0);
 
 		for (TrainStop trainstop : this._startTrainStops ) {
-			totalDuration.plus( trainstop.getSegment().getDuration() );
+			totalDuration = totalDuration.plus( trainstop.getSegment().getDuration() );
 		}
 
 		return totalDuration;

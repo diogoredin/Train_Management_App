@@ -2,12 +2,12 @@ package mmt.core;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.Duration;
 
+import java.io.IOException;
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 

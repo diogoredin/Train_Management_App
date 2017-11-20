@@ -2,7 +2,6 @@ package mmt.app.service;
 
 import java.util.Collection;
 
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
@@ -10,6 +9,7 @@ import pt.tecnico.po.ui.Input;
 import mmt.core.Service;
 import mmt.core.TicketOffice;
 
+import pt.tecnico.po.ui.DialogException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.app.exceptions.NoSuchServiceException;
 

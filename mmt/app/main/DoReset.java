@@ -5,6 +5,7 @@ import pt.tecnico.po.ui.Input;
 
 import mmt.core.TicketOffice;
 
+import pt.tecnico.po.ui.DialogException;
 /**
  * §3.1.1. Reset the ticket office.
  */
@@ -22,7 +23,7 @@ public class DoReset extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 		_receiver.reset();
 	}
 

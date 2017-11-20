@@ -22,29 +22,19 @@ public class TrainCompany implements java.io.Serializable {
 	/** Serial number for serialization. */
 	private static final long serialVersionUID = 201708301010L;
 
-	/**
-	 * The passengers held by the train company indexed by unique identifier.
-	 */
+	/** The passengers held by the train company indexed by unique identifier. */
 	private Map<Integer, Passenger> _passengersMap = new TreeMap<Integer, Passenger>();
 
-	/**
-	 * The services held by the train company indexed by unique identifier.
-	 */
+	/** The services held by the train company indexed by unique identifier. */
 	private Map<Integer, Service> _servicesMap = new TreeMap<Integer, Service>();
 
-	/**
-	 * The different categories for a passenger.
-	 */
+	/* The different categories for a passenger. */
 	private CategoryManager _categories = new CategoryManager();
 
-	/**
-	 * Give each passenger a unique identifier.
-	 */
+	/* Give each passenger a unique identifier. */
 	private int _nextPassengerId;
 
-	/**
-	 * Give each service a unique identifier.
-	 */
+	/* Give each service a unique identifier. */
 	private int _nextServiceId;
 
 	/**
@@ -106,29 +96,13 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param id of the passenger.
 	 * @param newname the new name to give the passenger (non-null, must not be an empty String).
 	 */
-	public void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
+	void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		if (passengerExists(id)) {
 			getPassenger(id).setName(newname);
 		} else {
 			throw new NoSuchPassengerIdException(id);
 		}
 	}
-
-	/**
-	 * @return the number of passengers associated to the TrainCompany.
-	 */
-	public int numberPassengers() {
-		return _passengersMap.size();
-	}
-
-	/**
-	 * Remove a given passenger (by id).
-	 * 
-	 * @param id the identifier of the passenger to be removed.
-	 */
-	public void remove(int id) {
-		_passengersMap.remove(id);
-	} 
 
 	/**
 	 * Returns the category associated with the minimum value.

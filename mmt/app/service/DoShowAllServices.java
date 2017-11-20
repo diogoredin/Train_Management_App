@@ -8,6 +8,8 @@ import pt.tecnico.po.ui.Display;
 import mmt.core.Service;
 import mmt.core.TicketOffice;
 
+import pt.tecnico.po.ui.DialogException;
+
 /**
  * 3.2.1 Show all services.
  */
@@ -25,7 +27,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 		
 		Collection<Service> services = _receiver.getTrainCompany().getServices();
 		services.forEach((Service service)-> {

@@ -1,9 +1,5 @@
 package mmt.app.main;
 
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
@@ -11,6 +7,9 @@ import pt.tecnico.po.ui.Input;
 import mmt.core.TrainCompany;
 import mmt.core.TicketOffice;
 
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import pt.tecnico.po.ui.DialogException;
 
 /**
  * §3.1.1. Save to file under current name (if unnamed, query for name).
@@ -39,7 +38,7 @@ public class DoSave extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 
 		try {
 			
@@ -53,12 +52,9 @@ public class DoSave extends Command<TicketOffice> {
 		} catch (FileNotFoundException i) {
 			_display.addLine( Message.fileNotFound( _file.value() ) );
 			_display.display();
-			return;
 
 		} catch (IOException i) {
 			i.printStackTrace();
-			return;
-
 		}
 		
 

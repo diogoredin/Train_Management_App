@@ -1,13 +1,13 @@
 package mmt.app.passenger;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
 import mmt.core.Passenger;
 import mmt.core.TicketOffice;
 import mmt.core.TrainCompany;
 
+import pt.tecnico.po.ui.DialogException;
 import mmt.app.exceptions.BadPassengerNameException;
 import mmt.app.exceptions.DuplicatePassengerNameException;
 import mmt.core.exceptions.InvalidPassengerNameException;

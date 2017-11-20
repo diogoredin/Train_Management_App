@@ -7,6 +7,9 @@ import java.time.LocalTime;
  */
 public class TrainStop implements java.io.Serializable {
 
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301014L;
+
 	/** Stores the station of this TrainStop event. */
 	private Station _station;
 

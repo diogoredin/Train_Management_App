@@ -2,13 +2,14 @@ package mmt.app.service;
 
 import java.util.Collection;
 
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 
 import mmt.core.Service;
 import mmt.core.TicketOffice;
+
+import pt.tecnico.po.ui.DialogException;
 
 /**
  * 3.2.3 Show services departing from station.
@@ -33,7 +34,7 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 
 		_form.parse();
 

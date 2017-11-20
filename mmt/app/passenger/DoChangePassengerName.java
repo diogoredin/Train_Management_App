@@ -1,12 +1,12 @@
 package mmt.app.passenger;
 
 import pt.tecnico.po.ui.Command;
-import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
 import mmt.core.TicketOffice;
 import mmt.core.TrainCompany;
 
+import pt.tecnico.po.ui.DialogException;
 import mmt.app.exceptions.BadPassengerNameException;
 import mmt.app.exceptions.NoSuchPassengerException;
 import mmt.core.exceptions.InvalidPassengerNameException;
@@ -48,7 +48,7 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 
 		try {
 			_form.parse();
-			company.changePassengerName(_id.value(), _name.value());
+			_receiver.changePassengerName(_id.value(), _name.value());
 
 		} catch (NoSuchPassengerIdException e) {
 			throw new NoSuchPassengerException(e.getId());

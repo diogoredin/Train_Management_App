@@ -8,6 +8,8 @@ import pt.tecnico.po.ui.Display;
 import mmt.core.Passenger;
 import mmt.core.TicketOffice;
 
+import pt.tecnico.po.ui.DialogException;
+
 /**
  * §3.3.1. Show all passengers ordered by id.
  */
@@ -25,7 +27,7 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
 	 * @see pt.tecnico.po.ui.Command#execute()
 	 */
 	@Override
-	public final void execute() {
+	public final void execute() throws DialogException {
 		Collection<Passenger> passengers = _receiver.getTrainCompany().getPassengers();
 
 		passengers.forEach((Passenger passenger)-> {

@@ -9,6 +9,8 @@ import java.util.ListIterator;
  */
 
 public class CategoryManager implements java.io.Serializable {
+	/** Serial number for serialization. */
+	private static final long serialVersionUID = 201708301015L;
 
 	/** List of available categories. */
 	private List<Category> _categoryList = new ArrayList<Category>();
