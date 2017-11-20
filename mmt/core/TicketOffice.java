@@ -38,13 +38,6 @@ public class TicketOffice {
 	}
 
 	/**
-	 * @return the associated TrainCompany.
-	 */
-	public TrainCompany getTrainCompany() {
-		return _trainCompany;
-	}
-
-	/**
 	 * Resets a TrainCompany, deleting its associated Passengers and Itineraries,
 	 * but not its associated Services.
 	 */
@@ -153,7 +146,8 @@ public class TicketOffice {
 	 * 
 	 * @param p the passenger to add.
 	 */
-	public final void addPassenger(Passenger p) {
+	public void addPassenger(int id, String name) throws InvalidPassengerNameException {
+		Passenger p = new Passenger(id, name);
 		_trainCompany.addPassenger(p);
 	}
 
@@ -187,8 +181,33 @@ public class TicketOffice {
 	 * @param id the service's identifier.
 	 * @return the service with the given identifier.
 	 */
-	public final Service getService(int id) throws NoSuchServiceIdException {
+	public Service getService(int id) throws NoSuchServiceIdException {
 		return _trainCompany.getService(id);
+	}
+
+	/**
+	 * Looks up a service with a given start station name.
+	 *
+	 * @param string the station name to look for.
+	 * @return the service that has the search start station.
+	 */
+	public String searchServiceWithStartStation( String search ) { 
+
+		/* Service we are looking for */
+		return _trainCompany.searchServiceWithStartStation(search);
+	}
+
+	/**
+	 * Looks up a service with a given end station name.
+	 *
+	 * @param string the station name to look for.
+	 * @return the service that has the search end station.
+	 */
+	public String searchServiceWithEndStation( String search ) {
+
+		/* Service we are looking for */
+		return _trainCompany.searchServiceWithEndStation(search);
+
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method

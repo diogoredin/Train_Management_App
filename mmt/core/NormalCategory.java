@@ -1,4 +1,4 @@
-package mmt.core.categories;
+package mmt.core;
 
 /**
  * Class describing the most basic category. Passengers are not awarded any discount in this category.
@@ -11,7 +11,7 @@ public class NormalCategory extends Category {
 	/**
 	 * Constructor.
 	 */
-	public NormalCategory() {
+	NormalCategory() {
 		super("NORMAL", 0.0, 0.0);
 	}
 }

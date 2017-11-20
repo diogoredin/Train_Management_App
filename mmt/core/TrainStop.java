@@ -26,7 +26,7 @@ public class TrainStop implements java.io.Serializable {
 	* @param time the time when the train arrives.
 	* @param segment the segment to which the trainstop belongs.
 	*/
-	public TrainStop(Station station, LocalTime time, Segment segment) {
+	TrainStop(Station station, LocalTime time, Segment segment) {
 		_station = station;
 		_time = time;
 		_segment = segment;
@@ -35,21 +35,21 @@ public class TrainStop implements java.io.Serializable {
 	/** 
 	 * @return the station of this TrainStop.
 	 */
-	public final Station getStation() {
+	Station getStation() {
 		return _station;
 	}
 
 	/** 
 	 * @return the time of this TrainStop event.
 	 */
-	public final LocalTime getTime() {
+	LocalTime getTime() {
 		return _time;
 	}
 
 	/** 
 	 * @return the segment of this TrainStop event. 
 	 */
-	public final Segment getSegment() {
+	Segment getSegment() {
 		return _segment;
 	}
 

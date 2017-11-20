@@ -4,8 +4,6 @@ import java.util.Locale;
 
 import java.time.Duration;
 
-import mmt.core.categories.*;
-
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 
@@ -46,7 +44,7 @@ public class Passenger implements java.io.Serializable {
 	 * @param id the passenger's unique id.
 	 * @param name the passenger's name (non-null, must not be an empty String).
 	 */
-	public Passenger(int id, String name) throws InvalidPassengerNameException {
+	Passenger(int id, String name) throws InvalidPassengerNameException {
 		setName(name);
 		_id = id;
 	}
@@ -54,29 +52,58 @@ public class Passenger implements java.io.Serializable {
 	/** 
 	 * @return if a name is valid (non-null and not an empty string), returns true; else false.
 	 */
-	public boolean validName(String name) {
+	boolean validName(String name) {
 		return name != null && !name.isEmpty();
 	}
 
 	/** 
 	 * @return the passenger's unique identifier.
 	 */
-	public final int getId() {
+	final int getId() {
 		return _id;
 	}
 
 	/**
 	 * @return the passenger's name.
 	 */
-	public final String getName() {
+	final String getName() {
 		return _name;
 	}
 
 	/**
 	 * @return the passenger's associated number of itineraries.
 	 */
-	public int getNumberOfItineraries() {
+	int getNumberOfItineraries() {
 		return _numberOfItineraries;
+	}
+
+	/**
+	 * @return the last 10 itinerary values.
+	 */
+	double getLastValues() {
+		return _lastValues;
+	}
+
+	/**
+	 * Changes a passenger's name.
+	 *
+	 * @param newname the new name of the passenger (non-null, must not be an empty string).
+	 */
+	void setName(String newname) throws InvalidPassengerNameException {
+		if (validName(newname)) {
+			_name = newname;
+		} else {
+			throw new InvalidPassengerNameException (newname);
+		}
+	}
+
+	/**
+	 * Sets a passenger's category.
+	 *
+	 * @param category the passenger's new category.
+	 */
+	void setCategory(Category category) {
+		_category = category;
 	}
 
 	/**
@@ -101,34 +128,5 @@ public class Passenger implements java.io.Serializable {
 
 
 		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;
-	}
-
-	/**
-	 * @return the last 10 itinerary values.
-	 */
-	public double getLastValues() {
-		return _lastValues;
-	}
-
-	/**
-	 * Changes a passenger's name.
-	 *
-	 * @param newname the new name of the passenger (non-null, must not be an empty string).
-	 */
-	public void setName(String newname) throws InvalidPassengerNameException {
-		if (validName(newname)) {
-			_name = newname;
-		} else {
-			throw new InvalidPassengerNameException (newname);
-		}
-	}
-
-	/**
-	 * Sets a passenger's category.
-	 *
-	 * @param category the passenger's new category.
-	 */
-	public void setCategory(Category category) {
-		_category = category;
 	}
 }

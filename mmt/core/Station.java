@@ -16,14 +16,14 @@ public class Station implements java.io.Serializable {
 	 *
 	 * @param name identifies the station.
 	 */
-	public Station(String name) {
+	Station(String name) {
 		_name = name;
 	}
 
 	/** 
 	 * @return the name of the station.
 	 **/
-	public final String getName() {
+	final String getName() {
 		return _name;
 	}
 

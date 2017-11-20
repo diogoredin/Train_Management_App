@@ -1,4 +1,4 @@
-package mmt.core.categories;
+package mmt.core;
 /**
  * Generic Category class which will define specific categories.
  */
@@ -20,7 +20,7 @@ public abstract class Category implements java.io.Serializable {
 	 * @param minimumValue The minimum value for a passenger to belong to the new category.
 	 * @param discountPercentage The discount attributed to a passenger belonging to a new category.
 	 */
-	public Category(String name, double minimumValue, double discountPercentage) {
+	Category(String name, double minimumValue, double discountPercentage) {
 		_name = name;
 		_minimumValue = minimumValue;
 		_discountPercentage = discountPercentage;
@@ -29,21 +29,21 @@ public abstract class Category implements java.io.Serializable {
 	/**
 	 * @return the category's name.
 	 */
-	public String getName () {
+	String getName () {
 		return _name;
 	}
 
 	/**
 	 * @return the category's minimum value.
 	 */
-	public double getMinimumValue () {
+	double getMinimumValue () {
 		return _minimumValue;
 	}
 
 	/**
 	 * @return the category's discount percentage.
 	 */
-	public double getDiscountPercentage () {
+	double getDiscountPercentage () {
 		return _discountPercentage;
 	}
 }

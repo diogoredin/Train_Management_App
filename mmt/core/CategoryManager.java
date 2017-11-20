@@ -1,4 +1,4 @@
-package mmt.core.categories;
+package mmt.core;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CategoryManager implements java.io.Serializable {
 	 * <p>
 	 * If new Categories are added, they should be sorted in order of minimum value.
 	 */
-	public CategoryManager() {
+	CategoryManager() {
 		_categoryList.add(new NormalCategory());
 		_categoryList.add(new FrequentCategory());
 		_categoryList.add(new SpecialCategory());
@@ -32,7 +32,7 @@ public class CategoryManager implements java.io.Serializable {
 	 * @param value value of the last 10 itineraries.
 	 * @return corresponding category.
 	 */
-	public Category getCategory (double value) {
+	Category getCategory (double value) {
 
 		ListIterator<Category> iter = _categoryList.listIterator();
 
@@ -55,7 +55,7 @@ public class CategoryManager implements java.io.Serializable {
 	 * @param value value of the last 10 itineraries.
 	 * @return corresponding category name.
 	 */
-	public String getCategoryName(double value) {
+	String getCategoryName(double value) {
 
 		return getCategory(value).getName();
 	}
@@ -66,7 +66,7 @@ public class CategoryManager implements java.io.Serializable {
 	 * @param value value of the last 10 itineraries.
 	 * @return corresponding category discount.
 	 */
-	public double getCategoryDiscount (double value) {
+	double getCategoryDiscount (double value) {
 
 		return getCategory(value).getDiscountPercentage();
 	}
@@ -77,7 +77,7 @@ public class CategoryManager implements java.io.Serializable {
 	 * @param value value of the last 10 itineraries.
 	 * @return corresponding category minimum value.
 	 */
-	public double getCategoryMinimum (double value) {
+	double getCategoryMinimum (double value) {
 
 		return getCategory(value).getMinimumValue(); 
 	}

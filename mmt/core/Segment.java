@@ -1,7 +1,5 @@
 package mmt.core;
 
-import java.util.ArrayList;
-
 import java.time.Duration;
 
 /**
@@ -23,7 +21,7 @@ public class Segment implements java.io.Serializable {
 	 * @param cost the segment's cost.
 	 * @param duration the segment's duration.
 	 */
-	public Segment(double cost, Duration duration) {
+	Segment(double cost, Duration duration) {
 		_cost = cost;
 		_duration = duration;
 	}
@@ -31,14 +29,14 @@ public class Segment implements java.io.Serializable {
 	/**
 	 * @return the segment duration.
 	 */
-	public final Duration getDuration() {
+	Duration getDuration() {
 		return _duration;
 	}
 
 	/**
 	 * @return the segment cost.
 	 */
-	public final double getCost() {
+	double getCost() {
 		return _cost;
 	}
 

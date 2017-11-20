@@ -13,13 +13,13 @@ import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * Class describing a service.
- * <p> 
+ *
  * Services have associated train stops, total cost and total duration of the service.
  */
 public class Service implements java.io.Serializable {
 
 	/** Serial number for serialization. */
-	private static final long serialVersionUID = 201708301012L;
+	private static long serialVersionUID = 201708301012L;
 
 	/** The id that identifies the service. */
 	private int _id;
@@ -39,7 +39,7 @@ public class Service implements java.io.Serializable {
 	 * @param id the new service's unique identifier.
 	 * @param cost the new service's cost.
 	 */
-	public Service(int id, double cost) {
+	Service(int id, double cost) {
 		_id = id;
 		_cost = cost;
 	}
@@ -47,14 +47,14 @@ public class Service implements java.io.Serializable {
 	/** 
 	 * @return the service's unique identifier.
 	 */
-	public final int getId() {
+	int getId() {
 		return _id;
 	}
 
 	/**
 	 * @return the service's cost.
 	 */
-	public final double getCost() {
+	double getCost() {
 		return _cost;
 	}
 
@@ -63,7 +63,7 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @param TrainStop to add to the service.
 	 */
-	public final void addStart(TrainStop trainstop) {
+	void addStart(TrainStop trainstop) {
 		_startTrainStops.add(trainstop);
 	}
 
@@ -72,14 +72,14 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @param TrainStop to add to the service.
 	 */
-	public final void addEnd(TrainStop trainstop) {
+	void addEnd(TrainStop trainstop) {
 		_endTrainStops.add(trainstop);
 	}
 
 	/**
 	 * @return the station where this service starts.
 	 */
-    public final Station getStartStation() {
+    Station getStartStation() {
 
 		TrainStop startStop = _startTrainStops.get(0);
 		Station station = startStop.getStation();
@@ -90,7 +90,7 @@ public class Service implements java.io.Serializable {
 	/**
 	 * @return the station where this service ends.
 	 */
-    public final Station getEndStation() {
+    Station getEndStation() {
 
 		TrainStop endStop = _endTrainStops.get(_endTrainStops.size()-1);
 		Station station = endStop.getStation();
@@ -101,7 +101,7 @@ public class Service implements java.io.Serializable {
 	/**
 	 * @return the total duration of a service.
 	 */
-    public final Duration getTotalDuration() {
+    Duration getTotalDuration() {
 
 		Duration totalDuration = Duration.ofSeconds(0);
 

@@ -42,8 +42,7 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
 			_form.parse();
 
 			int id = _receiver.getNextPassengerId();
-			Passenger p = new Passenger(id, _name.value());
-			_receiver.addPassenger(p);
+			_receiver.addPassenger(id, _name.value());
 
 		} catch (InvalidPassengerNameException e) {
 			throw new BadPassengerNameException (e.getName());

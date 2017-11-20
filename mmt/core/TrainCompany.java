@@ -5,8 +5,6 @@ import java.util.TreeMap;
 import java.util.Collection;
 import java.util.Collections;
 
-import mmt.core.categories.CategoryManager;
-import mmt.core.categories.Category;
 import mmt.core.NewParser;
 
 import mmt.core.exceptions.InvalidPassengerNameException;
@@ -40,7 +38,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Constructor.
 	 */
-	public TrainCompany() {
+	TrainCompany() {
 		_nextPassengerId = 0;
 	}
 
@@ -49,7 +47,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @param p the passenger to add.
 	 */
-	public final void addPassenger(Passenger p) {
+	void addPassenger(Passenger p) {
 		int id = _nextPassengerId++;
 		_passengersMap.put(id, p);
 		p.setCategory ( updateCategory( p.getLastValues() ) );
@@ -64,7 +62,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @return the passenger with the given identifier, or null if the passenger does not
 	 *         exist.
 	 */
-	private final Passenger getPassenger(int id) throws NoSuchPassengerIdException {
+	Passenger getPassenger(int id) throws NoSuchPassengerIdException {
 		if (passengerExists(id)) {
 			return _passengersMap.get(id);
 		} else {
@@ -75,7 +73,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * @return the next passenger's assigned id.
 	 */
-	public int getNextPassengerId() {
+	int getNextPassengerId() {
 		return _nextPassengerId;
 	}
 
@@ -86,7 +84,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * 
 	 * @return true, if the passenger exists; false, otherwise.
 	 */
-	public final boolean passengerExists(int id) {
+	boolean passengerExists(int id) {
 		return _passengersMap.get(id) != null;
 	}
 
@@ -109,7 +107,7 @@ public class TrainCompany implements java.io.Serializable {
 	 *
 	 * @return associated category.
 	 */
-	public Category updateCategory(double value) {
+	Category updateCategory(double value) {
 		return _categories.getCategory(value);
 	}
 
@@ -119,7 +117,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param id the passenger's id.
 	 * @return passenger String description.
 	 */
-	public String getPassengerDescription(int id) throws NoSuchPassengerIdException {
+	String getPassengerDescription(int id) throws NoSuchPassengerIdException {
 		if (passengerExists(id)) {
 			return getPassenger(id).toString();
 		} else {
@@ -130,7 +128,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * @return the collection of passengers of this trainCompany ordered by id.
 	 */
-	public Collection<Passenger> getPassengers() {
+	Collection<Passenger> getPassengers() {
 		Collection<Passenger> passengers = _passengersMap.values();
 		return Collections.unmodifiableCollection(passengers);
 	}
@@ -138,7 +136,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Resets the passengers list of this train company.
 	 */
-	public void deletePassengers() {
+	void deletePassengers() {
 		_passengersMap.clear();
 	}
 
@@ -148,7 +146,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param id the service's id.
 	 * @param service the service to add.
 	 */
-	public final void addService(int id, Service service) {
+	void addService(int id, Service service) {
 		_servicesMap.put(id, service);
 	}
 
@@ -158,7 +156,7 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param id the service's identifier.
 	 * @return the service with the given identifier.
 	 */
-	public final Service getService(int id) throws NoSuchServiceIdException {
+	Service getService(int id) throws NoSuchServiceIdException {
 		if (serviceExists(id)) {
 			return _servicesMap.get(id);
 		} else {
@@ -172,15 +170,60 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param id the identifier to check.
 	 * @return true, if the service exists; false, otherwise.
 	 */
-	public final boolean serviceExists(int id) {
+	boolean serviceExists(int id) {
 		return ( _servicesMap.get(id) != null );
 	}
 
 	/**
 	 * @return the collection of services of this trainCompany ordered by id.
 	 */
-	public Collection<Service> getServices() {
+	Collection<Service> getServices() {
 		Collection<Service> services = _servicesMap.values();
 		return Collections.unmodifiableCollection(services);
 	}
+
+	/**
+	 * Looks up a service with a given start station name.
+	 *
+	 * @param string the station name to look for.
+	 * @return the service that has the search start station.
+	 */
+	String searchServiceWithStartStation( String search ) {
+
+		String service = "";
+
+		/* Search for the service */
+		for ( Service s : getServices() ) {
+
+			if ( search.equals( s.getStartStation().getName() ) ) {
+				service = service + s.toString();
+			}
+
+		}
+
+		return service;
+	}
+
+	/**
+	 * Looks up a service with a given end station name.
+	 *
+	 * @param string the station name to look for.
+	 * @return the service that has the search end station.
+	 */
+	String searchServiceWithEndStation( String search ) {
+
+		String service = "";
+
+		/* Search for the service */
+		for ( Service s : getServices() ) {
+
+			if ( search.equals( s.getEndStation().getName() ) ) {
+				service = service + s.toString();
+			}
+
+		}
+
+		return service;
+	}
+
 }
