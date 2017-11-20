@@ -196,7 +196,7 @@ public class TrainCompany implements java.io.Serializable {
 		for ( Service s : getServices() ) {
 
 			if ( search.equals( s.getStartStation().getName() ) ) {
-				service = service + s.toString();
+				service = service + s.toString() + '\n';
 			}
 
 		}
@@ -218,8 +218,7 @@ public class TrainCompany implements java.io.Serializable {
 		for ( Service s : getServices() ) {
 
 			if ( search.equals( s.getEndStation().getName() ) ) {
-
-				service = service + s.toString();
+				service = service + s.toString() + '\n';
 			}
 
 		}
