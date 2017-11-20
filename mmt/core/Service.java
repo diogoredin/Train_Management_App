@@ -19,7 +19,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 public class Service implements java.io.Serializable {
 
 	/** Serial number for serialization. */
-	private static long serialVersionUID = 201708301012L;
+	private static final long serialVersionUID = 201708301012L;
 
 	/** The id that identifies the service. */
 	private int _id;

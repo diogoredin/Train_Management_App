@@ -18,7 +18,7 @@ public class CategoryManager implements java.io.Serializable {
 	/** 
 	 * Constructor for Category Manager. Creates a list of the available categories.
 	 * <p>
-	 * If new Categories are added, they should be sorted in order of minimum value.
+	 * If new Categories are added, they should be in order of minimum value.
 	 */
 	CategoryManager() {
 		_categoryList.add(new NormalCategory());
@@ -47,38 +47,5 @@ public class CategoryManager implements java.io.Serializable {
 			}
 		}
 		return category;
-	}
-
-	/**
-	 * Returns the name of the category corresponding to the value of the itineraries.
-	 * 
-	 * @param value value of the last 10 itineraries.
-	 * @return corresponding category name.
-	 */
-	String getCategoryName(double value) {
-
-		return getCategory(value).getName();
-	}
-
-	/**
-	 * Returns the discount attributed to the category corresponding to the value of the itineraries.
-	 *
-	 * @param value value of the last 10 itineraries.
-	 * @return corresponding category discount.
-	 */
-	double getCategoryDiscount (double value) {
-
-		return getCategory(value).getDiscountPercentage();
-	}
-
-	/**
-	 * Returns the minimum value associated with the category corresponding to the value of the itineraries. 
-	 *
-	 * @param value value of the last 10 itineraries.
-	 * @return corresponding category minimum value.
-	 */
-	double getCategoryMinimum (double value) {
-
-		return getCategory(value).getMinimumValue(); 
 	}
 }

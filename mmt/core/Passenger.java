@@ -39,7 +39,7 @@ public class Passenger implements java.io.Serializable {
 	private int _numberOfItineraries = 0;
 
 	/**
-	 * Creates a passenger that is associated with a trainCompany, id comes for the trainCompany
+	 * Creates a passenger that is associated with a trainCompany, id comes from the trainCompany
 	 *
 	 * @param id the passenger's unique id.
 	 * @param name the passenger's name (non-null, must not be an empty String).
@@ -85,7 +85,7 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/**
-	 * Changes a passenger's name.
+	 * Sets a passenger's name.
 	 *
 	 * @param newname the new name of the passenger (non-null, must not be an empty string).
 	 */
