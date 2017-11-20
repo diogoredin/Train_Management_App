@@ -37,7 +37,7 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 		_form.parse();
 
 		/* Search for the service */
-		String service = _receiver.searchServiceWithEndStation( _search.value() );
+		String service = _receiver.searchServiceWithStartStation( _search.value() );
 
 		/* Display the service */
 		_display.addLine(service);
