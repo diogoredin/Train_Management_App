@@ -39,7 +39,7 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 		_form.parse();
 
 		/* Gets all services */
-		Collection<Service> services = _receiver.getTrainCompany().getServices();
+		Collection<Service> services = _receiver.getServices();
 
 		/* Search for the service */
 		for ( Service service : services ) {

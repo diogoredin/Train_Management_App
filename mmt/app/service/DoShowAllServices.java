@@ -29,7 +29,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
 	@Override
 	public final void execute() throws DialogException {
 		
-		Collection<Service> services = _receiver.getTrainCompany().getServices();
+		Collection<Service> services = _receiver.getServices();
 		services.forEach((Service service)-> {
 			_display.addLine(service.toString());
 		});

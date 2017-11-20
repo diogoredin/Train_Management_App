@@ -43,9 +43,6 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 	@Override
 	public final void execute() throws DialogException {
 
-
-		TrainCompany company = _receiver.getTrainCompany();
-
 		try {
 			_form.parse();
 			_receiver.changePassengerName(_id.value(), _name.value());

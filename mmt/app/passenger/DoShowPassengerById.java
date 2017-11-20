@@ -38,7 +38,7 @@ public class DoShowPassengerById extends Command<TicketOffice> {
 			
 			_form.parse();
 
-			_display.addLine(_receiver.getTrainCompany().getPassengerDescription(_id.value()));
+			_display.addLine(_receiver.getPassengerDescription(_id.value()) );
 			_display.display();
 
 		} catch (NoSuchPassengerIdException e) {

@@ -9,11 +9,14 @@ import java.io.ObjectOutputStream;
 
 import mmt.core.NewParser;
 
+import java.util.Collection;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
+import mmt.core.exceptions.NoSuchServiceIdException;
 
 /**
  * Facade for handling persistence and other functions.
@@ -136,6 +139,56 @@ public class TicketOffice {
 	 */
 	public void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		_trainCompany.changePassengerName(id, newname);
+	}
+
+	/**
+	 * @return the next passenger's assigned id.
+	 */
+	public int getNextPassengerId() {
+		return _trainCompany.getNextPassengerId();
+	}
+
+	/**
+	 * Add passenger.
+	 * 
+	 * @param p the passenger to add.
+	 */
+	public final void addPassenger(Passenger p) {
+		_trainCompany.addPassenger(p);
+	}
+
+	/**
+	 * @return the collection of passengers of this trainCompany ordered by id.
+	 */
+	public Collection<Passenger> getPassengers() {
+		return _trainCompany.getPassengers();
+	}
+
+	/**
+	 * Returns a passenger's String description, given it's id.
+	 *
+	 * @param id the passenger's id.
+	 * @return passenger String description.
+	 */
+	public String getPassengerDescription(int id) throws NoSuchPassengerIdException {
+		return _trainCompany.getPassengerDescription(id);
+	}
+
+	/**
+	 * @return the collection of services of this trainCompany ordered by id.
+	 */
+	public Collection<Service> getServices() {
+		return _trainCompany.getServices();
+	}
+
+	/**
+	 * Get a service given its identifier.
+	 * 
+	 * @param id the service's identifier.
+	 * @return the service with the given identifier.
+	 */
+	public final Service getService(int id) throws NoSuchServiceIdException {
+		return _trainCompany.getService(id);
 	}
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
