@@ -1,9 +1,15 @@
 package mmt.core;
 
+import java.util.Comparator;
+
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Collection;
 import java.util.Collections;
+
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 import mmt.core.NewParser;
 
@@ -190,18 +196,33 @@ public class TrainCompany implements java.io.Serializable {
 	 */
 	String searchServiceWithStartStation( String search ) {
 
-		String service = "";
+		/* Converts the collection to an array to be sorted */
+		ArrayList<Service> services = new ArrayList<Service>( getServices() );
+
+		/* Compares two services based on their start time */
+		Comparator<Service> comparator = new Comparator<Service>() {
+			@Override
+			public int compare(Service left, Service right) {
+				return left.getStartTime().toSecondOfDay() - right.getStartTime().toSecondOfDay();
+			}
+		};
+
+		/* The string which contains all services */
+		String result = "";
+
+		/* Sorts the collection */
+		Collections.sort(services, comparator);
 
 		/* Search for the service */
-		for ( Service s : getServices() ) {
+		for ( Service s : services ) {
 
 			if ( search.equals( s.getStartStation().getName() ) ) {
-				service = service + s.toString() + '\n';
+				result = result + s.toString() + '\n';
 			}
 
 		}
 
-		return service;
+		return result;
 	}
 
 	/**
@@ -212,18 +233,33 @@ public class TrainCompany implements java.io.Serializable {
 	 */
 	String searchServiceWithEndStation( String search ) {
 
-		String service = "";
+		/* Converts the collection to an array to be sorted */
+		ArrayList<Service> services = new ArrayList<Service>( getServices() );
+
+		/* Compares two services based on their start time */
+		Comparator<Service> comparator = new Comparator<Service>() {
+			@Override
+			public int compare(Service left, Service right) {
+				return left.getEndTime().toSecondOfDay() - right.getEndTime().toSecondOfDay();
+			}
+		};
+
+		/* The string which contains all services */
+		String result = "";
+
+		/* Sorts the collection */
+		Collections.sort(services, comparator);
 
 		/* Search for the service */
-		for ( Service s : getServices() ) {
+		for ( Service s : services ) {
 
 			if ( search.equals( s.getEndStation().getName() ) ) {
-				service = service + s.toString() + '\n';
+				result = result + s.toString() + '\n';
 			}
 
 		}
 
-		return service;
+		return result;
 	}
 
 }

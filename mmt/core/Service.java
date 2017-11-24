@@ -77,6 +77,28 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * @return the time when this service starts.
+	 */
+    LocalTime getStartTime() {
+
+		TrainStop startStop = _startTrainStops.get(0);
+		LocalTime time = startStop.getTime();
+
+		return time;
+	}
+
+	/**
+	 * @return the time when this service ends.
+	 */
+    LocalTime getEndTime() {
+
+		TrainStop endStop = _endTrainStops.get(_endTrainStops.size()-1);
+		LocalTime time = endStop.getTime();
+
+		return time;
+	}
+
+	/**
 	 * @return the station where this service starts.
 	 */
     Station getStartStation() {
