@@ -146,6 +146,16 @@ public class NewParser {
 			/* Adds train stops to the service */
 			service.addStart( start );
 			service.addEnd( end );
+
+			/* Adds start train station */
+			if ( !_trainCompany.checkStation(startStationName) ) {
+				_trainCompany.addStation(startStationName);
+			}
+
+			/* Adds end train station */
+			if ( !_trainCompany.checkStation(endStationName) ) {
+				_trainCompany.addStation(endStationName);
+			}
 	
 		}
 

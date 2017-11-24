@@ -17,6 +17,7 @@ import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
+import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * Facade for handling persistence and other functions.
@@ -191,7 +192,7 @@ public class TicketOffice {
 	 * @param string the station name to look for.
 	 * @return the service that has the search start station.
 	 */
-	public String searchServiceWithStartStation( String search ) { 
+	public String searchServiceWithStartStation( String search ) throws NoSuchStationNameException { 
 
 		/* Service we are looking for */
 		return _trainCompany.searchServiceWithStartStation(search);
@@ -203,7 +204,7 @@ public class TicketOffice {
 	 * @param string the station name to look for.
 	 * @return the service that has the search end station.
 	 */
-	public String searchServiceWithEndStation( String search ) {
+	public String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
 
 		/* Service we are looking for */
 		return _trainCompany.searchServiceWithEndStation(search);

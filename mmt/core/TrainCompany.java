@@ -16,6 +16,7 @@ import mmt.core.NewParser;
 import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
+import mmt.core.exceptions.NoSuchStationNameException;
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -31,6 +32,9 @@ public class TrainCompany implements java.io.Serializable {
 
 	/** The services held by the train company indexed by unique identifier. */
 	private Map<Integer, Service> _servicesMap = new TreeMap<Integer, Service>();
+
+	/** The station names held by the train company. */
+	private ArrayList<String> _stationsList = new ArrayList<String>();
 
 	/* The different categories for a passenger. */
 	private CategoryManager _categories = new CategoryManager();
@@ -147,6 +151,25 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
+	 * Add station.
+	 * 
+	 * @param s the station to add.
+	 */
+	void addStation(String s) {
+		_stationsList.add(s);
+	}
+
+	/**
+	 * Checks if a station exists.
+	 * 
+	 * @param s the station to check.
+	 * @return true if the station exists.
+	 */
+	boolean checkStation(String s) {
+		return _stationsList.contains(s);
+	}
+
+	/**
 	 * Add Service.
 	 * 
 	 * @param id the service's id.
@@ -194,35 +217,42 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param string the station name to look for.
 	 * @return the service that has the search start station.
 	 */
-	String searchServiceWithStartStation( String search ) {
+	String searchServiceWithStartStation( String search ) throws NoSuchStationNameException {
 
-		/* Converts the collection to an array to be sorted */
-		ArrayList<Service> services = new ArrayList<Service>( getServices() );
+		if (checkStation(search)) {
+			
+			/* Converts the collection to an array to be sorted */
+			ArrayList<Service> services = new ArrayList<Service>( getServices() );
 
-		/* Compares two services based on their start time */
-		Comparator<Service> comparator = new Comparator<Service>() {
-			@Override
-			public int compare(Service left, Service right) {
-				return left.getStartTime().toSecondOfDay() - right.getStartTime().toSecondOfDay();
+			/* Compares two services based on their start time */
+			Comparator<Service> comparator = new Comparator<Service>() {
+				@Override
+				public int compare(Service left, Service right) {
+					return left.getStartTime().toSecondOfDay() - right.getStartTime().toSecondOfDay();
+				}
+			};
+
+			/* The string which contains all services */
+			String result = "";
+
+			/* Sorts the collection */
+			Collections.sort(services, comparator);
+
+			/* Search for the service */
+			for ( Service s : services ) {
+
+				if ( search.equals( s.getStartStation().getName() ) ) {
+					result = result + s.toString() + '\n';
+				}
+
 			}
-		};
 
-		/* The string which contains all services */
-		String result = "";
+			return result;
 
-		/* Sorts the collection */
-		Collections.sort(services, comparator);
-
-		/* Search for the service */
-		for ( Service s : services ) {
-
-			if ( search.equals( s.getStartStation().getName() ) ) {
-				result = result + s.toString() + '\n';
-			}
-
+		} else {
+			throw new NoSuchStationNameException(search);
 		}
 
-		return result;
 	}
 
 	/**
@@ -231,35 +261,42 @@ public class TrainCompany implements java.io.Serializable {
 	 * @param string the station name to look for.
 	 * @return the service that has the search end station.
 	 */
-	String searchServiceWithEndStation( String search ) {
+	String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
 
-		/* Converts the collection to an array to be sorted */
-		ArrayList<Service> services = new ArrayList<Service>( getServices() );
+		if (checkStation(search)) {
 
-		/* Compares two services based on their start time */
-		Comparator<Service> comparator = new Comparator<Service>() {
-			@Override
-			public int compare(Service left, Service right) {
-				return left.getEndTime().toSecondOfDay() - right.getEndTime().toSecondOfDay();
+			/* Converts the collection to an array to be sorted */
+			ArrayList<Service> services = new ArrayList<Service>( getServices() );
+
+			/* Compares two services based on their start time */
+			Comparator<Service> comparator = new Comparator<Service>() {
+				@Override
+				public int compare(Service left, Service right) {
+					return left.getEndTime().toSecondOfDay() - right.getEndTime().toSecondOfDay();
+				}
+			};
+
+			/* The string which contains all services */
+			String result = "";
+
+			/* Sorts the collection */
+			Collections.sort(services, comparator);
+
+			/* Search for the service */
+			for ( Service s : services ) {
+
+				if ( search.equals( s.getEndStation().getName() ) ) {
+					result = result + s.toString() + '\n';
+				}
+
 			}
-		};
 
-		/* The string which contains all services */
-		String result = "";
+			return result;
 
-		/* Sorts the collection */
-		Collections.sort(services, comparator);
-
-		/* Search for the service */
-		for ( Service s : services ) {
-
-			if ( search.equals( s.getEndStation().getName() ) ) {
-				result = result + s.toString() + '\n';
-			}
-
+		} else {
+			throw new NoSuchStationNameException(search);
 		}
-
-		return result;
+	
 	}
 
 }

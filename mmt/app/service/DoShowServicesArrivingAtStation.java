@@ -7,6 +7,9 @@ import pt.tecnico.po.ui.Input;
 import mmt.core.Service;
 import mmt.core.TicketOffice;
 
+import mmt.app.exceptions.NoSuchStationException;
+import mmt.core.exceptions.NoSuchStationNameException;
+
 import pt.tecnico.po.ui.DialogException;
 
 /**
@@ -34,14 +37,20 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
 	@Override
 	public final void execute() throws DialogException {
 
-		_form.parse();
+		try {
+			
+			_form.parse();
 
-		/* Search for the service */
-		String service = _receiver.searchServiceWithEndStation( _search.value() );
+			/* Search for the service */
+			String service = _receiver.searchServiceWithEndStation( _search.value() );
 
-		/* Display the service */
-		_display.addLine(service);
-		_display.display();
+			/* Display the service */
+			_display.addLine(service);
+			_display.display();
+
+		} catch (NoSuchStationNameException e) {
+			throw new NoSuchStationException(e.getName());
+		}
 
 	}
 
