@@ -12,7 +12,7 @@ import mmt.app.service.ServicesMenu;
 public class DoOpenServicesMenu extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoOpenServicesMenu(TicketOffice receiver) {
 		super(Label.OPEN_SERVICES_MENU, receiver);

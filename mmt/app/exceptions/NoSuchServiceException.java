@@ -13,7 +13,7 @@ public class NoSuchServiceException extends DialogException {
 	private int _id;
 
 	/**
-	 * @param id
+	 * @param id the non-existent Service id.
 	 */
 	public NoSuchServiceException(int id) {
 		_id = id;

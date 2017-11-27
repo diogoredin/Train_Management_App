@@ -10,7 +10,7 @@ public class NoSuchDepartureException extends Exception {
 	private String _time;
 
 	/**
-	 * @param time
+	 * @param time the departure time.
 	 */
 	public NoSuchDepartureException(String time) {
 		_time = time;

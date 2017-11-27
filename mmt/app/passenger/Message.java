@@ -26,7 +26,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param id
+	 * @param id the non-existent id.
 	 * @return return error message for unknown passenger
 	 */
 	public static String noSuchPassengerId(int id) {

@@ -16,8 +16,8 @@ public class NoSuchItineraryException extends DialogException {
 	private int _storedItineraryId;
 
 	/**
-	 * @param pid
-	 * @param iid
+	 * @param pid the passenger's id.
+	 * @param iid the itinerary id.
 	 */
 	public NoSuchItineraryException(int pid, int iid) {
 		_passengerId = pid;

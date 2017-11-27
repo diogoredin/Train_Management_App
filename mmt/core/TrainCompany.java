@@ -214,7 +214,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Looks up a service with a given start station name.
 	 *
-	 * @param string the station name to look for.
+	 * @param search the station name to look for.
 	 * @return the service that has the search start station.
 	 */
 	String searchServiceWithStartStation( String search ) throws NoSuchStationNameException {
@@ -261,7 +261,7 @@ public class TrainCompany implements java.io.Serializable {
 	/**
 	 * Looks up a service with a given end station name.
 	 *
-	 * @param string the station name to look for.
+	 * @param search the station name to look for.
 	 * @return the service that has the search end station.
 	 */
 	String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {

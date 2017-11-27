@@ -22,7 +22,7 @@ import pt.tecnico.po.ui.Display;
 public class DoRegisterItinerary extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoRegisterItinerary(TicketOffice receiver) {
 		super(Label.REGISTER_ITINERARY, receiver);

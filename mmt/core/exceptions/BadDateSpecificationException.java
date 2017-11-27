@@ -10,7 +10,7 @@ public class BadDateSpecificationException extends Exception {
 	private String _date;
 
 	/**
-	 * @param date
+	 * @param date the corresponding bad date.
 	 */
 	public BadDateSpecificationException(String date) {
 		_date = date;

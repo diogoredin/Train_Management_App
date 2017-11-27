@@ -13,7 +13,7 @@ public class NoSuchStationException extends DialogException {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the non-existent Station name.
 	 */
 	public NoSuchStationException(String name) {
 		_name = name;

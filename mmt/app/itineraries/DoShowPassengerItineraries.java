@@ -16,7 +16,7 @@ public class DoShowPassengerItineraries extends Command<TicketOffice> {
 	//FIXME define input fields
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowPassengerItineraries(TicketOffice receiver) {
 		super(Label.SHOW_PASSENGER_ITINERARIES, receiver);

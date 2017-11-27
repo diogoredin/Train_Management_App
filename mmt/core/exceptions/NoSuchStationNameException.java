@@ -10,7 +10,7 @@ public class NoSuchStationNameException extends Exception {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the corresponding non-existent Station name.
 	 */
 	public NoSuchStationNameException(String name) {
 		_name = name;

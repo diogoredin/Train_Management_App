@@ -12,7 +12,7 @@ import mmt.core.TicketOffice;
 public class DoOpenItinerariesMenu extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoOpenItinerariesMenu(TicketOffice receiver) {
 		super(Label.OPEN_ITINERARIES_MENU, receiver);

@@ -10,7 +10,7 @@ public class NonUniquePassengerNameException extends Exception {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the corresponding non-unique passenger name.
 	 */
 	public NonUniquePassengerNameException(String name) {
 		_name = name;

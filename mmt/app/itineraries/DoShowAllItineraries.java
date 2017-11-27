@@ -12,7 +12,7 @@ import pt.tecnico.po.ui.Display;
 public class DoShowAllItineraries extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoShowAllItineraries(TicketOffice receiver) {
 		super(Label.SHOW_ALL_ITINERARIES, receiver);

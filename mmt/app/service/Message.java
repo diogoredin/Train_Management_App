@@ -12,7 +12,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param id
+	 * @param id the corresponding non-existent service id.
 	 * @return error message
 	 */
 	public static String noSuchServiceId(int id) {
@@ -27,7 +27,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the corresponding non-existent station name.
 	 * @return error message
 	 */
 	public static String noSuchStationName(String name) {
@@ -35,7 +35,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the corresponding non-existent service class name.
 	 * @return error message
 	 */
 	public static String noSuchServiceClassName(String name) {
@@ -43,8 +43,8 @@ public final class Message {
 	}
 
 	/**
-	 * @param pid
-	 * @param iid
+	 * @param pid the passenger's id.
+	 * @param iid the itinerary's id.
 	 * @return error message
 	 */
 	public static String noSuchItineraryChoiceForPassanger(int pid, int iid) {
@@ -52,7 +52,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the invalid passenger name.
 	 * @return error message
 	 */
 	public static String invalidPassengerName(String name) {
@@ -60,7 +60,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the duplicate passenger name.
 	 * @return error message
 	 */
 	public static String duplicatePassengerName(String name) {
@@ -68,7 +68,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param date
+	 * @param date the corresponding invalid date.
 	 * @return error message
 	 */
 	public static String invalidDateSpecification(String date) {
@@ -76,7 +76,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param time
+	 * @param time the corresponding invalid time.
 	 * @return error message
 	 */
 	public static String invalidTimeSpecification(String time) {

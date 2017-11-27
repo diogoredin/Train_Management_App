@@ -13,7 +13,7 @@ public class BadTimeException extends DialogException {
 	private String _time;
 
 	/**
-	 * @param time
+	 * @param time the corresponding bad time.
 	 */
 	public BadTimeException(String time) {
 		_time = time;

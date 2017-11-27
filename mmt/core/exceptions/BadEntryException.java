@@ -12,15 +12,15 @@ public class BadEntryException extends Exception {
 	private String _entrySpecification;
 
 	/**
-	 * @param entrySpecification
+	 * @param entrySpecification the bad entry.
 	 */
 	public BadEntryException(String entrySpecification) {
 		_entrySpecification = entrySpecification;
 	}
 
 	/**
-	 * @param entrySpecification
-	 * @param cause
+	 * @param entrySpecification the bad entry.
+	 * @param cause the exception corresponding to the cause.
 	 */
 	public BadEntryException(String entrySpecification, Exception cause) {
 		super(cause);

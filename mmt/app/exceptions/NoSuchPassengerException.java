@@ -13,7 +13,7 @@ public class NoSuchPassengerException extends DialogException {
 	private int _id;
 
 	/**
-	 * @param id
+	 * @param id the non-existent Passenger id.
 	 */
 	public NoSuchPassengerException(int id) {
 		_id = id;

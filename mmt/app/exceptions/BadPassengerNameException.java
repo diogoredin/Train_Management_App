@@ -13,7 +13,7 @@ public class BadPassengerNameException extends DialogException {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the corresponding bad passenger name.
 	 */
 	public BadPassengerNameException(String name) {
 		_name = name;

@@ -19,7 +19,7 @@ public class NewParser {
 	/**
 	 * Creates a parser which has associated a train company.
 	 *
-	 * @param TrainCompany associated with the parser.
+	 * @param trainCompany associated with the parser.
 	 */
 	public NewParser(TrainCompany trainCompany) throws ImportFileException {
 		_trainCompany = trainCompany;
@@ -95,6 +95,7 @@ public class NewParser {
 			_trainCompany.addPassenger(p);
 
 		} catch (InvalidPassengerNameException e) {
+			e.printStackTrace();
 		}
 	}
 

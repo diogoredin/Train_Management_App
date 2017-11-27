@@ -13,7 +13,7 @@ public class DuplicatePassengerNameException extends DialogException {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the passenger name.
 	 */
 	public DuplicatePassengerNameException(String name) {
 		_name = name;

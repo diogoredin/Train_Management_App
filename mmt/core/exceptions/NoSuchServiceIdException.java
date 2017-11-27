@@ -10,7 +10,7 @@ public class NoSuchServiceIdException extends Exception {
 	private int _id;
 
 	/**
-	 * @param id
+	 * @param id the corresponding non-existent service id.
 	 */
 	public NoSuchServiceIdException(int id) {
 		_id = id;

@@ -10,7 +10,7 @@ public class InvalidPassengerNameException extends Exception {
 	private String _name;
 
 	/**
-	 * @param name
+	 * @param name the corresponding invalid name.
 	 */
 	public InvalidPassengerNameException(String name) {
 		_name = name;

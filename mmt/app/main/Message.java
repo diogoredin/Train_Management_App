@@ -19,7 +19,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param filename
+	 * @param filename the associated non-existent file name.
 	 * @return string with "file not found" message (more elaborate).
 	 */
 	public static final String fileNotFound(String filename) {
@@ -53,7 +53,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param id
+	 * @param id the non-existent passenger id.
 	 * @return error message
 	 */
 	public static Object noSuchPassenger(int id) {

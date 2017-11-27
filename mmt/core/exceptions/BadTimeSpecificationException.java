@@ -10,7 +10,7 @@ public class BadTimeSpecificationException extends Exception {
 	private String _time;
 
 	/**
-	 * @param time
+	 * @param time the corresponding bad time.
 	 */
 	public BadTimeSpecificationException(String time) {
 		_time = time;

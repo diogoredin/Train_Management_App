@@ -14,7 +14,7 @@ import pt.tecnico.po.ui.DialogException;
 public class DoOpenPassengersMenu extends Command<TicketOffice> {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public DoOpenPassengersMenu(TicketOffice receiver) {
 		super(Label.OPEN_PASSENGERS_MENU, receiver);

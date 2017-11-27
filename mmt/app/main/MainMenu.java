@@ -9,7 +9,7 @@ import mmt.core.TicketOffice;
 public class MainMenu extends Menu {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public MainMenu(TicketOffice receiver) {
 		super(Label.TITLE, new Command<?>[] {

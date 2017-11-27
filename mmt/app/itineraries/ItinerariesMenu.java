@@ -8,7 +8,7 @@ import pt.tecnico.po.ui.Menu;
 public class ItinerariesMenu extends Menu {
 
 	/**
-	 * @param receiver
+	 * @param receiver the associated TicketOffice.
 	 */
 	public ItinerariesMenu(TicketOffice receiver) {
 		super(Label.TITLE, new Command<?>[] { //

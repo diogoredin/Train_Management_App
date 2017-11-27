@@ -26,7 +26,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the station name that doesn't exist.
 	 * @return error message
 	 */
 	public static String noSuchStationName(String name) {
@@ -55,7 +55,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param number
+	 * @param number the itinerary number that doesn't exist.
 	 * @return return error message for unknown id
 	 */
 	public static String noSuchItinerary(int number) {
@@ -63,7 +63,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
+	 * @param name the identifier that doesn't exist.
 	 * @return return error message for unknown section
 	 */
 	public static String noSuchIdentifier(String name) {
@@ -71,7 +71,7 @@ public final class Message {
 	}
 
 	/**
-	 * @param passengerId
+	 * @param passengerId the passengerId for the Passenger that doesn't have itineraries.
 	 * @return error message
 	 */
 	public static String noItineraries(int passengerId) {
@@ -79,8 +79,8 @@ public final class Message {
 	}
 
 	/**
-	 * @param name
-	 * @param dependent
+	 * @param name the identifier that's already in use.
+	 * @param dependent the identifier of the user.
 	 * @return error message for identifier removal
 	 */
 	public static String identifierInUse(String name, String dependent) {

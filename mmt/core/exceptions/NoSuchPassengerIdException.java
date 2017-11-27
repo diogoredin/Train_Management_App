@@ -10,7 +10,7 @@ public class NoSuchPassengerIdException extends Exception {
 	private int _id;
 
 	/**
-	 * @param id
+	 * @param id the corresponding non-existent passenger id.
 	 */
 	public NoSuchPassengerIdException(int id) {
 		_id = id;

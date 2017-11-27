@@ -13,7 +13,7 @@ public class BadDateException extends DialogException {
 	private String _date;
 
 	/**
-	 * @param date
+	 * @param date the corresponding bad date.
 	 */
 	public BadDateException(String date) {
 		_date = date;

@@ -13,8 +13,8 @@ public class NoSuchItineraryChoiceException extends Exception {
 	private int _storedItineraryId;
 
 	/**
-	 * @param pid
-	 * @param iid
+	 * @param pid the passenger id.
+	 * @param iid the itinerary id.
 	 */
 	public NoSuchItineraryChoiceException(int pid, int iid) {
 		_passengerId = pid;

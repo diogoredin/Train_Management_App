@@ -11,6 +11,7 @@ clean:
 	rm -rf PO_Project/* `find ./mmt -name "*.class"`
 	rm -rf PO_Project/* `find ./ -name "*.diff"`
 	rm -rf PO_Project/* `find ./ -name "*.outhyp"`
+	rm -rf docs
 	clear
 
 docs:

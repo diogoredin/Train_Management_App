@@ -145,7 +145,8 @@ public class TicketOffice {
 	/**
 	 * Add passenger.
 	 * 
-	 * @param p the passenger to add.
+	 * @param id the new passenger's id.
+	 * @param name the new passenger's name.
 	 */
 	public void addPassenger(int id, String name) throws InvalidPassengerNameException {
 		Passenger p = new Passenger(id, name);
@@ -189,7 +190,7 @@ public class TicketOffice {
 	/**
 	 * Looks up a service with a given start station name.
 	 *
-	 * @param string the station name to look for.
+	 * @param search the station name to look for.
 	 * @return the service that has the search start station.
 	 */
 	public String searchServiceWithStartStation( String search ) throws NoSuchStationNameException { 
@@ -201,7 +202,7 @@ public class TicketOffice {
 	/**
 	 * Looks up a service with a given end station name.
 	 *
-	 * @param string the station name to look for.
+	 * @param search the station name to look for.
 	 * @return the service that has the search end station.
 	 */
 	public String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
