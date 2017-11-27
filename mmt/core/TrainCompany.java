@@ -232,8 +232,8 @@ public class TrainCompany implements java.io.Serializable {
 				}
 			};
 
-			/* The string which contains all services */
-			String result = "";
+			/* StringBuffer for efficient appending of service descriptions */
+			StringBuffer buf = new StringBuffer();
 
 			/* Sorts the collection */
 			Collections.sort(services, comparator);
@@ -242,10 +242,13 @@ public class TrainCompany implements java.io.Serializable {
 			for ( Service s : services ) {
 
 				if ( search.equals( s.getStartStation().getName() ) ) {
-					result = result + s.toString() + '\n';
+					buf.append ( s.toString() + '\n' );
 				}
 
 			}
+
+			/* Converting the buffer to a String */
+			String result = buf.toString();
 
 			return result;
 
@@ -276,8 +279,8 @@ public class TrainCompany implements java.io.Serializable {
 				}
 			};
 
-			/* The string which contains all services */
-			String result = "";
+			/* StringBuffer for efficient appending of service descriptions */
+			StringBuffer buf = new StringBuffer();
 
 			/* Sorts the collection */
 			Collections.sort(services, comparator);
@@ -286,10 +289,13 @@ public class TrainCompany implements java.io.Serializable {
 			for ( Service s : services ) {
 
 				if ( search.equals( s.getEndStation().getName() ) ) {
-					result = result + s.toString() + '\n';
+					buf.append( s.toString() + '\n' );
 				}
 
 			}
+
+			/* Converting the buffer to a String */
+			String result = buf.toString();
 
 			return result;
 

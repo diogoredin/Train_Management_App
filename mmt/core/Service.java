@@ -144,7 +144,11 @@ public class Service implements java.io.Serializable {
 		String cost = String.format(Locale.US, "%.2f", getCost());
 
 		/* Stores all properties */
-		String result = "Serviço #" + id + " @ " + cost;
+		String serviceDescription = "Serviço #" + id + " @ " + cost;
+
+		/* Creates StringBuffer for efficient appending of new strings */
+		StringBuffer buf = new StringBuffer();
+		buf.append(serviceDescription);
 
 		/* Adds last train stop temporarly */
 		_startTrainStops.add( _endTrainStops.get(_endTrainStops.size()-1) );
@@ -156,11 +160,14 @@ public class Service implements java.io.Serializable {
 			Station station = start.getStation();
 			String name = station.getName();
 
-			result = result + "\n" + time.toString() + " " + name;
+			buf.append("\n" + time.toString() + " " + name);
 		}
 
 		/* Removes last train stop added temporarly */
 		_startTrainStops.remove( _startTrainStops.size()-1 );
+
+		/* Converts buffer into a String */
+		String result = buf.toString();
 
 		return result;
 	}
