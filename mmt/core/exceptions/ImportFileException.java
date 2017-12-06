@@ -16,14 +16,14 @@ public class ImportFileException extends Exception {
 	}
 
 	/**
-	 * @param description
+	 * @param description String description of the problem.
 	 */
 	public ImportFileException(String description) {
 		super(description);
 	}
 
 	/**
-	 * @param cause
+	 * @param cause Exception causing the problem.
 	 */
 	public ImportFileException(Exception cause) {
 		super(cause);

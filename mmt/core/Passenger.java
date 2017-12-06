@@ -50,13 +50,17 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/** 
-	 * @return if a name is valid (non-null and not an empty string), returns true; else false.
+	 * Returns whether or not a name is valid for a Passenger.
+	 *
+	 * @return if a name is valid (non-null and not an empty string), returns true; else returns false.
 	 */
 	boolean validName(String name) {
 		return name != null && !name.isEmpty();
 	}
 
 	/** 
+	 * Returns the passenger's unique identifier.
+	 * 
 	 * @return the passenger's unique identifier.
 	 */
 	final int getId() {
@@ -64,6 +68,8 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the passenger's name.
+	 *
 	 * @return the passenger's name.
 	 */
 	final String getName() {
@@ -71,6 +77,8 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the passenger's associated number of itineraries.
+	 *
 	 * @return the passenger's associated number of itineraries.
 	 */
 	int getNumberOfItineraries() {
@@ -78,6 +86,8 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the value of the passenger's last 10 itineraries.
+	 *
 	 * @return the last 10 itinerary values.
 	 */
 	double getLastValues() {
@@ -107,6 +117,8 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns a String description of a passenger.
+	 * 
 	 * @return String description of a passenger.
 	 */
 	public String toString() {

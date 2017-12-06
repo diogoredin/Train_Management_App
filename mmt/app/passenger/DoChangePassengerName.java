@@ -34,6 +34,7 @@ public class DoChangePassengerName extends Command<TicketOffice> {
 		_id = _form.addIntegerInput(m);
 		m = Message.requestPassengerName();
 		_name = _form.addStringInput(m);
+
 	}
 
 	/** 

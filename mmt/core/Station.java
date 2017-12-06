@@ -21,8 +21,10 @@ public class Station implements java.io.Serializable {
 	}
 
 	/** 
+	 * Returns the name of the station.
+	 *
 	 * @return the name of the station.
-	 **/
+	 */
 	final String getName() {
 		return _name;
 	}

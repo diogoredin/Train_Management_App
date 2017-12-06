@@ -21,7 +21,7 @@ public class NewParser {
 	 *
 	 * @param trainCompany associated with the parser.
 	 */
-	public NewParser(TrainCompany trainCompany) throws ImportFileException {
+	public NewParser(TrainCompany trainCompany) {
 		_trainCompany = trainCompany;
 	}
 
@@ -29,6 +29,7 @@ public class NewParser {
 	 * Parses a given file and adds the data to our app.
 	 *
 	 * @param fileName a file with data.
+	 * @throws ImportFileException if errors occur in file reading.
 	 */
 	public void parseFile(String fileName) throws ImportFileException {
 
@@ -48,6 +49,7 @@ public class NewParser {
 	 * Parses a given line of a data file.
 	 *
 	 * @param line the line to parse.
+	 * @throws ImportFileException if errors occur in file reading.
 	 */
 	private void parseLine(String line) throws ImportFileException {
 		String[] components = line.split("\\|");
@@ -74,6 +76,7 @@ public class NewParser {
 	 * Parses a passenger, i.e. grabs its properties and adds it to the train company.
 	 *
 	 * @param components the properties required for the passenger.
+	 * @throws ImportFileException if errors occur in file reading.
 	 */
 	private void parsePassenger(String[] components) throws ImportFileException {
 		if (components.length != 2) {
@@ -168,6 +171,7 @@ public class NewParser {
 	 * Parses an itinerary, i.e. grabs its properties and adds it to the app.
 	 *
 	 * @param components the properties required for the itinerary.
+	 * @throws ImportFileException if errors occur in file reading.
 	 */
 	private void parseItinerary(String[] components) throws ImportFileException {
 		if (components.length < 4)

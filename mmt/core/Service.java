@@ -45,6 +45,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/** 
+	 * Returns the service's unique identifier.
+	 *
 	 * @return the service's unique identifier.
 	 */
 	int getId() {
@@ -52,6 +54,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the service's associated cost.
+	 *
 	 * @return the service's cost.
 	 */
 	double getCost() {
@@ -77,6 +81,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the time when this service starts.
+	 *
 	 * @return the time when this service starts.
 	 */
     LocalTime getStartTime() {
@@ -88,6 +94,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the time when this service ends.
+	 *
 	 * @return the time when this service ends.
 	 */
     LocalTime getEndTime() {
@@ -99,6 +107,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the Station where this service starts.
+	 *
 	 * @return the station where this service starts.
 	 */
     Station getStartStation() {
@@ -110,6 +120,8 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the station where this service ends.
+	 *
 	 * @return the station where this service ends.
 	 */
     Station getEndStation() {
@@ -121,6 +133,7 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the total duration of this service.
 	 * @return the total duration of a service.
 	 */
     Duration getTotalDuration() {
@@ -135,7 +148,9 @@ public class Service implements java.io.Serializable {
 	}
 
 	/**
-	 * @return String description of a service.
+	 * Returns a String description of this service.
+	 *
+	 * @return String description of this service.
 	 */
 	public String toString() {
 
@@ -154,14 +169,14 @@ public class Service implements java.io.Serializable {
 		_startTrainStops.add( _endTrainStops.get(_endTrainStops.size()-1) );
 
 		/* Adds segment information */
-		for (TrainStop start : _startTrainStops ) {
+		_startTrainStops.forEach ((TrainStop start)-> {
 
 			LocalTime time = start.getTime();
 			Station station = start.getStation();
 			String name = station.getName();
 
 			buf.append("\n" + time.toString() + " " + name);
-		}
+		});
 
 		/* Removes last train stop added temporarly */
 		_startTrainStops.remove( _startTrainStops.size()-1 );

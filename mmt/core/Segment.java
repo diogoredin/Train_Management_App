@@ -27,6 +27,8 @@ public class Segment implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the segment's duration.
+	 * 
 	 * @return the segment duration.
 	 */
 	Duration getDuration() {
@@ -34,6 +36,8 @@ public class Segment implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the segment's cost.
+	 *
 	 * @return the segment cost.
 	 */
 	double getCost() {

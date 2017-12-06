@@ -136,6 +136,8 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the collection of passengers of this TrainCompany.
+	 *
 	 * @return the collection of passengers of this trainCompany ordered by id.
 	 */
 	Collection<Passenger> getPassengers() {
@@ -204,6 +206,8 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the collection of services of this TrainCompany.
+	 *
 	 * @return the collection of services of this trainCompany ordered by id.
 	 */
 	Collection<Service> getServices() {
@@ -239,13 +243,11 @@ public class TrainCompany implements java.io.Serializable {
 			Collections.sort(services, comparator);
 
 			/* Search for the service */
-			for ( Service s : services ) {
-
+			services.forEach ((Service s)-> {
 				if ( search.equals( s.getStartStation().getName() ) ) {
 					buf.append ( s.toString() + '\n' );
 				}
-
-			}
+			});
 
 			/* Converting the buffer to a String */
 			String result = buf.toString();
@@ -286,13 +288,11 @@ public class TrainCompany implements java.io.Serializable {
 			Collections.sort(services, comparator);
 
 			/* Search for the service */
-			for ( Service s : services ) {
-
+			services.forEach((Service s)-> {
 				if ( search.equals( s.getEndStation().getName() ) ) {
 					buf.append( s.toString() + '\n' );
 				}
-
-			}
+			});
 
 			/* Converting the buffer to a String */
 			String result = buf.toString();

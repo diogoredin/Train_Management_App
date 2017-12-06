@@ -58,6 +58,8 @@ public class TicketOffice {
 	}
 
 	/**
+	 * Returns a String with the this TicketOffice's associated file name.
+	 *
 	 * @return the associated file's name.
 	 */
 	public String getFileName() {
@@ -65,6 +67,8 @@ public class TicketOffice {
 	}
 
 	/**
+	 * Returns whether or not this TicketOffice has an associated file.
+	 *
 	 * @return if the TicketOffice has an associated file, return true; else, return false.
 	 */
 	public boolean hasAssociatedFile() {
@@ -75,6 +79,7 @@ public class TicketOffice {
 	 * Saves the associated TrainCompany's data to a file.
 	 *
 	 * @param fileName the name of the file to be saved.
+	 * @throws IOException if errors occur in file writing.
 	 */
 	public void save(String fileName) throws IOException {
 	
@@ -95,6 +100,8 @@ public class TicketOffice {
 	 * Loads the new TrainCompany data from a file.
 	 *
 	 * @param fileName the name of the file from which the data will be loaded.
+	 * @throws IOException if errors occur in file reading.
+	 * @throws ClassNotFoundException if the file cannot be found.
 	 */
 	public void load(String fileName) throws IOException, ClassNotFoundException {
 
@@ -115,6 +122,7 @@ public class TicketOffice {
 	 * Imports the default Services, Passengers and Itineraries from a file.
 	 *
 	 * @param fileName the name of the import file.
+	 * @throws ImportFileException if the file cannot be properly read.
 	 */
 	public void importFile(String fileName) throws ImportFileException {
 
@@ -129,13 +137,17 @@ public class TicketOffice {
 	 * Changes a given passenger name.
 	 * 
 	 * @param id of the passenger.
-	 * @param newname the new name to give the passenger (non-null, must not be an empty String).
+	 * @param newname the new name to give the passenger
+	 * @throws NoSuchPassengerIdException if passenger id does not exist.
+	 * @throws InvalidPassengerNameException if passenger name is null or an empty String.
 	 */
 	public void changePassengerName(int id, String newname) throws NoSuchPassengerIdException, InvalidPassengerNameException {
 		_trainCompany.changePassengerName(id, newname);
 	}
 
 	/**
+	 * Returns the next passenger's assigned id.
+	 * 
 	 * @return the next passenger's assigned id.
 	 */
 	public int getNextPassengerId() {
@@ -147,6 +159,7 @@ public class TicketOffice {
 	 * 
 	 * @param id the new passenger's id.
 	 * @param name the new passenger's name.
+	 * @throws InvalidPassengerNameException if passenger name is null or an empty String.
 	 */
 	public void addPassenger(int id, String name) throws InvalidPassengerNameException {
 		Passenger p = new Passenger(id, name);
@@ -154,7 +167,9 @@ public class TicketOffice {
 	}
 
 	/**
-	 * @return the collection of passengers of this trainCompany ordered by id.
+	 * Returns a collection containing the passengers of the TrainCompany.
+	 *
+	 * @return the collection of passengers of this TrainCompany ordered by id.
 	 */
 	public Collection<Passenger> getPassengers() {
 		return _trainCompany.getPassengers();
@@ -165,13 +180,15 @@ public class TicketOffice {
 	 *
 	 * @param id the passenger's id.
 	 * @return passenger String description.
+	 * @throws NoSuchPassengerIdException if passenger id does not exist.
 	 */
 	public String getPassengerDescription(int id) throws NoSuchPassengerIdException {
 		return _trainCompany.getPassengerDescription(id);
 	}
 
 	/**
-	 * @return the collection of services of this trainCompany ordered by id.
+	 * Returns a collection containing the services of the TrainCompany.
+	 * @return the collection of services of this TrainCompany ordered by id.
 	 */
 	public Collection<Service> getServices() {
 		return _trainCompany.getServices();
@@ -182,6 +199,7 @@ public class TicketOffice {
 	 * 
 	 * @param id the service's identifier.
 	 * @return the service with the given identifier.
+	 * @throws NoSuchServiceIdException if the service id does not exist.
 	 */
 	public Service getService(int id) throws NoSuchServiceIdException {
 		return _trainCompany.getService(id);
@@ -192,6 +210,7 @@ public class TicketOffice {
 	 *
 	 * @param search the station name to look for.
 	 * @return the service that has the search start station.
+	 * @throws NoSuchStationNameException if station name does not exist.
 	 */
 	public String searchServiceWithStartStation( String search ) throws NoSuchStationNameException { 
 
@@ -204,6 +223,7 @@ public class TicketOffice {
 	 *
 	 * @param search the station name to look for.
 	 * @return the service that has the search end station.
+	 * @throws NoSuchStationNameException if station name does not exist.
 	 */
 	public String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
 
