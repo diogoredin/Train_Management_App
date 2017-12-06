@@ -12,6 +12,7 @@ clean:
 	rm -rf PO_Project/* `find ./ -name "*.diff"`
 	rm -rf PO_Project/* `find ./ -name "*.outhyp"`
 	rm -rf docs
+	rm -f proj.jar
 	clear
 
 docs:

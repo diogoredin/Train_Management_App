@@ -42,9 +42,6 @@ public class TrainCompany implements java.io.Serializable {
 	/* Give each passenger a unique identifier. */
 	private int _nextPassengerId;
 
-	/* Give each service a unique identifier. */
-	private int _nextServiceId;
-
 	/**
 	 * Constructor.
 	 */
