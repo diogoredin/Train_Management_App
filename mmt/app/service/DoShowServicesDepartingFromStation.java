@@ -1,5 +1,7 @@
 package mmt.app.service;
 
+import java.util.Collection;
+
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
@@ -42,10 +44,13 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 			_form.parse();
 
 			/* Search for the service */
-			String service = _receiver.searchServiceWithStartStation( _search.value() );
+			Collection<Service> services = _receiver.searchServiceWithStartStation( _search.value() );
 
 			/* Display the service */
-			_display.addLine(service);
+			services.forEach((Service s)-> {
+				_display.addLine(s.toString());
+			});
+			
 			_display.display();
 
 		} catch (NoSuchStationNameException e) {

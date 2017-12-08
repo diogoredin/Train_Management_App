@@ -5,7 +5,7 @@ import java.time.LocalTime;
 /**
  * Class describing a TrainStop, which is an event when a train stops at a certain time at a certain station.
  */
-public class TrainStop implements java.io.Serializable {
+public class TrainStop implements java.io.Serializable, Visitable {
 
 	/** Serial number for serialization. */
 	private static final long serialVersionUID = 201708301014L;
@@ -58,5 +58,7 @@ public class TrainStop implements java.io.Serializable {
 	Segment getSegment() {
 		return _segment;
 	}
+
+	public void accept(Visitor visitor) {}
 
 }

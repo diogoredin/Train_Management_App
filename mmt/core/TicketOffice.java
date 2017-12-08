@@ -188,6 +188,7 @@ public class TicketOffice {
 
 	/**
 	 * Returns a collection containing the services of the TrainCompany.
+	 *
 	 * @return the collection of services of this TrainCompany ordered by id.
 	 */
 	public Collection<Service> getServices() {
@@ -212,7 +213,7 @@ public class TicketOffice {
 	 * @return the service that has the search start station.
 	 * @throws NoSuchStationNameException if station name does not exist.
 	 */
-	public String searchServiceWithStartStation( String search ) throws NoSuchStationNameException { 
+	public Collection<Service> searchServiceWithStartStation( String search ) throws NoSuchStationNameException { 
 
 		/* Service we are looking for */
 		return _trainCompany.searchServiceWithStartStation(search);
@@ -225,7 +226,7 @@ public class TicketOffice {
 	 * @return the service that has the search end station.
 	 * @throws NoSuchStationNameException if station name does not exist.
 	 */
-	public String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
+	public Collection<Service> searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
 
 		/* Service we are looking for */
 		return _trainCompany.searchServiceWithEndStation(search);

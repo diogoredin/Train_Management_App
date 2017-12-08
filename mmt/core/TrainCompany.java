@@ -78,6 +78,8 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the next passenger's assigned id.
+	 *
 	 * @return the next passenger's assigned id.
 	 */
 	int getNextPassengerId() {
@@ -213,17 +215,20 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
-	 * Looks up a service with a given start station name.
+	 * Looks up services with a given start station name.
 	 *
 	 * @param search the station name to look for.
-	 * @return the service that has the search start station.
+	 * @return the services that have the search start station.
 	 */
-	String searchServiceWithStartStation( String search ) throws NoSuchStationNameException {
+	Collection<Service> searchServiceWithStartStation( String search ) throws NoSuchStationNameException {
 
 		if (checkStation(search)) {
 			
 			/* Converts the collection to an array to be sorted */
 			ArrayList<Service> services = new ArrayList<Service>( getServices() );
+
+			/* Service collection to be returned */
+			Collection<Service> result = new ArrayList<Service>();
 
 			/* Compares two services based on their start time */
 			Comparator<Service> comparator = new Comparator<Service>() {
@@ -233,23 +238,17 @@ public class TrainCompany implements java.io.Serializable {
 				}
 			};
 
-			/* StringBuffer for efficient appending of service descriptions */
-			StringBuffer buf = new StringBuffer();
-
 			/* Sorts the collection */
 			Collections.sort(services, comparator);
 
 			/* Search for the service */
 			services.forEach ((Service s)-> {
 				if ( search.equals( s.getStartStation().getName() ) ) {
-					buf.append ( s.toString() + '\n' );
+					result.add(s);
 				}
 			});
 
-			/* Converting the buffer to a String */
-			String result = buf.toString();
-
-			return result;
+			return Collections.unmodifiableCollection(result);
 
 		} else {
 			throw new NoSuchStationNameException(search);
@@ -258,17 +257,20 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	/**
-	 * Looks up a service with a given end station name.
+	 * Looks up services with a given end station name.
 	 *
 	 * @param search the station name to look for.
-	 * @return the service that has the search end station.
+	 * @return the services that have the search end station.
 	 */
-	String searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
+	Collection<Service> searchServiceWithEndStation( String search ) throws NoSuchStationNameException {
 
 		if (checkStation(search)) {
 
 			/* Converts the collection to an array to be sorted */
 			ArrayList<Service> services = new ArrayList<Service>( getServices() );
+
+			/* Service collection to be returned */
+			Collection<Service> result = new ArrayList<Service>();
 
 			/* Compares two services based on their start time */
 			Comparator<Service> comparator = new Comparator<Service>() {
@@ -278,28 +280,34 @@ public class TrainCompany implements java.io.Serializable {
 				}
 			};
 
-			/* StringBuffer for efficient appending of service descriptions */
-			StringBuffer buf = new StringBuffer();
-
 			/* Sorts the collection */
 			Collections.sort(services, comparator);
 
 			/* Search for the service */
 			services.forEach((Service s)-> {
 				if ( search.equals( s.getEndStation().getName() ) ) {
-					buf.append( s.toString() + '\n' );
+					result.add(s);
 				}
 			});
 
-			/* Converting the buffer to a String */
-			String result = buf.toString();
-
-			return result;
+			return Collections.unmodifiableCollection(result);
 
 		} else {
 			throw new NoSuchStationNameException(search);
 		}
 	
 	}
+
+	void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+		String departureTime) {
+		ItineraryBuilder builder = new ItineraryBuilder(departureStation, arrivalStation, departureDate, departureTime, this);
+	
+
+
+
+
+	}
+
+	
 
 }

@@ -1,5 +1,7 @@
 package mmt.core;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,7 +18,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
  *
  * Services have associated train stops, total cost and total duration of the service.
  */
-public class Service implements java.io.Serializable {
+public class Service implements java.io.Serializable, Visitable {
 
 	/** Serial number for serialization. */
 	private static final long serialVersionUID = 201708301012L;
@@ -25,13 +27,13 @@ public class Service implements java.io.Serializable {
 	private int _id;
 
 	/** The cost of this service. */
-    private double _cost;
+	private double _cost;
 
 	/** The departure train stops that compose this service. */
-    private ArrayList<TrainStop> _startTrainStops = new ArrayList<TrainStop>();
+	private ArrayList<TrainStop> _startTrainStops = new ArrayList<TrainStop>();
 
 	/** The arrival train stops that compose this service. */
-    private ArrayList<TrainStop> _endTrainStops = new ArrayList<TrainStop>();
+	private ArrayList<TrainStop> _endTrainStops = new ArrayList<TrainStop>();
 
 	/**
 	 * Creates a service that is associated with an id and cost.
@@ -85,7 +87,7 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @return the time when this service starts.
 	 */
-    LocalTime getStartTime() {
+	LocalTime getStartTime() {
 
 		TrainStop startStop = _startTrainStops.get(0);
 		LocalTime time = startStop.getTime();
@@ -98,7 +100,7 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @return the time when this service ends.
 	 */
-    LocalTime getEndTime() {
+	LocalTime getEndTime() {
 
 		TrainStop endStop = _endTrainStops.get(_endTrainStops.size()-1);
 		LocalTime time = endStop.getTime();
@@ -111,7 +113,7 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @return the station where this service starts.
 	 */
-    Station getStartStation() {
+	Station getStartStation() {
 
 		TrainStop startStop = _startTrainStops.get(0);
 		Station station = startStop.getStation();
@@ -124,7 +126,7 @@ public class Service implements java.io.Serializable {
 	 *
 	 * @return the station where this service ends.
 	 */
-    Station getEndStation() {
+	Station getEndStation() {
 
 		TrainStop endStop = _endTrainStops.get(_endTrainStops.size()-1);
 		Station station = endStop.getStation();
@@ -136,7 +138,7 @@ public class Service implements java.io.Serializable {
 	 * Returns the total duration of this service.
 	 * @return the total duration of a service.
 	 */
-    Duration getTotalDuration() {
+	Duration getTotalDuration() {
 
 		Duration totalDuration = Duration.ofSeconds(0);
 
@@ -185,5 +187,22 @@ public class Service implements java.io.Serializable {
 		String result = buf.toString();
 
 		return result;
+	}
+
+	Collection<TrainStop> getAllTrainStops() {
+
+		/* Adds last train stop temporarly */
+		_startTrainStops.add( _endTrainStops.get(_endTrainStops.size()-1) );
+
+		Collection<TrainStop> result = Collections.unmodifiableCollection(_startTrainStops);
+
+		/* Removes last train stop added temporarly */
+		_startTrainStops.remove( _startTrainStops.size()-1 );
+
+		return result;
+	}
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }
