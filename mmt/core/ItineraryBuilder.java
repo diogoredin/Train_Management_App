@@ -26,7 +26,7 @@ public class ItineraryBuilder implements Visitor {
 	/** Cost of the built itinerary */
 	private double _cost;
 
-	/** String description of the itinerary */
+	/** String description of the built itinerary */
 	private String _description;
 
 	/** Duration of built itinerary */
@@ -126,10 +126,9 @@ public class ItineraryBuilder implements Visitor {
 
 			String serviceDescription = "Serviço #" + service.getId() + " @ " + costDesc;
 
-			serviceBuf.append(serviceDescription);
-			serviceBuf.append(stopsBuf);
-
-			descriptionBuf.append(serviceBuf);
+			serviceBuf.append( serviceDescription );
+			serviceBuf.append( stopsBuf );
+			descriptionBuf.append( serviceBuf );
 
 			i++;
 		}

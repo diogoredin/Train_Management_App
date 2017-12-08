@@ -1,6 +1,7 @@
 package mmt.core;
 
 import java.util.Locale;
+import java.util.TreeMap;
 
 import java.time.Duration;
 
@@ -37,6 +38,9 @@ public class Passenger implements java.io.Serializable {
 
 	/** The passenger's number of itineraries (FIXME: define itineraries) */
 	private int _numberOfItineraries = 0;
+
+	/** The passenger's associated itineraries */
+	private TreeMap<Integer, Itinerary> _itineraries = new TreeMap<Integer, Itinerary>();
 
 	/**
 	 * Creates a passenger that is associated with a trainCompany, id comes from the trainCompany
@@ -82,7 +86,7 @@ public class Passenger implements java.io.Serializable {
 	 * @return the passenger's associated number of itineraries.
 	 */
 	int getNumberOfItineraries() {
-		return _numberOfItineraries;
+		return _itineraries.size();
 	}
 
 	/**
