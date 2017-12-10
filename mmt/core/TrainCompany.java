@@ -348,7 +348,7 @@ public class TrainCompany implements java.io.Serializable {
 
 			String cost = String.format(Locale.US, "%.2f", option.getCost());
 			buf.append("Itinerário " + i + " para " + option.getDepartureDate() + " @ " + cost);
-			buf.append(option.toString());
+			buf.append(option.toString() + "\n\n");
 			i++;
 		}
 
