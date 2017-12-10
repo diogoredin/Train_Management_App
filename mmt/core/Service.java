@@ -189,17 +189,14 @@ public class Service implements java.io.Serializable, Visitable {
 		return result;
 	}
 
-	Collection<TrainStop> getAllTrainStops() {
+	Collection<TrainStop> getStartTrainStops() {
 
-		/* Adds last train stop temporarly */
-		_startTrainStops.add( _endTrainStops.get(_endTrainStops.size()-1) );
+		return Collections.unmodifiableCollection(_startTrainStops);
+	}
 
-		Collection<TrainStop> result = Collections.unmodifiableCollection(_startTrainStops);
+	Collection<TrainStop> getEndTrainStops() {
 
-		/* Removes last train stop added temporarly */
-		_startTrainStops.remove( _startTrainStops.size()-1 );
-
-		return result;
+		return Collections.unmodifiableCollection(_endTrainStops);
 	}
 
 	public void accept(Visitor visitor) {

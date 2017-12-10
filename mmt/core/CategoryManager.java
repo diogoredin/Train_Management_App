@@ -41,7 +41,6 @@ public class CategoryManager implements java.io.Serializable {
 		while (iter.hasNext()) {
 			category = iter.next();
 			if (category.getMinimumValue() > value) {
-
 				iter.previous();
 				return iter.previous();
 			}

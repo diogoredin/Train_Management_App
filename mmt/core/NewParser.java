@@ -2,19 +2,32 @@ package mmt.core;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Comparator;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.Duration;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import java.text.SimpleDateFormat;
+
 
 import java.io.IOException;
+import java.text.ParseException;
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.InvalidPassengerNameException;
+import mmt.core.exceptions.NoSuchServiceIdException;
+import mmt.core.exceptions.NoSuchPassengerIdException;
 
 public class NewParser {
 
 	/** The train company associated with the parser. */
 	private TrainCompany _trainCompany;
+
+	/** The built itineraries to be sorted. */
+	private ArrayList<BuiltItinerary> _built = new ArrayList<BuiltItinerary>();
 
 	/**
 	 * Creates a parser which has associated a train company.
@@ -41,6 +54,42 @@ public class NewParser {
 			}
 		} catch (IOException ioe) {
 			throw new ImportFileException(ioe);
+		}
+
+		Comparator<BuiltItinerary> comparator = new Comparator<BuiltItinerary>() {
+				@Override
+				public int compare(BuiltItinerary left, BuiltItinerary right) {
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					Date leftDate = new Date();
+					Date rightDate = new Date();
+					try {
+						leftDate = format.parse(left.getDepartureDate());
+						rightDate = format.parse(right.getDepartureDate());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					return leftDate.compareTo(rightDate);
+				}
+			};
+
+		_built.sort(comparator);
+
+		try {
+			for ( BuiltItinerary build : _built ) {
+				double cost = build.getCost();
+				String costDesc = String.format(Locale.US, "%.2f", cost);
+				Duration duration = build.getDuration();
+				int id = _trainCompany.getPassenger(build.getId()).getNumberOfItineraries() + 1;
+				String description = build.toString();
+				String date = build.getDepartureDate();
+
+				StringBuffer buf = new StringBuffer();
+				buf.append("\nItinerário " + id + " para " + date + " @ " + costDesc);
+				buf.append( description );
+				_trainCompany.getPassenger(build.getId()).addItinerary( new Itinerary (id, cost, buf.toString(), duration) );
+			}
+		} catch (NoSuchPassengerIdException e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -94,7 +143,7 @@ public class NewParser {
 
 			/* Creates a new passenger for the Train Company */
 			int id = _trainCompany.getNextPassengerId();
-			Passenger p = new Passenger(id, name);
+			Passenger p = new Passenger(id, name, _trainCompany);
 			_trainCompany.addPassenger(p);
 
 		} catch (InvalidPassengerNameException e) {
@@ -174,25 +223,40 @@ public class NewParser {
 	 * @throws ImportFileException if errors occur in file reading.
 	 */
 	private void parseItinerary(String[] components) throws ImportFileException {
-		if (components.length < 4)
-			throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
+		try {
+			if (components.length < 4)
+				throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 
-		int passengerId = Integer.parseInt(components[1]);
-		LocalDate date = LocalDate.parse(components[2]);
+			int passengerId = Integer.parseInt(components[1]);
+			String date = components[2];
 
-		// criar um itinerário com data indicada
+			// criar um itinerário com data indicada
+			ArrayList<Service> services = new ArrayList<Service>();
+			ArrayList<String> stations = new ArrayList<String>();
+			ArrayList<BuiltItinerary> build = new ArrayList<BuiltItinerary>();
 
-		for (int i = 3; i < components.length; i++) {
-			String segmentDescription[] = components[i].split("/");
+			for (int i = 3; i < components.length; i++) {
 
-			int serviceId = Integer.parseInt(segmentDescription[0]);
-			String departureTrainStop = segmentDescription[1];
-			String arrivalTrainStop = segmentDescription[2];
+				String segmentDescription[] = components[i].split("/");
 
-			// criar segmento com paragem em departureTrainStop e arrivalTrainStop
-			// adicionar segmento ao itinerario 
+				int serviceId = Integer.parseInt(segmentDescription[0]);
+				Service service = _trainCompany.getService(serviceId);
+				services.add(service);
+				if (i == 3) {
+					String departureTrainStop = segmentDescription[1];
+					stations.add(departureTrainStop);
+				}
+
+				String arrivalTrainStop = segmentDescription[2];
+				stations.add(arrivalTrainStop);
+
+			}
+
+			_built.add(new BuiltItinerary(services, stations, date, _trainCompany, passengerId));
+			
+
+		} catch (NoSuchServiceIdException e) {
+			e.printStackTrace();
 		}
-
-		// adicionar o itinerário ao passageiro
 	}
 }

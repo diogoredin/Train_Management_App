@@ -2,9 +2,12 @@ package mmt.core;
 
 import java.util.Locale;
 import java.util.TreeMap;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import java.time.Duration;
 
+import java.lang.InterruptedException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.InvalidPassengerNameException;
 
@@ -27,20 +30,20 @@ public class Passenger implements java.io.Serializable {
 	/** The passenger's unique identifier. */
 	private final int _id;
 
+	/** The passenger's TrainCompany. */
+	private TrainCompany _company;
+
 	/** The passenger's name. */
 	private String _name;
 
 	/** The passenger's category. */
 	private Category _category;
 
-	/** The passenger's last 10 Itinerary values (FIXME: define itineraries) */
-	private double _lastValues = 0;
-
-	/** The passenger's number of itineraries (FIXME: define itineraries) */
-	private int _numberOfItineraries = 0;
-
 	/** The passenger's associated itineraries */
 	private TreeMap<Integer, Itinerary> _itineraries = new TreeMap<Integer, Itinerary>();
+
+	/** The passenger's last 10 itinerary values */
+	private ArrayBlockingQueue<Double> _lastValues = new ArrayBlockingQueue<Double>(10);
 
 	/**
 	 * Creates a passenger that is associated with a trainCompany, id comes from the trainCompany
@@ -48,9 +51,10 @@ public class Passenger implements java.io.Serializable {
 	 * @param id the passenger's unique id.
 	 * @param name the passenger's name (non-null, must not be an empty String).
 	 */
-	Passenger(int id, String name) throws InvalidPassengerNameException {
+	Passenger(int id, String name, TrainCompany company) throws InvalidPassengerNameException {
 		setName(name);
 		_id = id;
+		_company = company;
 	}
 
 	/** 
@@ -95,7 +99,13 @@ public class Passenger implements java.io.Serializable {
 	 * @return the last 10 itinerary values.
 	 */
 	double getLastValues() {
-		return _lastValues;
+		double result = 0;
+
+		for ( double value : _lastValues ) {
+			result += value;
+		}
+
+		return result;
 	}
 
 	/**
@@ -135,7 +145,7 @@ public class Passenger implements java.io.Serializable {
 		String values = String.format(Locale.US, "%.2f", getLastValues());
 
 		// Formatting time
-		Duration duration = Duration.ZERO; // FIXME: Itineraries
+		Duration duration = getItineraryDuration();
 
 		String formatHours = String.format("%02d", duration.toHours());
 		duration = duration.minusHours(duration.toHours());
@@ -145,4 +155,42 @@ public class Passenger implements java.io.Serializable {
 
 		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;
 	}
+
+	void addItinerary(Itinerary itinerary) {
+		int n = getNumberOfItineraries();
+		_itineraries.put(n, itinerary);
+		double value = itinerary.getCost();
+		try {
+			if (_lastValues.size() == 10) {
+				_lastValues.take();
+			}
+
+		value = value * ((100 - _category.getDiscountPercentage()) / 100);
+		_lastValues.add(value);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		_category = _company.updateCategory(getLastValues());
+
+	}
+
+	String showItineraries() {
+		StringBuffer buf = new StringBuffer();
+		_itineraries.forEach((Integer i, Itinerary it)-> {
+			buf.append(it.toString() + "\n");
+		});
+		return buf.toString();
+	}
+
+	Duration getItineraryDuration() {
+		Duration duration = Duration.ZERO;
+		for ( Map.Entry<Integer, Itinerary> entry : _itineraries.entrySet() ) {
+			Itinerary it = entry.getValue();
+			duration = duration.plus(it.getDuration());
+		}
+		return duration;
+	}
+
+
 }

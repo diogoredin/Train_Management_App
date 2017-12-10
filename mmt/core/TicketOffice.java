@@ -18,6 +18,7 @@ import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
+import mmt.core.exceptions.BadTimeSpecificationException;
 
 /**
  * Facade for handling persistence and other functions.
@@ -162,7 +163,7 @@ public class TicketOffice {
 	 * @throws InvalidPassengerNameException if passenger name is null or an empty String.
 	 */
 	public void addPassenger(int id, String name) throws InvalidPassengerNameException {
-		Passenger p = new Passenger(id, name);
+		Passenger p = new Passenger(id, name, _trainCompany);
 		_trainCompany.addPassenger(p);
 	}
 
@@ -235,13 +236,32 @@ public class TicketOffice {
 
 	//FIXME complete and implement the itinerary search (and pre-commit store) method
 	public void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-		String departureTime) {
-		//FIXME implement method
+		String departureTime) throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException {
+		_trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
 	}
 
 	//FIXME complete and implement the itinerary commit method
-	public void commitItinerary(int passengerId, int itineraryNumber) {
-		/*FIXME define thrown exceptions */
-		//FIXME implement method
+	public void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException {
+		_trainCompany.commitItinerary(passengerId, itineraryNumber);
+	}
+
+	public String showItineraryOptions() {
+		return _trainCompany.showItineraryOptions();
+	}
+
+	public void deleteItineraryOptions() {
+		_trainCompany.deleteItineraryOptions();
+	}
+
+	public String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
+		return _trainCompany.showPassengerItineraries(id);
+	}
+
+	public int itineraryOptions() {
+		return _trainCompany.itineraryOptions();
+	}
+
+	public boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
+		return _trainCompany.passengerHasItineraries(id);
 	}
 }

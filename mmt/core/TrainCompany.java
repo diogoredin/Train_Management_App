@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.Duration;
 
 import mmt.core.NewParser;
 
@@ -17,6 +19,7 @@ import mmt.core.exceptions.InvalidPassengerNameException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
+import mmt.core.exceptions.BadTimeSpecificationException;
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -35,6 +38,9 @@ public class TrainCompany implements java.io.Serializable {
 
 	/** The station names held by the train company. */
 	private ArrayList<String> _stationsList = new ArrayList<String>();
+
+	/** The itinerary options for the passenger */
+	private ArrayList<BuiltItinerary> _itineraryOptions = new ArrayList<BuiltItinerary>();
 
 	/* The different categories for a passenger. */
 	private CategoryManager _categories = new CategoryManager();
@@ -149,6 +155,7 @@ public class TrainCompany implements java.io.Serializable {
 	 */
 	void deletePassengers() {
 		_passengersMap.clear();
+		_nextPassengerId = 0;
 	}
 
 	/**
@@ -299,15 +306,72 @@ public class TrainCompany implements java.io.Serializable {
 	}
 
 	void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-		String departureTime) {
+			String departureTime) 
+			throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException {
+
+		if ( !passengerExists( passengerId ) ) {
+			throw new NoSuchPassengerIdException( passengerId );
+		}
+
+		if ( !checkStation( departureStation ) ) {
+			throw new NoSuchStationNameException( departureStation );
+
+		} else if ( !checkStation( arrivalStation ) ) {
+			throw new NoSuchStationNameException( arrivalStation );
+		}
+
 		ItineraryBuilder builder = new ItineraryBuilder(departureStation, arrivalStation, departureDate, departureTime, this);
-	
-
-
-
-
 	}
 
-	
+	public void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException {
+		BuiltItinerary built = _itineraryOptions.get(itineraryNumber - 1);
+		String cost = String.format(Locale.US, "%.2f", built.getCost());
+		Duration duration = built.getDuration();
+		String date = built.getDepartureDate();
+		int id = getPassenger(passengerId).getNumberOfItineraries();
+		id++;
 
+		StringBuffer buf = new StringBuffer();
+		buf.append("Itinerário " + id + " para " + date + " @ " + cost + "\n");
+		buf.append( built.toString());
+		getPassenger(passengerId).addItinerary( new Itinerary (id, built.getCost(), buf.toString(), duration) );
+	}
+
+	void addItineraryOption( BuiltItinerary add ) {
+		_itineraryOptions.add( add );
+	}
+
+	String showItineraryOptions() {
+		StringBuffer buf = new StringBuffer();
+		int i = 1;
+		for ( BuiltItinerary option : _itineraryOptions ) {
+
+			String cost = String.format(Locale.US, "%.2f", option.getCost());
+			buf.append("Itinerário " + i + " para " + option.getDepartureDate() + " @ " + cost);
+			buf.append(option.toString());
+			i++;
+		}
+
+		return buf.toString();
+	}
+
+	void deleteItineraryOptions() {
+		_itineraryOptions.clear();
+	}
+	
+	String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
+		StringBuffer buf = new StringBuffer();
+		String name = getPassenger(id).getName();
+		buf.append("== Passageiro " + id +": " + name + " ==\n");
+		buf.append(getPassenger(id).showItineraries());
+		return buf.toString();
+	}
+
+	int itineraryOptions() {
+		return _itineraryOptions.size();
+	}
+
+	boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
+		return getPassenger(id).getNumberOfItineraries() > 0;
+	}
 }
