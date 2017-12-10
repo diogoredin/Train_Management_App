@@ -53,7 +53,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 				return;
 			}
 
-			_display.addLine("\n" + _receiver.showItineraryOptions());
+			_display.addLine(_receiver.showItineraryOptions());
 			_display.display();
 
 
@@ -64,6 +64,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 
 			if (choice.value() != 0) {
 				if (choice.value() > options || choice.value() < 0) {
+					_receiver.deleteItineraryOptions();
 					throw new NoSuchItineraryChoiceException(id.value(),choice.value());
 				}
 				_receiver.commitItinerary(id.value(), choice.value());
