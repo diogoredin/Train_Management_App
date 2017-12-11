@@ -196,8 +196,7 @@ public class ItineraryBuilder implements Visitor {
 			/* Stations must match and the time should be after the departure we want */
 			if (_startStation.equals( trainstop_a.getStation().getName()) && 
 				!_departureTime.isAfter( trainstop_a.getTime()) &&
-				!_singleServices.contains(trainstop_a.getService()) ) {
-				
+				_startingServices.contains(trainstop_a.getService()) ) {
 				startTrainStops.add(trainstop_a);
 			}
 
@@ -253,17 +252,14 @@ public class ItineraryBuilder implements Visitor {
 
 			/* Otherwise we keep searching */
 			} else if (!_helper.contains(nextTrainStop)) {
-
 				_helper.push(nextTrainStop);
 				this.depthFirstSearch(nextTrainStop);
 				_helper.pop();
-
 			}
 
 		}
 
 	}
-
 
 	/**
 	* Grabs the possible itineraries.
@@ -272,21 +268,28 @@ public class ItineraryBuilder implements Visitor {
 	*/
 	void getItineraries() {
 
+		System.out.println(_result.size());
 		for ( Stack<TrainStop> stack : _result ) {
 			if (stack.size() == 1) {
 				stack.clear();
 			}
+			TrainStop trainstop = stack.peek();
+			_services.add(trainstop.getService());
+			_switchStation.add(trainstop.getStation().getName());
+
 			while ( !stack.isEmpty() ) {
-				TrainStop trainstop = stack.pop();
-				if ( _services.size()-1 > 0 ) {
-					if ( trainstop.getService().getId() != _services.get(_services.size()-1).getId() ) {
-						_services.add(trainstop.getService());
-						_switchStation.add(trainstop.getStation().getName());
-					}
+				trainstop = stack.pop();
+				if ( trainstop.getService().getId() != _services.get(_services.size()-1).getId() ) {
+					_services.add(trainstop.getService());
+					_switchStation.add(trainstop.getStation().getName());
 				}
 			}
 
+			_switchStation.add(trainstop.getStation().getName());
 			_company.addItineraryOption(new BuiltItinerary(_services, _switchStation, _departureDate, _company, 0));
+			_switchStation.clear();
+			_services.clear();
+			System.out.println("idk");
 		}
 
 	}
