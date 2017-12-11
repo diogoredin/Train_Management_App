@@ -39,6 +39,9 @@ public class TrainCompany implements java.io.Serializable {
 	/** The station names held by the train company. */
 	private ArrayList<String> _stationsList = new ArrayList<String>();
 
+	/** The train stops held by the train company. */
+	private ArrayList<TrainStop> _trainStops = new ArrayList<TrainStop>();
+
 	/** The itinerary options for the passenger */
 	private ArrayList<BuiltItinerary> _itineraryOptions = new ArrayList<BuiltItinerary>();
 
@@ -303,6 +306,24 @@ public class TrainCompany implements java.io.Serializable {
 			throw new NoSuchStationNameException(search);
 		}
 	
+	}
+
+	/**
+	 * Add TrainStop.
+	 * 
+	 * @param trainstop the trainstop to add.
+	 */
+	void addTrainStop(TrainStop trainstop) {
+		_trainStops.add(trainstop);
+	}
+
+	/**
+	 * Get TrainStops.
+	 * 
+	 * @return the trainstops of the company.
+	 */
+	ArrayList<TrainStop> getTrainStops() {
+		return _trainStops;
 	}
 
 	void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,

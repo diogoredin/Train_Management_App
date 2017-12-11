@@ -19,6 +19,12 @@ public class TrainStop implements java.io.Serializable, Visitable {
 	/** Stores the segment to which it belongs. */
 	private Segment _segment;
 
+	/** Stores the service to which it belongs. */
+	private Service _service;
+
+	/** Stores the next train stop of the service to which it belongs. */
+	private TrainStop _next;
+
 	/**
 	 * Constructor.
 	 *
@@ -26,10 +32,11 @@ public class TrainStop implements java.io.Serializable, Visitable {
 	 * @param time the time when the train arrives.
 	 * @param segment the segment to which the trainstop belongs.
 	 */
-	TrainStop(Station station, LocalTime time, Segment segment) {
+	TrainStop(Station station, LocalTime time, Segment segment, Service service) {
 		_station = station;
 		_time = time;
 		_segment = segment;
+		_service = service;
 	}
 
 	/** 
@@ -57,6 +64,33 @@ public class TrainStop implements java.io.Serializable, Visitable {
 	 */
 	Segment getSegment() {
 		return _segment;
+	}
+
+	/** 
+	 * Returns the Service of this TrainStop.
+	 *
+	 * @return the service of this TrainStop.
+	 */
+	Service getService() {
+		return _service;
+	}
+
+	/** 
+	 * Returns the next trainstop.
+	 *
+	 * @return the next trainstop.
+	 */
+	TrainStop nextTrainStop() {
+		return _next;
+	}
+
+	/** 
+	 * Adds the next trainstop.
+	 *
+	 * @param the next trainstop.
+	 */
+	void addNextTrainStop( TrainStop trainstop ) {
+		_next = trainstop;
 	}
 
 	public void accept(Visitor visitor) {}

@@ -44,8 +44,7 @@ public class BuiltItinerary {
 	private boolean _isValid;
 
 	// Used in the creation from the menu
-	BuiltItinerary (boolean isSingular, Service startService, String startStation, String endStation,
-	 TrainCompany company, String departureDate) {
+	BuiltItinerary (boolean isSingular, Service startService, String startStation, String endStation, TrainCompany company, String departureDate) {
 		
 		_company = company;
 		_startStation = startStation;
@@ -56,20 +55,15 @@ public class BuiltItinerary {
 		_duration = Duration.ZERO;
 		_departureDate = departureDate;
 
-
 		if (isSingular) {
 			_switchStation.add(_endStation);
 			_isValid = true;
-		} else {
-			// Dijkstra
-			return;
 		}
 		this.build();
 	}
 
 	// Only used in Parser
 	BuiltItinerary (ArrayList<Service> services, ArrayList<String> switchStations, String departureDate, TrainCompany company, int passengerId) {
-		
 		_company = company;
 		_services = services;
 		_switchStation = switchStations;
@@ -78,19 +72,15 @@ public class BuiltItinerary {
 		_departureDate = departureDate;
 		_id = passengerId;
 		this.build();
-
 	}
-
 
 	void build () {
 
 		// Attribute creation for already found path
-
 		StringBuffer descriptionBuf = new StringBuffer();
 		int i = 0;
 
 		// Starts prevTime as a generic time stamp
-
 		LocalTime prevTime = LocalTime.MIDNIGHT;
 
 		LocalTime time;

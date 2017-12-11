@@ -151,6 +151,7 @@ public class NewParser {
 		}
 	}
 
+
 	/**
 	 * Parses a service, i.e. grabs its properties and adds it to the app.
 	 *
@@ -193,12 +194,19 @@ public class NewParser {
 			Segment segment = new Segment(segmentCost, duration);
 
 			/* Builds Train Stops */
-			TrainStop start = new TrainStop(startStation, stime, segment);
-			TrainStop end = new TrainStop(endStation, etime, segment);
+			TrainStop start = new TrainStop(startStation, stime, segment, service);
+			TrainStop end = new TrainStop(endStation, etime, segment, service);
+
+			/* Adds Next Train Stop */
+			start.addNextTrainStop(end);
 
 			/* Adds train stops to the service */
 			service.addStart( start );
 			service.addEnd( end );
+
+			/* Adds Train Stops to the TrainCompany */
+			_trainCompany.addTrainStop( start );
+			if ( i+1 == components.length ) { _trainCompany.addTrainStop( end ); }
 
 			/* Adds start train station */
 			if ( !_trainCompany.checkStation(startStationName) ) {
