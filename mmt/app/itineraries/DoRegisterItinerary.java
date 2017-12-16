@@ -1,6 +1,11 @@
 package mmt.app.itineraries;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.time.LocalTime;
+
 import mmt.core.TicketOffice;
+import mmt.core.Itinerary;
 
 import mmt.app.exceptions.BadDateException;
 import mmt.app.exceptions.BadTimeException;
@@ -18,7 +23,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
 
-import java.time.LocalTime;
 
 /**
  * §3.4.3. Add new itinerary.
@@ -35,7 +39,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-		try {
+			try {
 				
 			Input<Integer> id = _form.addIntegerInput(Message.requestPassengerId());
 			Input<String> start = _form.addStringInput(Message.requestDepartureStationName());
@@ -45,33 +49,36 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 
 			_form.parse();
 			_form.clear();
-			_receiver.searchItineraries(id.value(), start.value(), end.value(), date.value(), time.value());
-			
-			int options =_receiver.itineraryOptions();
+			ArrayList<Itinerary> itineraryOptions;
+			itineraryOptions = _receiver.searchItineraries(id.value(), start.value(), end.value(), date.value(), time.value());
 
-			if (options == 0) {
-				return;
-			}
+			Collections.sort(itineraryOptions);
+			_receiver.updateListId(itineraryOptions);
 
-			_display.addLine(_receiver.showItineraryOptions());
+
+			itineraryOptions.forEach((Itinerary it)-> {
+				_display.addLine(it.toString());
+			});
+
 			_display.display();
 
+			int options = itineraryOptions.size();
+
+			if (options == 0) return;
 
 			Input<Integer> choice = _form.addIntegerInput(Message.requestItineraryChoice());
 
 			_form.parse();
 			_form.clear();
 
+
+
 			if (choice.value() != 0) {
 				if (choice.value() > options || choice.value() < 0) {
-					_receiver.deleteItineraryOptions();
 					throw new NoSuchItineraryChoiceException(id.value(),choice.value());
 				}
-				_receiver.commitItinerary(id.value(), choice.value());
+				_receiver.commitItinerary(id.value(), itineraryOptions.get(choice.value() - 1));
 			}
-
-			_receiver.deleteItineraryOptions();
-
 
 
 		} catch (NoSuchPassengerIdException e) {
@@ -80,8 +87,8 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 			throw new NoSuchStationException(e.getName());
 		} catch (NoSuchItineraryChoiceException e) {
 			throw new NoSuchItineraryException(e.getPassengerId(), e.getItineraryId());
-		//} catch (BadDateSpecificationException e) {
-		//	throw new BadDateException(e.getDate());
+		} catch (BadDateSpecificationException e) {
+			throw new BadDateException(e.getDate());
 		} catch (BadTimeSpecificationException e) {
 			throw new BadTimeException(e.getTime());
 		}

@@ -20,6 +20,7 @@ import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.BadTimeSpecificationException;
+import mmt.core.exceptions.BadDateSpecificationException;
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -41,12 +42,6 @@ public class TrainCompany implements java.io.Serializable {
 
 	/** The train stops held by the train company. */
 	private ArrayList<TrainStop> _trainStops = new ArrayList<TrainStop>();
-
-	/** The itinerary options for the passenger */
-	private ArrayList<BuiltItinerary> _itineraryOptions = new ArrayList<BuiltItinerary>();
-
-	/** The most correct composed itinerary */
-	private BuiltItinerary _composed;
 
 	/* The different categories for a passenger. */
 	private CategoryManager _categories = new CategoryManager();
@@ -329,9 +324,9 @@ public class TrainCompany implements java.io.Serializable {
 		return _trainStops;
 	}
 
-	void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+	ArrayList<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
 			String departureTime) 
-			throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException {
+			throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException, BadDateSpecificationException {
 
 		if ( !passengerExists( passengerId ) ) {
 			throw new NoSuchPassengerIdException( passengerId );
@@ -345,42 +340,13 @@ public class TrainCompany implements java.io.Serializable {
 		}
 
 		ItineraryBuilder builder = new ItineraryBuilder(departureStation, arrivalStation, departureDate, departureTime, this);
+		return builder.getItineraryOptions();
 	}
 
-	public void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException {
-		BuiltItinerary built = _itineraryOptions.get(itineraryNumber - 1);
-		String cost = String.format(Locale.US, "%.2f", built.getCost());
-		Duration duration = built.getDuration();
-		String date = built.getDepartureDate();
-		int id = getPassenger(passengerId).getNumberOfItineraries();
-		id++;
 
-		StringBuffer buf = new StringBuffer();
-		buf.append("Itinerário " + id + " para " + date + " @ " + cost + "\n");
-		buf.append( built.toString());
-		getPassenger(passengerId).addItinerary( new Itinerary (id, built.getCost(), buf.toString(), duration) );
-	}
-
-	void addItineraryOption( BuiltItinerary add ) {
-		_itineraryOptions.add( add );
-	}
-
-	String showItineraryOptions() {
-		StringBuffer buf = new StringBuffer();
-		int i = 1;
-		for ( BuiltItinerary option : _itineraryOptions ) {
-
-			String cost = String.format(Locale.US, "%.2f", option.getCost());
-			buf.append("\nItinerário " + i + " para " + option.getDepartureDate() + " @ " + cost);
-			buf.append(option.toString() + "\n");
-			i++;
-		}
+	public void commitItinerary(int passengerId, Itinerary itinerary) throws NoSuchPassengerIdException {
 		
-		return buf.toString();
-	}
-
-	void deleteItineraryOptions() {
-		_itineraryOptions.clear();
+		getPassenger(passengerId).addItinerary(itinerary);
 	}
 	
 	String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
@@ -389,10 +355,6 @@ public class TrainCompany implements java.io.Serializable {
 		buf.append("== Passageiro " + id +": " + name + " ==\n");
 		buf.append(getPassenger(id).showItineraries());
 		return buf.toString();
-	}
-
-	int itineraryOptions() {
-		return _itineraryOptions.size();
 	}
 
 	boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
@@ -410,28 +372,9 @@ public class TrainCompany implements java.io.Serializable {
 		return buf.toString();
 	}
 
-	boolean hasComposedItinerary() {
-		return _composed != null;
-	}
-
-	void addComposedItinerary(BuiltItinerary built) {
-		if (!hasComposedItinerary()) {
-			_composed = built;
-		} else if (_composed.getDuration() == built.getDuration()) {
-			if ( _composed.getCost() > built.getCost()) {
-				_composed = built;
-			}
-		} else if (_composed.getDuration().compareTo(built.getDuration()) > 0) {
-			_composed = built;
-		} else if (_composed.getCost() > built.getCost()) {
-			_composed = built;
+	public void updateListId(ArrayList<Itinerary> itineraryOptions) {
+		for (int i = 0; i < itineraryOptions.size(); i++) {
+			itineraryOptions.get(i).updateId(i + 1);
 		}
-	}
-
-	void addComposedOption() {
-		if (hasComposedItinerary()) {
-			_itineraryOptions.add( _composed );
-		}
-		_composed = null;
 	}
 }

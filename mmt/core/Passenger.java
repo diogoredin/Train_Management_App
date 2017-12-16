@@ -158,15 +158,18 @@ public class Passenger implements java.io.Serializable {
 
 	void addItinerary(Itinerary itinerary) {
 		int n = getNumberOfItineraries();
+		n++;
+		itinerary.updateId(n);
 		_itineraries.put(n, itinerary);
+
 		double value = itinerary.getCost();
 		try {
 			if (_lastValues.size() == 10) {
 				_lastValues.take();
 			}
 
-		value = value * ((100 - _category.getDiscountPercentage()) / 100);
-		_lastValues.add(value);
+			value = value * ((100 - _category.getDiscountPercentage()) / 100);
+			_lastValues.add(value);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import mmt.core.NewParser;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.BadTimeSpecificationException;
+import mmt.core.exceptions.BadDateSpecificationException;
 
 /**
  * Facade for handling persistence and other functions.
@@ -234,31 +236,18 @@ public class TicketOffice {
 
 	}
 
-	//FIXME complete and implement the itinerary search (and pre-commit store) method
-	public void searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-		String departureTime) throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException {
-		_trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
+	public ArrayList<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+		String departureTime) throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException, BadDateSpecificationException {
+		return _trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
 	}
 
-	//FIXME complete and implement the itinerary commit method
-	public void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException {
-		_trainCompany.commitItinerary(passengerId, itineraryNumber);
+	public void commitItinerary(int passengerId, Itinerary itinerary) throws NoSuchPassengerIdException {
+		_trainCompany.commitItinerary(passengerId, itinerary);
 	}
 
-	public String showItineraryOptions() {
-		return _trainCompany.showItineraryOptions();
-	}
-
-	public void deleteItineraryOptions() {
-		_trainCompany.deleteItineraryOptions();
-	}
 
 	public String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
 		return _trainCompany.showPassengerItineraries(id);
-	}
-
-	public int itineraryOptions() {
-		return _trainCompany.itineraryOptions();
 	}
 
 	public boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
@@ -267,5 +256,10 @@ public class TicketOffice {
 
 	public String showAllItineraries() {
 		return _trainCompany.showAllItineraries();
+	}
+
+	public void updateListId(ArrayList<Itinerary> itineraryOptions) {
+	
+		_trainCompany.updateListId(itineraryOptions);
 	}
 }

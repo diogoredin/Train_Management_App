@@ -8,13 +8,16 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Collection;
 import java.util.Locale;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import java.time.LocalTime;
 import java.time.Duration;
+import java.text.SimpleDateFormat;
 
 import java.time.format.DateTimeParseException;
+import java.text.ParseException;
 
+import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadTimeSpecificationException;
 
 /**
@@ -33,7 +36,7 @@ public class ItineraryBuilder implements Visitor {
 	private String _endStation;
 
 	/** Departure date for the itinerary */
-	private String _departureDate;
+	private Date _departureDate;
 
 	/** Minimum departure time for the itinerary */
 	private LocalTime _departureTime;
@@ -59,15 +62,23 @@ public class ItineraryBuilder implements Visitor {
 	/** Stations where the passenger gets on or off */
 	private ArrayList<String> _switchStation = new ArrayList<String>();
 
-	private boolean found = false;
+	/** Built Itineraries to be returned. */
+	private ArrayList<Itinerary> _itineraries = new ArrayList<Itinerary>();
+
+	/** Current best composed itinerary */
+	private Itinerary _composed;
 
 
-	ItineraryBuilder( String startStation, String endStation, String departureDate, String departureTime, TrainCompany trainCompany ) throws BadTimeSpecificationException {
+	ItineraryBuilder(TrainCompany trainCompany) {
+		_company = trainCompany;
+	}
+
+	ItineraryBuilder( String startStation, String endStation, String departureDate, String departureTime, TrainCompany trainCompany ) 
+	throws BadTimeSpecificationException, BadDateSpecificationException {
 
 		_startStation = startStation;
 		_endStation = endStation;
 		_company = trainCompany;
-		_departureDate = departureDate;
 
 		try {
 			_departureTime = LocalTime.parse(departureTime);
@@ -75,13 +86,19 @@ public class ItineraryBuilder implements Visitor {
 			throw new BadTimeSpecificationException( departureTime );
 		}
 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			_departureDate = format.parse(departureDate);
+		} catch (ParseException e) {
+			throw new BadDateSpecificationException (departureDate);
+		}
 		// Starts by making a list of services with the starting station, and those that also contain the end station 
 		_company.getServices().forEach(( Service s )-> {
 			s.accept(this);
 		});
 
-		_singleServices.forEach(( Service single) -> {
-			_company.addItineraryOption(new BuiltItinerary(true, single, _startStation, _endStation, _company, _departureDate));
+		_singleServices.forEach((Service single) -> {
+			_itineraries.add(buildItinerary(_departureDate, single, _startStation, _endStation));
 		});
 
 		this.searchComposedItinerary();
@@ -123,11 +140,129 @@ public class ItineraryBuilder implements Visitor {
 
 	}
 
-		/**
-	* Grabs the next trainstops.
-	*
-	* @return the next trainstops.
-	*/
+	/**
+	 * Returns a list containing the TrainStops between and including the startStation and endStation
+	 * TrainStops in the corresponding Service.
+	 *
+	 * @param service the service to be checked.
+	 * @param startStation the station where the list starts.
+	 * @param endStation the station where the list ends.
+	 * @return the ArrayList containing the TrainStops between the start and end stations in this service.
+	 */
+	ArrayList<TrainStop> stopsInService(Service service, String startStation, String endStation) {
+
+		Collection<TrainStop> startStops = service.getStartTrainStops();
+		Collection<TrainStop> endStops = service.getEndTrainStops();
+
+		ArrayList<TrainStop> itineraryStops = new ArrayList<TrainStop>();
+
+		boolean firstStation = false;
+		int j = 0;
+
+		for ( TrainStop stop : startStops ) {
+			if ( stop.getStation().getName().equals(startStation) ) {
+
+				if ( j == 0 ) firstStation = true;
+
+				itineraryStops.add(stop);
+				break;
+			}
+
+			j++;
+		}
+
+		boolean hasStarted = false;
+
+		for ( TrainStop stop : endStops ) {
+
+			if (firstStation) hasStarted = true;
+
+			if (!hasStarted && stop.getStation().getName().equals(startStation)) {
+				 hasStarted = true;
+			} else if (hasStarted) {
+				itineraryStops.add(stop);
+
+				if (stop.getStation().getName().equals(endStation)) break;
+			}
+		}
+
+		return itineraryStops;
+	}
+
+	/** 
+	 * Creates a new Itinerary using the service it passes through, and the start and end statio names.
+	 * <p>
+	 * Only creates simple Itineraries.
+	 *
+	 * @param departureDate the date of the itinerary.
+	 * @param service the single service the itinerary travels through.
+	 * @param startStation the name of the station where the itinerary starts.
+	 * @param endStation the name of the station where the itinerary ends.
+	 * @return the simple itinerary built from the service.
+	 */
+	Itinerary buildItinerary(Date departureDate, Service service, String startStation, String endStation) {
+
+		ArrayList<TrainStop> itineraryStops = new ArrayList<TrainStop>();
+		ArrayList<TrainStop> serviceStops = this.stopsInService(service, startStation, endStation);
+		itineraryStops.addAll(serviceStops);
+
+		return new Itinerary (departureDate, itineraryStops);
+	}
+
+	/**
+	 * Creates a new Itinerary from the list of Services it passes through, 
+	 * and the name of the Stations it switches service.
+	 * <p>
+	 * May create simple or composed itineraries. Using a single service and two switch stations 
+	 * (the start and end stations) will result in an equivalent simple itinerary as if one had used
+	 * the buildItinerary(4) method with equivalent parameters.
+	 * 
+	 * @param departureDate the date of the itinerary.
+	 * @param services the list of the services this itinerary passes through.
+	 * @param switchStations the name of the stations where the passenger enters or leaves a service.
+	 * @return the itinerary built from the parameters.
+	 */
+	Itinerary buildItinerary(Date departureDate, ArrayList<Service> services, ArrayList<String> switchStations) {
+
+		ArrayList<TrainStop> itineraryStops = new ArrayList<TrainStop>();
+
+		for (int i = 0; i < services.size(); i++) {
+			Service service = services.get(i);
+			String startStation = switchStations.get(i);
+			String endStation = switchStations.get(i + 1);
+
+			ArrayList<TrainStop> serviceStops = this.stopsInService(service, startStation, endStation);
+			itineraryStops.addAll(serviceStops);
+		}
+
+		return new Itinerary (departureDate, itineraryStops);
+	}
+
+	/**
+	 * Creates a new Itinerary from the list of Services it passes through, 
+	 * and the name of the Stations it switches service.
+	 * <p>
+	 * May create simple or composed itineraries. Using a single service and two switch stations 
+	 * (the start and end stations) will result in an equivalent simple itinerary as if one had used
+	 * the buildItinerary(4) method with equivalent parameters.
+	 * 
+	 * @param departureDate the date of the itinerary.
+	 * @param services the list of the services this itinerary passes through.
+	 * @param switchStations the name of the stations where the passenger enters or leaves a service.
+	 * @return the itinerary built from the parameters.
+	 */
+	Itinerary buildItinerary(Date departureDate, ArrayList<Service> services, ArrayList<String> switchStations, int passengerId) {
+		Itinerary result = this.buildItinerary(departureDate, services, switchStations);
+		result.setPassengerId(passengerId);
+		return result;
+	}
+ 	
+
+	/**
+	 * Grabs the next trainstops.
+	 *
+	 * @return the next trainstops.
+	 */
 	ArrayList<TrainStop> nextTrainStops(TrainStop trainstop) {
 
 		/* The childs of the inputted trainstop */
@@ -145,48 +280,19 @@ public class ItineraryBuilder implements Visitor {
 				 trainstop.getService().getId() == parent.getService().getId()) {
 
 				for ( int i = 1; i < list.size(); i++ ) {
-					if ( list.get(i).hasNextTrainStop() ) {
-						result.add(list.get(i).nextTrainStop());
-					}
+					result.add(list.get(i));
 				}
-
 			}
 
 		}
+
 		return result;
 
 	}
-	/*
-	{class Station:
-	def __init__(self, name, trainStopArray):
-		self.name = name
-		self.trainStopArray = trainStopArray
 
-class TrainStop:
-	def __init__(self, station, segment, service):
-		self.station = station
-		self.segment = segment
-		self.service = service
-
-def find_segmentos(stationDeparture, stationArrival):
-	res = []
-	find_segmentos_aux(stationDeparture, stationArrival, [], res)
-	return res
-
-def find_segmentos_aux(stationDeparture, stationArrival, array, res):
-	for trainStop in stationDeparture.trainStopArray:
-		if trainStop in array:
-			continue
-		array = array[:].append(trainStop.station) # Creates a copy of the array
-		if trainStop.station == stationArrival:
-			res.append(array)
-			continue
-		find_segmentos_aux(trainStop.station, stationArrival, array, res)}
-*/
 	/**
-	* Searchs itinineararies
-	*
-	*/
+	 * Searches possible composed itineraries.
+	 */
 	void searchComposedItinerary() {
 
 		/* Train Stops */
@@ -206,11 +312,14 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 			for ( TrainStop trainstop_b : trainStops ) {
 
 				if (trainstop_a.getStation().getName().equals(trainstop_a.getService().getStartStation().getName())) {
-					intersects.add(trainstop_a);
+					intersects.add(trainstop_a.nextTrainStop());
 					break;
 				} else if (trainstop_a.getStation().getName().equals( trainstop_b.getStation().getName() ) && 
 					!trainstop_a.getTime().isAfter( trainstop_b.getTime())) {
-					if (trainstop_b.hasNextTrainStop()) {
+
+					if (trainstop_a.getService().getId() == trainstop_b.getService().getId()) {
+						intersects.add(trainstop_b.nextTrainStop());
+					} else {
 						intersects.add(trainstop_b);
 					}
 				}
@@ -229,29 +338,20 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 
 		}
 
-
-
 		/* Launches DFS on every TrainStop */
 		for ( TrainStop trainStop : startTrainStops ) {
+			/*
 
-			/*for ( ArrayList<TrainStop> list : _intersections) {
-				System.out.println( "----");
-				for ( TrainStop stop : list) {
-					System.out.print( stop.getTime() + "|" + stop.getStation().getName() );
-					if ( stop.hasNextTrainStop()) {
-
-						System.out.print( "->" +stop.nextTrainStop().getTime() + "|" + stop.nextTrainStop().getStation().getName());
-
-					}
-					System.out.print("\n");
+			for ( ArrayList<TrainStop> list : _intersections ) {
+				System.out.println("---------");
+				for ( TrainStop stop : list ) {
+					System.out.println(stop.getTime()+"|"+stop.getStation().getName()+"|"+stop.getService().getId());
 				}
-
 			}
+
+			//*/
 			/* Applies DFS starting there */
-
 			this.depthFirstSearch( trainStop );
-
-
 		}
 
 	}
@@ -266,7 +366,6 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 	}
 
 	void nextSegment(TrainStop trainstop, ArrayList<TrainStop> path) {
-		boolean hey = false;
 		ArrayList<TrainStop> nextStops =  this.nextTrainStops(trainstop);
 
 		if ( trainstop.getStation().getName().equals(_endStation)) {
@@ -276,17 +375,10 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 			return;
 		}
 
-		if (nextStops.size() == 0) {
-			hey = true;
-		}
-
 		for ( TrainStop next : nextStops) {
-			if (hey) {
-				System.out.println("WTFF SIZE == 0 pls help");
-			}
 			boolean nextValid = true;
-			for ( TrainStop previous : path) {
-				if ( previous.getStation().getName().equals(next.getStation().getName())) {
+			for ( int i = 0; i < path.size() - 1; i++ ) {
+				if ( path.get(i).getStation().getName().equals(next.getStation().getName())) {
 					nextValid = false;
 					break;
 				}
@@ -298,8 +390,6 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 			}
 			
 		}
-
-		if (true);
 	}
 
 	boolean validService(TrainStop trainstop, ArrayList<TrainStop> path) {
@@ -320,43 +410,45 @@ def find_segmentos_aux(stationDeparture, stationArrival, array, res):
 	}
 
 	/**
-	* Grabs the possible itineraries.
-	*
-	* @return the possible itineraries.
-	*/
+	 * Grabs the possible itineraries.
+	 */
 	void getItineraries() {
-		for ( ArrayList<TrainStop> list : _result ) {
-			if (list.size() <= 1) {
-				list.clear();
-			} else {
-				int prevId = list.get(0).getService().getId();
-				_services.add(list.get(0).getService());
-				_switchStation.add(list.get(0).getStation().getName());
-				String stationName = list.get(0).getStation().getName();
-				for ( TrainStop stop : list ) {
 
-					if ( prevId != stop.getService().getId()) {
-						_services.add(stop.getService());
-						_switchStation.add(stationName);
-
-						prevId = stop.getService().getId();
-						
-							
-					}
-					stationName = stop.getStation().getName();
-				}
-
-				_switchStation.add( _endStation );
-				_company.addComposedItinerary(new BuiltItinerary(_services, _switchStation, _departureDate, _company, 0));
-				_switchStation.clear();
-				_services.clear();
-			}
-		}
+		/* Parses all obtained paths, and chooses the best one */
+		_result.forEach((ArrayList<TrainStop> list)-> { 
+			this.addComposedItinerary(new Itinerary(_departureDate, list));
+		});
 		
-		if (_result.size() > 0) {
-			_company.addComposedOption();
-		}
+		this.commitComposedItinerary();
+	}
 
+	ArrayList<Itinerary> getItineraryOptions() {
+		return _itineraries;
+	}
+
+	boolean hasComposedItinerary() {
+		return _composed != null;
+	}
+
+	void addComposedItinerary(Itinerary newItinerary) {
+		if (!this.hasComposedItinerary()) {
+			_composed = newItinerary;
+		} else if (_composed.getDuration() == newItinerary.getDuration()) {
+			if ( _composed.getCost() > newItinerary.getCost()) {
+				_composed = newItinerary;
+			}
+		} else if (_composed.getDuration().compareTo(newItinerary.getDuration()) > 0) {
+			_composed = newItinerary;
+		} else if (_composed.getCost() > newItinerary.getCost()) {
+			_composed = newItinerary;
+		}
+	}
+
+	void commitComposedItinerary() {
+		if (this.hasComposedItinerary()) {
+			_itineraries.add( _composed );
+		}
+		_composed = null;
 	}
 
 }

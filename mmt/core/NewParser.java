@@ -10,9 +10,10 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Arrays;
+import java.util.Collections;
 
 import java.text.SimpleDateFormat;
-
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,7 +28,7 @@ public class NewParser {
 	private TrainCompany _trainCompany;
 
 	/** The built itineraries to be sorted. */
-	private ArrayList<BuiltItinerary> _built = new ArrayList<BuiltItinerary>();
+	private ArrayList<Itinerary> _built = new ArrayList<Itinerary>();
 
 	/**
 	 * Creates a parser which has associated a train company.
@@ -55,44 +56,19 @@ public class NewParser {
 		} catch (IOException ioe) {
 			throw new ImportFileException(ioe);
 		}
-
-		Comparator<BuiltItinerary> comparator = new Comparator<BuiltItinerary>() {
-				@Override
-				public int compare(BuiltItinerary left, BuiltItinerary right) {
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					Date leftDate = new Date();
-					Date rightDate = new Date();
-					try {
-						leftDate = format.parse(left.getDepartureDate());
-						rightDate = format.parse(right.getDepartureDate());
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					return leftDate.compareTo(rightDate);
-				}
-			};
-
-		_built.sort(comparator);
-
 		try {
-			for ( BuiltItinerary build : _built ) {
-				double cost = build.getCost();
-				String costDesc = String.format(Locale.US, "%.2f", cost);
-				Duration duration = build.getDuration();
-				int id = _trainCompany.getPassenger(build.getId()).getNumberOfItineraries() + 1;
-				String description = build.toString();
-				String date = build.getDepartureDate();
-
-				StringBuffer buf = new StringBuffer();
-				buf.append("\nItinerário " + id + " para " + date + " @ " + costDesc);
-				buf.append( description );
-				_trainCompany.getPassenger(build.getId()).addItinerary( new Itinerary (id, cost, buf.toString(), duration) );
+			/* Adds the parsed itineraries to their respective passengers, if there are any */
+			Collections.sort(_built);
+			for (Itinerary itinerary : _built) {
+				_trainCompany.getPassenger(itinerary.getPassengerId()).addItinerary(itinerary);
 			}
+			
 		} catch (NoSuchPassengerIdException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 
 	/**
 	 * Parses a given line of a data file.
@@ -235,13 +211,18 @@ public class NewParser {
 			if (components.length < 4)
 				throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 
+			ItineraryBuilder builder = new ItineraryBuilder(_trainCompany);
 			int passengerId = Integer.parseInt(components[1]);
 			String date = components[2];
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+			Date departureDate = format.parse(date);
 
 			// criar um itinerário com data indicada
 			ArrayList<Service> services = new ArrayList<Service>();
 			ArrayList<String> stations = new ArrayList<String>();
-			ArrayList<BuiltItinerary> build = new ArrayList<BuiltItinerary>();
+			ArrayList<Itinerary> build = new ArrayList<Itinerary>();
 
 			for (int i = 3; i < components.length; i++) {
 
@@ -260,10 +241,12 @@ public class NewParser {
 
 			}
 
-			_built.add(new BuiltItinerary(services, stations, date, _trainCompany, passengerId));
+			_built.add(builder.buildItinerary(departureDate, services, stations, passengerId));
 			
 
 		} catch (NoSuchServiceIdException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
