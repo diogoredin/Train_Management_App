@@ -264,4 +264,8 @@ public class TicketOffice {
 	public boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
 		return _trainCompany.passengerHasItineraries(id);
 	}
+
+	public String showAllItineraries() {
+		return _trainCompany.showAllItineraries();
+	}
 }

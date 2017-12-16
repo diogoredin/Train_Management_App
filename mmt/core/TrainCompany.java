@@ -45,6 +45,9 @@ public class TrainCompany implements java.io.Serializable {
 	/** The itinerary options for the passenger */
 	private ArrayList<BuiltItinerary> _itineraryOptions = new ArrayList<BuiltItinerary>();
 
+	/** The most correct composed itinerary */
+	private BuiltItinerary _composed;
+
 	/* The different categories for a passenger. */
 	private CategoryManager _categories = new CategoryManager();
 
@@ -372,7 +375,7 @@ public class TrainCompany implements java.io.Serializable {
 			buf.append(option.toString() + "\n");
 			i++;
 		}
-
+		
 		return buf.toString();
 	}
 
@@ -394,5 +397,41 @@ public class TrainCompany implements java.io.Serializable {
 
 	boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
 		return getPassenger(id).getNumberOfItineraries() > 0;
+	}
+
+	String showAllItineraries() {
+		StringBuffer buf = new StringBuffer();
+		_passengersMap.forEach((Integer i, Passenger p) -> {
+			if ( p.getNumberOfItineraries() > 0 ) {
+				buf.append("== Passageiro " + i +": " + p.getName() + " ==\n");
+				buf.append(p.showItineraries());
+			}
+		});
+		return buf.toString();
+	}
+
+	boolean hasComposedItinerary() {
+		return _composed != null;
+	}
+
+	void addComposedItinerary(BuiltItinerary built) {
+		if (!hasComposedItinerary()) {
+			_composed = built;
+		} else if (_composed.getDuration() == built.getDuration()) {
+			if ( _composed.getCost() > built.getCost()) {
+				_composed = built;
+			}
+		} else if (_composed.getDuration().compareTo(built.getDuration()) > 0) {
+			_composed = built;
+		} else if (_composed.getCost() > built.getCost()) {
+			_composed = built;
+		}
+	}
+
+	void addComposedOption() {
+		if (hasComposedItinerary()) {
+			_itineraryOptions.add( _composed );
+		}
+		_composed = null;
 	}
 }

@@ -25,6 +25,8 @@ public class TrainStop implements java.io.Serializable, Visitable {
 	/** Stores the next train stop of the service to which it belongs. */
 	private TrainStop _next;
 
+	private boolean _hasNext;
+
 	/**
 	 * Constructor.
 	 *
@@ -37,6 +39,7 @@ public class TrainStop implements java.io.Serializable, Visitable {
 		_time = time;
 		_segment = segment;
 		_service = service;
+		_hasNext = false;
 	}
 
 	/** 
@@ -90,7 +93,17 @@ public class TrainStop implements java.io.Serializable, Visitable {
 	 * @param the next trainstop.
 	 */
 	void addNextTrainStop( TrainStop trainstop ) {
+		_hasNext = true;
 		_next = trainstop;
+	}
+
+	/**
+	 * Returns whether or not this trainStop has a next trainstop.
+	 *
+	 * @return true if this trainstop has a next trainStop, false otherwise.
+	 */
+	boolean hasNextTrainStop() {
+		return _hasNext;
 	}
 
 	public void accept(Visitor visitor) {}
