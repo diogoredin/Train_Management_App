@@ -178,14 +178,13 @@ public class Passenger implements java.io.Serializable {
 				_lastValues.take();
 			}
 
-			value = value * ((100 - _category.getDiscountPercentage()) / 100);
 			_lastValues.add(value);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 		/* Update Spent Money */
-		_totalSpent = _totalSpent + value;
+		_totalSpent = _totalSpent + value * ((100 - _category.getDiscountPercentage()) / 100);
 
 		/* Updates the Passenger Category */
 		_category = _trainCompany.updateCategory(getLastValues());
