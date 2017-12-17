@@ -324,6 +324,19 @@ public class TrainCompany implements java.io.Serializable {
 		return _trainStops;
 	}
 
+	/**
+	 * Looks up all possible itineraries for a given passenger.
+	 *
+	 * @param passengerId id of the passenger that is looking for the itinerary.
+	 * @param departureStation the station where the passenger wants to start his trip.
+	 * @param arrivalStation the date when the trip should start.
+	 * @param departureDate the time when the trip should start.
+	 * @return the possible itineraries for the passenger to buy.
+	 * @throws NoSuchStationNameException if station name does not exist.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 * @throws BadTimeSpecificationException if the time isn't well formatted.
+	 * @throws BadDateSpecificationException if the date isn't well formatted.
+	 */
 	ArrayList<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
 			String departureTime) 
 			throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException, BadDateSpecificationException {
@@ -343,12 +356,24 @@ public class TrainCompany implements java.io.Serializable {
 		return builder.getItineraryOptions();
 	}
 
-
+	/**
+	 * Adds an itinerary to a passenger.
+	 *
+	 * @param id the id of the passenger who bought the itinerary. 
+	 * @param itinerary the chosen itinerary.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	public void commitItinerary(int passengerId, Itinerary itinerary) throws NoSuchPassengerIdException {
-		
 		getPassenger(passengerId).addItinerary(itinerary);
 	}
 	
+	/**
+	 * Displays the itineraries bought by a given passenger.
+	 *
+	 * @param id passenger id to whom the itinaries belong.
+	 * @return the itineraries as a string.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
 		StringBuffer buf = new StringBuffer();
 		String name = getPassenger(id).getName();
@@ -357,10 +382,22 @@ public class TrainCompany implements java.io.Serializable {
 		return buf.toString();
 	}
 
+	/**
+	 * Let's us know if a given passenger has purchased itineraries.
+	 *
+	 * @param id the id of the passenger.
+	 * @return true if the passenger has itineraries, false otherwise.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
 		return getPassenger(id).getNumberOfItineraries() > 0;
 	}
 
+	/**
+	 * Looks up all itineraries in the TrainCompany.
+	 *
+	 * @return all itineraries in the TrainCompany.
+	 */
 	String showAllItineraries() {
 		StringBuffer buf = new StringBuffer();
 		_passengersMap.forEach((Integer i, Passenger p) -> {
@@ -372,6 +409,9 @@ public class TrainCompany implements java.io.Serializable {
 		return buf.toString();
 	}
 
+	/**
+	 * Updates all itinerary id's by one.
+	 */
 	public void updateListId(ArrayList<Itinerary> itineraryOptions) {
 		for (int i = 0; i < itineraryOptions.size(); i++) {
 			itineraryOptions.get(i).updateId(i + 1);
