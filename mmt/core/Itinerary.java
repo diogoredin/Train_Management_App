@@ -177,6 +177,38 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 		return duration;
 	}
 
+	/**
+	 * Returns the number of services that compose this itinerary.
+	 *
+	 * @return the itinerary's number of services.
+	 */
+	int getNumberOfServices() {
+
+		/* Holds the Service ID */
+		int id = 0;
+
+		/* The cost to be returned */
+		int numberOfServices = 0;
+
+		/* Iterate over all TrainStops */
+		for ( TrainStop trainstop : _trainStops ) {
+
+			/* Get the Service of the TrainStop */
+			Service service = trainstop.getService();
+
+			/* Checks if we need to add an header */
+			if ( id != service.getId() ) {
+				numberOfServices++;
+			}
+
+			/* Update the Service ID */
+			id = service.getId();
+
+		}
+
+		return numberOfServices;
+	}
+
 	/** 
 	 * Allows an itinerary to be shown.
 	 *
@@ -196,6 +228,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 
 		/* Iterate over all TrainStops */
 		for ( TrainStop trainstop : _trainStops ) {
+
 			/* Get the Service of the TrainStop */
 			Service service = trainstop.getService();
 
@@ -218,18 +251,39 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 		return resultBuf.toString();
 	}
 
+	/** 
+	 * Get's the departure date of the Itinerary.
+	 *
+	 * @return the date when the itinerary starts.
+	 */
 	Date getDepartureDate() {
 		return _departureDate;
 	}
 
+	/** 
+	 * Get's the departure time of the Itinerary.
+	 *
+	 * @return the time when the itinerary starts.
+	 */
 	LocalTime getDepartureTime() {
 		return _trainStops.get(0).getTime();
 	}
 
+	/** 
+	 * Get's the arrival time of the Itinerary.
+	 *
+	 * @return the time when the itinerary ends.
+	 */
 	LocalTime getArrivalTime() {
 		return _trainStops.get(_trainStops.size() - 1).getTime();
 	}
 
+	/**
+	 * Compares two itineraries based on: Departure Date, Departure Time, Arrival Time, Duration, Cost and the number
+	 * of services that compose the itineraries.
+	 *
+	 * @param itinerary itinerary to compare this itinerary to.
+	 */
 	public int compareTo(Itinerary itinerary) {
 
 		/* Checks the departure date */
@@ -244,10 +298,22 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 					/* Checks the duration */
 					if(this.getDuration().equals(itinerary.getDuration())) {
 
-						/* Finally, checks the cost */
-						if (this.getCost() > itinerary.getCost()) return 1;
-						else if (this.getCost() < itinerary.getCost()) return -1;
-						else return 0;
+						/* Checks the cost */
+						if(this.getCost() == itinerary.getCost()) {
+							
+							/* Finally, checks the number of services */
+							if (this.getNumberOfServices() > itinerary.getNumberOfServices()) return 1;
+							else if (this.getNumberOfServices() < itinerary.getNumberOfServices()) return -1;
+							else return 0;
+
+						} else {
+							
+							/* Checks the cost */
+							if (this.getCost() > itinerary.getCost()) return 1;
+							else if (this.getCost() < itinerary.getCost()) return -1;
+							else return 0;
+
+						}
 
 					} else {
 						return this.getDuration().compareTo(itinerary.getDuration());

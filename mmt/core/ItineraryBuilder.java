@@ -115,8 +115,8 @@ public class ItineraryBuilder implements Visitor {
 		/* Searches for itineraries composed by more than one service */
 		this.searchComposedItinerary();
 
-		/* Between all options chooses the best itinerary */
-		this.addBestComposedItinerary();
+		/* Between all options chooses the best itineraries */
+		this.addBestComposedItineraries();
 	}
 
 	/**
@@ -447,7 +447,7 @@ public class ItineraryBuilder implements Visitor {
 	/**
 	 * Grabs the possible itineraries and sorts them.
 	 */
-	void addBestComposedItinerary() {
+	void addBestComposedItineraries() {
 
 		/* Itinerary Options */
 		ArrayList<Itinerary> _composed = new ArrayList<Itinerary>();
