@@ -71,8 +71,6 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 			_form.parse();
 			_form.clear();
 
-
-
 			if (choice.value() != 0) {
 				if (choice.value() > options || choice.value() < 0) {
 					throw new NoSuchItineraryChoiceException(id.value(),choice.value());

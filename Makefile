@@ -1,5 +1,5 @@
 all:
-	javac -Xlint:unchecked -cp  po-uilib.jar:. `find mmt -name *.java`
+	javac -cp  po-uilib.jar:. `find mmt -name *.java`
 
 run:
 	java -Dimport=default.imp -cp po-uilib.jar:. mmt.app.App

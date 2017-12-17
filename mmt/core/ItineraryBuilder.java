@@ -23,11 +23,10 @@ import mmt.core.exceptions.BadTimeSpecificationException;
 /**
  * Class which builds the possible itineraries for the passengers.
  */
-
 public class ItineraryBuilder implements Visitor {
 
 	/** The TrainCompany associated to this ItineraryBuilder */
-	private TrainCompany _company;
+	private TrainCompany _trainCompany;
 
 	/** Name of the starting station of the itinerary */
 	private String _startStation;
@@ -50,9 +49,6 @@ public class ItineraryBuilder implements Visitor {
 	/** Services that connect from a given station */
 	private ArrayList<ArrayList<TrainStop>> _intersections = new ArrayList<ArrayList<TrainStop>>();
 
-	/** TrainStops that serve as a possible start to the itinerary */
-	private ArrayList<TrainStop> _start = new ArrayList<TrainStop>();
-
 	/** Possible itineraries */
 	private ArrayList<ArrayList<TrainStop>> _result = new ArrayList<ArrayList<TrainStop>>();
 
@@ -68,40 +64,66 @@ public class ItineraryBuilder implements Visitor {
 	/** Current best composed itinerary */
 	private Itinerary _composed;
 
-
+	/**
+	 * Constructor. Used when parsing new itineraries.
+	 *
+	 * @param trainCompany the train company associated with these itineraries.
+	 */
 	ItineraryBuilder(TrainCompany trainCompany) {
-		_company = trainCompany;
+		_trainCompany = trainCompany;
 	}
 
+	/**
+	 * Constructor.
+	 *
+	 * @param startStation the start station where the itinerary should start.
+	 * @param endStation the end station where the itinerary should start.
+	 * @param departureDate the minimum date when the itinerary should start.
+	 * @param departureTime the minimum time when the itinerary should start.
+	 * @param trainCompany the train company associated with these itineraries.
+	 */
 	ItineraryBuilder( String startStation, String endStation, String departureDate, String departureTime, TrainCompany trainCompany ) 
 	throws BadTimeSpecificationException, BadDateSpecificationException {
 
+		/* Itinerary requirements */
 		_startStation = startStation;
 		_endStation = endStation;
-		_company = trainCompany;
+		_trainCompany = trainCompany;
 
+		/* Parse the departure time */
 		try {
 			_departureTime = LocalTime.parse(departureTime);
 		} catch (DateTimeParseException e) {
-			throw new BadTimeSpecificationException( departureTime );
+			throw new BadTimeSpecificationException(departureTime);
 		}
 
+		/* Parse the departure date */
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			_departureDate = format.parse(departureDate);
 		} catch (ParseException e) {
-			throw new BadDateSpecificationException (departureDate);
+			throw new BadDateSpecificationException(departureDate);
 		}
-		// Starts by making a list of services with the starting station, and those that also contain the end station 
-		_company.getServices().forEach(( Service s )-> {
+
+		/* Double check parsing */
+		if (!format.format(_departureDate).equals(departureDate)) {
+			throw new BadDateSpecificationException(departureDate);
+		}
+
+		/* Itinerary search will use services */
+		_trainCompany.getServices().forEach(( Service s )-> {
 			s.accept(this);
 		});
 
+		/* Searches for itineraries composed by an unique service */
 		_singleServices.forEach((Service single) -> {
 			_itineraries.add(buildItinerary(_departureDate, single, _startStation, _endStation));
 		});
 
+		/* Searches for itineraries composed by more than one service */
 		this.searchComposedItinerary();
+
+		/* Between all options chooses the best itinerary */
 		this.getItineraries();
 	}
 
@@ -191,7 +213,7 @@ public class ItineraryBuilder implements Visitor {
 
 	/** 
 	 * Creates a new Itinerary using the service it passes through, and the start and end statio names.
-	 * <p>
+	 *
 	 * Only creates simple Itineraries.
 	 *
 	 * @param departureDate the date of the itinerary.
@@ -212,7 +234,7 @@ public class ItineraryBuilder implements Visitor {
 	/**
 	 * Creates a new Itinerary from the list of Services it passes through, 
 	 * and the name of the Stations it switches service.
-	 * <p>
+	 *
 	 * May create simple or composed itineraries. Using a single service and two switch stations 
 	 * (the start and end stations) will result in an equivalent simple itinerary as if one had used
 	 * the buildItinerary(4) method with equivalent parameters.
@@ -241,7 +263,7 @@ public class ItineraryBuilder implements Visitor {
 	/**
 	 * Creates a new Itinerary from the list of Services it passes through, 
 	 * and the name of the Stations it switches service.
-	 * <p>
+	 *
 	 * May create simple or composed itineraries. Using a single service and two switch stations 
 	 * (the start and end stations) will result in an equivalent simple itinerary as if one had used
 	 * the buildItinerary(4) method with equivalent parameters.
@@ -256,7 +278,6 @@ public class ItineraryBuilder implements Visitor {
 		result.setPassengerId(passengerId);
 		return result;
 	}
- 	
 
 	/**
 	 * Grabs the next trainstops.
@@ -296,7 +317,7 @@ public class ItineraryBuilder implements Visitor {
 	void searchComposedItinerary() {
 
 		/* Train Stops */
-		ArrayList<TrainStop> trainStops = _company.getTrainStops();
+		ArrayList<TrainStop> trainStops = _trainCompany.getTrainStops();
 
 		/* Possible Starting Train Stops */
 		ArrayList<TrainStop> startTrainStops = new ArrayList<TrainStop>();
@@ -307,7 +328,7 @@ public class ItineraryBuilder implements Visitor {
 
 			/* Add first one */
 			intersects.add(trainstop_a);
-		
+
 			/* Check which intersect */
 			for ( TrainStop trainstop_b : trainStops ) {
 
@@ -340,16 +361,7 @@ public class ItineraryBuilder implements Visitor {
 
 		/* Launches DFS on every TrainStop */
 		for ( TrainStop trainStop : startTrainStops ) {
-			/*
 
-			for ( ArrayList<TrainStop> list : _intersections ) {
-				System.out.println("---------");
-				for ( TrainStop stop : list ) {
-					System.out.println(stop.getTime()+"|"+stop.getStation().getName()+"|"+stop.getService().getId());
-				}
-			}
-
-			//*/
 			/* Applies DFS starting there */
 			this.depthFirstSearch( trainStop );
 		}
