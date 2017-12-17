@@ -463,8 +463,8 @@ public class ItineraryBuilder implements Visitor {
 			/* Sorts the Itineraries */
 			Collections.sort(_composed);
 
-			/* Itineraries Properties */
-			ArrayList<Integer> serviceIds = new ArrayList<Integer>();
+			/* Itineraries by Starting Service */
+			TreeMap<Integer,ArrayList<Itinerary>> serviceIds = new TreeMap<Integer,ArrayList<Itinerary>>();
 
 			/* We cant display repeated itineraries that start on the same service */
 			/* In these cases only the best itinerary should be shown */
@@ -476,14 +476,46 @@ public class ItineraryBuilder implements Visitor {
 				Integer serviceId = Integer.valueOf( itinerary.getDepartureService().getId() );
 
 				/* Checks if we already have an itinerary starting there */
-				if ( !serviceIds.contains(serviceId) ) {
+				if ( !serviceIds.containsKey(serviceId) ) {
+
+					/* Itineraries that start here */
+					ArrayList<Itinerary> _possibilities = new ArrayList<Itinerary>();
 
 					/* We can add this itinerary as an option */
-					_itineraries.add(itinerary);
-
+					_possibilities.add(itinerary);
+					
 					/* Adds this as first one to check later */
-					serviceIds.add(serviceId);
+					serviceIds.put(serviceId, _possibilities);
 
+				}
+
+				/* If it doesn't contain leave only the best */
+				else if (serviceIds.containsKey(serviceId) && serviceIds.get(serviceId).size() > 0) {
+
+					/* Get Existing Option */
+					Itinerary other = serviceIds.get(serviceId).get(0);
+
+					/* Replaces or not if it is a better option */
+					if ( itinerary.getNumberOfServices() < other.getNumberOfServices() || 
+						itinerary.getNumberOfTrainStops() < itinerary.getNumberOfTrainStops() ) {
+
+						/* Removes old and adds best */
+						serviceIds.get(serviceId).remove(0);
+						serviceIds.get(serviceId).add(itinerary);
+
+					}
+
+				}
+
+			}
+
+			/* Goes through prioritized TreeMap and adds best options */
+			for ( Map.Entry<Integer,ArrayList<Itinerary>> entry : serviceIds.entrySet() ) {
+
+				/* Checks if it inited */
+				if ( entry.getValue().size() > 0 ) {
+					Itinerary it = entry.getValue().get(0);
+					_itineraries.add(it);
 				}
 
 			}

@@ -92,6 +92,15 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 	}
 
 	/**
+	 * Returns the number of TrainStops in the itinerary.
+	 *
+	 * @return the number of TrainStops in the itinerary.
+	 */
+	int getNumberOfTrainStops() {
+		return _trainStops.size();
+	}
+
+	/**
 	 * Returns the itinerary's cost.
 	 *
 	 * @return the itinerary's cost.
@@ -185,7 +194,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 	int getNumberOfServices() {
 
 		/* Holds the Service ID */
-		int id = 0;
+		int id = -1;
 
 		/* The cost to be returned */
 		int numberOfServices = 0;
@@ -224,7 +233,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 		resultBuf.append("\nItinerário " + _id + " para " + date + " @ " + itineraryCost);
 
 		/* Holds the Service ID */
-		int id = 0;
+		int id = -1;
 
 		/* Iterate over all TrainStops */
 		for ( TrainStop trainstop : _trainStops ) {
@@ -291,26 +300,38 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 
 			/* Checks the departure time */
 			if (this.getDepartureTime().equals(itinerary.getDepartureTime())) {
-
+				
 				/* Checks the arrival time */
 				if (this.getArrivalTime().equals(itinerary.getArrivalTime())) {
 
 					/* Checks the duration */
 					if(this.getDuration().equals(itinerary.getDuration())) {
 
-						/* Checks the cost */
-						if(this.getCost() == itinerary.getCost()) {
+						/* Checks the number of services */
+						if(this.getNumberOfServices() == itinerary.getNumberOfServices()) {
 							
-							/* Finally, checks the number of services */
-							if (this.getNumberOfServices() > itinerary.getNumberOfServices()) return 1;
-							else if (this.getNumberOfServices() < itinerary.getNumberOfServices()) return -1;
-							else return 0;
+							/* Checks the number of TrainStops */
+							if (this.getNumberOfTrainStops() == itinerary.getNumberOfTrainStops()) {
+
+								/* Checks the cost */
+								if (this.getCost() > itinerary.getCost()) return 1;
+								else if (this.getCost() < itinerary.getCost()) return -1;
+								else return 0;
+
+							} else {
+
+								/* Checks the number of TrainStops */
+								if (this.getNumberOfTrainStops() > itinerary.getNumberOfTrainStops()) return 1;
+								else if (this.getNumberOfTrainStops() < itinerary.getNumberOfTrainStops()) return -1;
+								else return 0;
+
+							}
 
 						} else {
 							
-							/* Checks the cost */
-							if (this.getCost() > itinerary.getCost()) return 1;
-							else if (this.getCost() < itinerary.getCost()) return -1;
+							/* Checks the number of services */
+							if (this.getNumberOfServices() > itinerary.getNumberOfServices()) return 1;
+							else if (this.getNumberOfServices() < itinerary.getNumberOfServices()) return -1;
 							else return 0;
 
 						}
