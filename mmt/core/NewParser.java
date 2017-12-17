@@ -57,8 +57,8 @@ public class NewParser {
 			throw new ImportFileException(ioe);
 		}
 		try {
+
 			/* Adds the parsed itineraries to their respective passengers, if there are any */
-			Collections.sort(_built);
 			for (Itinerary itinerary : _built) {
 				_trainCompany.getPassenger(itinerary.getPassengerId()).addItinerary(itinerary);
 			}

@@ -2,8 +2,10 @@ package mmt.core;
 
 import java.util.Locale;
 import java.util.TreeMap;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Collections;
 
 import java.time.Duration;
 
@@ -197,10 +199,31 @@ public class Passenger implements java.io.Serializable {
 	 * @return a string with all the itineraries description.
 	 */
 	String showItineraries() {
+
+		/* Holds Results */
 		StringBuffer buf = new StringBuffer();
+
+		/* the sorted itineraries */
+		ArrayList<Itinerary> result = new ArrayList<Itinerary>();
+
+		/* Converts to array */
 		_itineraries.forEach((Integer i, Itinerary it)-> {
-			buf.append(it.toString() + "\n");
+			result.add(it);
 		});
+
+		/* Show them sorted by their date, cost .. */
+		Collections.sort(result);
+
+		/* Appends results */
+		for ( int i = 0; i < result.size(); i++ ) {
+			Itinerary it = result.get(i);
+			int oldId = it.getId();
+			it.updateId(i+1);
+			buf.append(it.toString() + "\n");
+			it.updateId(oldId);
+		}
+
+		/* Returns result */
 		return buf.toString();
 	}
 
