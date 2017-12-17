@@ -182,7 +182,9 @@ public class NewParser {
 
 			/* Adds Train Stops to the TrainCompany */
 			_trainCompany.addTrainStop( start );
-			if ( i+1 == components.length ) { _trainCompany.addTrainStop( end ); }
+			if ( i+4 >= components.length ) { 
+				_trainCompany.addTrainStop( end );
+			}
 
 			/* Adds start train station */
 			if ( !_trainCompany.checkStation(startStationName) ) {

@@ -329,7 +329,6 @@ public class ItineraryBuilder implements Visitor {
 
 			/* Check which intersect */
 			for ( TrainStop trainstop_b : trainStops ) {
-				
 				/* Adds the first intersection in a service (first->second) */
 				if (trainstop_a.getStation().getName().equals(trainstop_a.getService().getStartStation().getName())) {
 					intersects.add(trainstop_a.nextTrainStop());
@@ -341,7 +340,7 @@ public class ItineraryBuilder implements Visitor {
 					
 					/* If we are switching services we must add the TrainStop twice */
 					if (trainstop_a.getService().getId() == trainstop_b.getService().getId()) {
-						intersects.add(trainstop_b.nextTrainStop());
+						if (trainstop_b.hasNextTrainStop()) { intersects.add(trainstop_b.nextTrainStop()); }
 					} else {
 						intersects.add(trainstop_b);
 					}
