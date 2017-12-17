@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Date;
 
@@ -54,9 +55,6 @@ public class ItineraryBuilder implements Visitor {
 	
 	/** Built Itineraries to be returned. */
 	private ArrayList<Itinerary> _itineraries = new ArrayList<Itinerary>();
-
-	/** Current best composed itinerary */
-	private Itinerary _composed;
 
 	/**
 	 * Constructor. Used when parsing new itineraries.
@@ -118,18 +116,23 @@ public class ItineraryBuilder implements Visitor {
 		this.searchComposedItinerary();
 
 		/* Between all options chooses the best itinerary */
-		this.getItineraries();
+		this.addBestComposedItinerary();
 	}
 
+	/**
+	 * Finds itineraries that are composed of a single service. Result is added to _singleServices.
+	 *
+	 * @param service the service to be checked.
+	 */
 	public void visit ( Service service ) {
 
-		Collection<TrainStop> startStops = service.getStartTrainStops();
 		boolean isValidStart = false;
 		LocalTime startTime = LocalTime.MIN;
 
+		Collection<TrainStop> startStops = service.getStartTrainStops();
 		for ( TrainStop stop : startStops ) {
 
-			// checks if the service has the start station
+			/* Service is valid if it has the Start Station where we want the itinerary to start and starts after our required departure time. */
 			if ( stop.getStation().getName().equals( _startStation ) && !stop.getTime().isBefore( _departureTime ) ) {
 
 				_startingServices.add( service );
@@ -143,10 +146,9 @@ public class ItineraryBuilder implements Visitor {
 		if (!isValidStart) return;
 
 		Collection<TrainStop> endStops = service.getEndTrainStops();
-
 		for ( TrainStop stop : endStops ) {
 
-			// If the service has both the start and end station, it is a valid service.
+			/* Service is valid if it has the End Station where we want the itinerary to end and ends after the start of the starting TrainStop. */
 			if ( stop.getStation().getName().equals( _endStation ) && startTime.isBefore(stop.getTime())) {
 				_singleServices.add( service );
 				_startingServices.remove( service );
@@ -306,7 +308,7 @@ public class ItineraryBuilder implements Visitor {
 	}
 
 	/**
-	 * Searches possible composed itineraries.
+	 * Searches possible composed itineraries, doing an Depth First Search.
 	 */
 	void searchComposedItinerary() {
 
@@ -318,6 +320,8 @@ public class ItineraryBuilder implements Visitor {
 
 		/* Build a table with the trainstops that intersect */
 		for ( TrainStop trainstop_a : trainStops ) {
+
+			/* Will have all the trainstops that intersect in order */
 			ArrayList<TrainStop> intersects = new ArrayList<TrainStop>();
 
 			/* Add first one */
@@ -325,13 +329,17 @@ public class ItineraryBuilder implements Visitor {
 
 			/* Check which intersect */
 			for ( TrainStop trainstop_b : trainStops ) {
-
+				
+				/* Adds the first intersection in a service (first->second) */
 				if (trainstop_a.getStation().getName().equals(trainstop_a.getService().getStartStation().getName())) {
 					intersects.add(trainstop_a.nextTrainStop());
 					break;
+
+				/* Considers other cases where TrainStops intersect if they are sequenced in time and stop at the same station */
 				} else if (trainstop_a.getStation().getName().equals( trainstop_b.getStation().getName() ) && 
 					!trainstop_a.getTime().isAfter( trainstop_b.getTime())) {
-
+					
+					/* If we are switching services we must add the TrainStop twice */
 					if (trainstop_a.getService().getId() == trainstop_b.getService().getId()) {
 						intersects.add(trainstop_b.nextTrainStop());
 					} else {
@@ -362,15 +370,29 @@ public class ItineraryBuilder implements Visitor {
 
 	}
 
-	/* DEPTH FIRST ALGORITHM */
+	/**
+	 * Applies a Depth First Search to all the intersections found. 
+	 * Found solutions are added to _result.
+	 * 
+	 * @param trainstop the trainstop/node to explore.
+	 */
 	void depthFirstSearch(TrainStop trainstop) {
 
+		/* Next node on the graph to visit */
 		ArrayList<TrainStop> newPath = new ArrayList<TrainStop>();
 		nextSegment(trainstop, newPath);
 
-
 	}
 
+	/**
+	 * Depth First Search auxiliary function that visits all adjacents
+	 * of a given node in the graph. In this case TrainStops that are linked
+	 * from TrainStop. The path is built on path and added to _result when the
+	 * adjacents are all visited.
+	 * 
+	 * @param trainstop the trainstop/node to explore.
+	 * @param path the path being formmed in this iteration of the DFS.
+	 */
 	void nextSegment(TrainStop trainstop, ArrayList<TrainStop> path) {
 		ArrayList<TrainStop> nextStops =  this.nextTrainStops(trainstop);
 
@@ -398,6 +420,13 @@ public class ItineraryBuilder implements Visitor {
 		}
 	}
 
+	/**
+	 * Checks if a given TrainStop service can belong to a given path or if the passenger needs
+	 * to switch services.
+	 * 
+	 * @param trainstop the trainstop to check.
+	 * @param path the path formmed.
+	 */
 	boolean validService(TrainStop trainstop, ArrayList<TrainStop> path) {
 		if (path.size() == 0) {
 			return true;
@@ -416,45 +445,58 @@ public class ItineraryBuilder implements Visitor {
 	}
 
 	/**
-	 * Grabs the possible itineraries.
+	 * Grabs the possible itineraries and sorts them.
 	 */
-	void getItineraries() {
+	void addBestComposedItinerary() {
+
+		/* Itinerary Options */
+		ArrayList<Itinerary> _composed = new ArrayList<Itinerary>();
 
 		/* Parses all obtained paths, and chooses the best one */
 		_result.forEach((ArrayList<TrainStop> list)-> { 
-			this.addComposedItinerary(new Itinerary(_departureDate, list));
+			_composed.add(new Itinerary(_departureDate, list));
 		});
-		
-		this.commitComposedItinerary();
-	}
 
+		/* If there are any options */
+		if ( _composed.size() > 0 ) {
+
+			/* Sorts the Itineraries */
+			Collections.sort(_composed);
+
+			/* Itineraries Properties */
+			ArrayList<Integer> serviceIds = new ArrayList<Integer>();
+
+			/* We cant display repeated itineraries that start on the same service */
+			/* In these cases only the best itinerary should be shown */
+
+			/* Gets all Starting Services Ids */
+			for ( Itinerary itinerary : _composed ) {
+
+				/* This itinerary first service Id */
+				Integer serviceId = Integer.valueOf( itinerary.getDepartureService().getId() );
+
+				/* Checks if we already have an itinerary starting there */
+				if ( !serviceIds.contains(serviceId) ) {
+
+					/* We can add this itinerary as an option */
+					_itineraries.add(itinerary);
+
+					/* Adds this as first one to check later */
+					serviceIds.add(serviceId);
+
+				}
+
+			}
+
+		}
+
+	}
+	
+	/**
+	 * Grabs the possible itineraries.
+	 */
 	ArrayList<Itinerary> getItineraryOptions() {
 		return _itineraries;
-	}
-
-	boolean hasComposedItinerary() {
-		return _composed != null;
-	}
-
-	void addComposedItinerary(Itinerary newItinerary) {
-		if (!this.hasComposedItinerary()) {
-			_composed = newItinerary;
-		} else if (_composed.getDuration() == newItinerary.getDuration()) {
-			if ( _composed.getCost() > newItinerary.getCost()) {
-				_composed = newItinerary;
-			}
-		} else if (_composed.getDuration().compareTo(newItinerary.getDuration()) > 0) {
-			_composed = newItinerary;
-		} else if (_composed.getCost() > newItinerary.getCost()) {
-			_composed = newItinerary;
-		}
-	}
-
-	void commitComposedItinerary() {
-		if (this.hasComposedItinerary()) {
-			_itineraries.add( _composed );
-		}
-		_composed = null;
 	}
 
 }

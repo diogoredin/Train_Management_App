@@ -65,12 +65,30 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 		_id = id;
 	}
 
+	/**
+	 * Updates the passenger that bought this itinerary.
+	 *
+	 */
 	void setPassengerId(int id) {
 		_passengerId = id;
 	}
 
+	/**
+	 * Returns the id of the passenger who bought this itinerary.
+	 *
+	 * @return the id of of the passenger who bought this itinerary.
+	 */
 	int getPassengerId() {
 		return _passengerId;
+	}
+
+	/**
+	 * Returns the itinerary's first service.
+	 *
+	 * @return the itinerary's first service.
+	 */
+	Service getDepartureService() {
+		return _trainStops.get(0).getService();
 	}
 
 	/**
@@ -213,6 +231,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 	}
 
 	public int compareTo(Itinerary itinerary) {
+
 		/* Checks the departure date */
 		if (this.getDepartureDate().equals(itinerary.getDepartureDate())) {
 

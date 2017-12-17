@@ -55,7 +55,6 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 			Collections.sort(itineraryOptions);
 			_receiver.updateListId(itineraryOptions);
 
-
 			itineraryOptions.forEach((Itinerary it)-> {
 				_display.addLine(it.toString());
 			});
@@ -65,7 +64,6 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 			int options = itineraryOptions.size();
 
 			if (options == 0) return;
-
 			Input<Integer> choice = _form.addIntegerInput(Message.requestItineraryChoice());
 
 			_form.parse();

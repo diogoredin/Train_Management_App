@@ -219,7 +219,6 @@ public class NewParser {
 	
 			Date departureDate = format.parse(date);
 
-			// criar um itinerário com data indicada
 			ArrayList<Service> services = new ArrayList<Service>();
 			ArrayList<String> stations = new ArrayList<String>();
 			ArrayList<Itinerary> build = new ArrayList<Itinerary>();
@@ -242,7 +241,6 @@ public class NewParser {
 			}
 
 			_built.add(builder.buildItinerary(departureDate, services, stations, passengerId));
-			
 
 		} catch (NoSuchServiceIdException e) {
 			e.printStackTrace();
