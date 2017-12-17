@@ -45,6 +45,9 @@ public class Passenger implements java.io.Serializable {
 	/** The passenger's last 10 itinerary values */
 	private ArrayBlockingQueue<Double> _lastValues = new ArrayBlockingQueue<Double>(10);
 
+	/** The passenger's total spent money */
+	private Double _totalSpent = 0.00;
+
 	/**
 	 * Creates a passenger that is associated with a trainCompany, id comes from the trainCompany
 	 *
@@ -142,7 +145,7 @@ public class Passenger implements java.io.Serializable {
 		String name = getName();
 		String catName = _category.getName();
 		int itineraries = getNumberOfItineraries();
-		String values = String.format(Locale.US, "%.2f", getLastValues());
+		String values = String.format(Locale.US, "%.2f", _totalSpent);
 
 		// Formatting time
 		Duration duration = getItineraryDuration();
@@ -157,6 +160,8 @@ public class Passenger implements java.io.Serializable {
 	}
 
 	void addItinerary(Itinerary itinerary) {
+
+		/* Update Number of Itineraries */
 		int n = getNumberOfItineraries();
 		n++;
 		itinerary.updateId(n);
@@ -173,6 +178,9 @@ public class Passenger implements java.io.Serializable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		/* Update Spent Money */
+		_totalSpent = _totalSpent + value;
 
 		_category = _company.updateCategory(getLastValues());
 
