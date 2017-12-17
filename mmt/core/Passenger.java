@@ -31,7 +31,7 @@ public class Passenger implements java.io.Serializable {
 	private final int _id;
 
 	/** The passenger's TrainCompany. */
-	private TrainCompany _company;
+	private TrainCompany _trainCompany;
 
 	/** The passenger's name. */
 	private String _name;
@@ -57,7 +57,7 @@ public class Passenger implements java.io.Serializable {
 	Passenger(int id, String name, TrainCompany company) throws InvalidPassengerNameException {
 		setName(name);
 		_id = id;
-		_company = company;
+		_trainCompany = company;
 	}
 
 	/** 
@@ -171,6 +171,7 @@ public class Passenger implements java.io.Serializable {
 		itinerary.updateId(n);
 		_itineraries.put(n, itinerary);
 
+		/* Calculates the value paid for the itinerary and saves it */
 		double value = itinerary.getCost();
 		try {
 			if (_lastValues.size() == 10) {
@@ -186,10 +187,16 @@ public class Passenger implements java.io.Serializable {
 		/* Update Spent Money */
 		_totalSpent = _totalSpent + value;
 
-		_category = _company.updateCategory(getLastValues());
+		/* Updates the Passenger Category */
+		_category = _trainCompany.updateCategory(getLastValues());
 
 	}
 
+	/**
+	 * Displays all the itineraries bought by this passenger.
+	 * 
+	 * @return a string with all the itineraries description.
+	 */
 	String showItineraries() {
 		StringBuffer buf = new StringBuffer();
 		_itineraries.forEach((Integer i, Itinerary it)-> {
@@ -198,6 +205,11 @@ public class Passenger implements java.io.Serializable {
 		return buf.toString();
 	}
 
+	/**
+	 * Displays all the itineraries bought by this passenger.
+	 * 
+	 * @return a string with all the itineraries description.
+	 */
 	Duration getItineraryDuration() {
 		Duration duration = Duration.ZERO;
 		for ( Map.Entry<Integer, Itinerary> entry : _itineraries.entrySet() ) {

@@ -464,7 +464,7 @@ public class ItineraryBuilder implements Visitor {
 			Collections.sort(_composed);
 
 			/* Itineraries by Starting Service */
-			TreeMap<Integer,ArrayList<Itinerary>> serviceIds = new TreeMap<Integer,ArrayList<Itinerary>>();
+			TreeMap<Integer,Itinerary> serviceIds = new TreeMap<Integer,Itinerary>();
 
 			/* We cant display repeated itineraries that start on the same service */
 			/* In these cases only the best itinerary should be shown */
@@ -478,30 +478,23 @@ public class ItineraryBuilder implements Visitor {
 				/* Checks if we already have an itinerary starting there */
 				if ( !serviceIds.containsKey(serviceId) ) {
 
-					/* Itineraries that start here */
-					ArrayList<Itinerary> _possibilities = new ArrayList<Itinerary>();
-
-					/* We can add this itinerary as an option */
-					_possibilities.add(itinerary);
-					
 					/* Adds this as first one to check later */
-					serviceIds.put(serviceId, _possibilities);
+					serviceIds.put(serviceId, itinerary);
 
 				}
 
 				/* If it doesn't contain leave only the best */
-				else if (serviceIds.containsKey(serviceId) && serviceIds.get(serviceId).size() > 0) {
+				else if (serviceIds.containsKey(serviceId)) {
 
 					/* Get Existing Option */
-					Itinerary other = serviceIds.get(serviceId).get(0);
+					Itinerary other = serviceIds.get(serviceId);
 
 					/* Replaces or not if it is a better option */
 					if ( itinerary.getNumberOfServices() < other.getNumberOfServices() || 
 						itinerary.getNumberOfTrainStops() < itinerary.getNumberOfTrainStops() ) {
 
 						/* Removes old and adds best */
-						serviceIds.get(serviceId).remove(0);
-						serviceIds.get(serviceId).add(itinerary);
+						serviceIds.put(serviceId, itinerary);
 
 					}
 
@@ -510,14 +503,9 @@ public class ItineraryBuilder implements Visitor {
 			}
 
 			/* Goes through prioritized TreeMap and adds best options */
-			for ( Map.Entry<Integer,ArrayList<Itinerary>> entry : serviceIds.entrySet() ) {
-
-				/* Checks if it inited */
-				if ( entry.getValue().size() > 0 ) {
-					Itinerary it = entry.getValue().get(0);
-					_itineraries.add(it);
-				}
-
+			for ( Map.Entry<Integer,Itinerary> entry : serviceIds.entrySet() ) {
+				Itinerary it = entry.getValue();
+				_itineraries.add(it);
 			}
 
 		}
