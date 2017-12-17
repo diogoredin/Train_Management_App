@@ -307,34 +307,10 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary> {
 					/* Checks the duration */
 					if(this.getDuration().equals(itinerary.getDuration())) {
 
-						/* Checks the number of services */
-						if(this.getNumberOfServices() == itinerary.getNumberOfServices()) {
-							
-							/* Checks the number of TrainStops */
-							if (this.getNumberOfTrainStops() == itinerary.getNumberOfTrainStops()) {
-
-								/* Checks the cost */
-								if (this.getCost() > itinerary.getCost()) return 1;
-								else if (this.getCost() < itinerary.getCost()) return -1;
-								else return 0;
-
-							} else {
-
-								/* Checks the number of TrainStops */
-								if (this.getNumberOfTrainStops() > itinerary.getNumberOfTrainStops()) return 1;
-								else if (this.getNumberOfTrainStops() < itinerary.getNumberOfTrainStops()) return -1;
-								else return 0;
-
-							}
-
-						} else {
-							
-							/* Checks the number of services */
-							if (this.getNumberOfServices() > itinerary.getNumberOfServices()) return 1;
-							else if (this.getNumberOfServices() < itinerary.getNumberOfServices()) return -1;
-							else return 0;
-
-						}
+						/* Checks the cost */
+						if (this.getCost() > itinerary.getCost()) return 1;
+						else if (this.getCost() < itinerary.getCost()) return -1;
+						else return 0;
 
 					} else {
 						return this.getDuration().compareTo(itinerary.getDuration());

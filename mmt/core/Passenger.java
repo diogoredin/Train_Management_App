@@ -140,25 +140,29 @@ public class Passenger implements java.io.Serializable {
 	 */
 	public String toString() {
 
-		// Basic attributes
+		/* Basic attributes */
 		int id = getId();
 		String name = getName();
 		String catName = _category.getName();
 		int itineraries = getNumberOfItineraries();
 		String values = String.format(Locale.US, "%.2f", _totalSpent);
 
-		// Formatting time
+		/* Formatting time */
 		Duration duration = getItineraryDuration();
-
 		String formatHours = String.format("%02d", duration.toHours());
 		duration = duration.minusHours(duration.toHours());
 		String formatMinutes = String.format("%02d", duration.toMinutes());
 		String time = formatHours +":"+ formatMinutes;
 
-
+		/* Returns Passenger */
 		return "" + id + "|" + name + "|" + catName + "|" + itineraries + "|" + values + "|" + time;
 	}
 
+	/**
+	 * Adds a new itinerary bought by this passenger.
+	 * 
+	 * @param itinerary bought itinerary.
+	 */
 	void addItinerary(Itinerary itinerary) {
 
 		/* Update Number of Itineraries */
