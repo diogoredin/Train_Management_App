@@ -39,7 +39,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 	/** @see pt.tecnico.po.ui.Command#execute() */
 	@Override
 	public final void execute() throws DialogException {
-			try {
+		try {
 				
 			Input<Integer> id = _form.addIntegerInput(Message.requestPassengerId());
 			Input<String> start = _form.addStringInput(Message.requestDepartureStationName());
