@@ -235,31 +235,71 @@ public class TicketOffice {
 		return _trainCompany.searchServiceWithEndStation(search);
 
 	}
-
+	
+	/**
+	 * Looks up all possible itineraries for a given passenger.
+	 *
+	 * @param passengerId id of the passenger that is looking for the itinerary.
+	 * @param departureStation the station where the passenger wants to start his trip.
+	 * @param arrivalStation the date when the trip should start.
+	 * @param departureDate the time when the trip should start.
+	 * @return the possible itineraries for the passenger to buy.
+	 * @throws NoSuchStationNameException if station name does not exist.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 * @throws BadTimeSpecificationException if the time isn't well formatted.
+	 * @throws BadDateSpecificationException if the date isn't well formatted.
+	 */
 	public ArrayList<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
 		String departureTime) throws NoSuchPassengerIdException, BadTimeSpecificationException, NoSuchStationNameException, BadDateSpecificationException {
 		return _trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
 	}
 
+	/**
+	 * Adds an itinerary to a passenger.
+	 *
+	 * @param id the id of the passenger who bought the itinerary. 
+	 * @param itinerary the chosen itinerary.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	public void commitItinerary(int passengerId, Itinerary itinerary) throws NoSuchPassengerIdException {
 		_trainCompany.commitItinerary(passengerId, itinerary);
 	}
 
-
+	/**
+	 * Displays the itineraries bought by a given passenger.
+	 *
+	 * @param id passenger id to whom the itinaries belong.
+	 * @return the itineraries as a string.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	public String showPassengerItineraries(int id) throws NoSuchPassengerIdException {
 		return _trainCompany.showPassengerItineraries(id);
 	}
 
+	/**
+	 * Let's us know if a given passenger has purchased itineraries.
+	 *
+	 * @param id the id of the passenger.
+	 * @return true if the passenger has itineraries, false otherwise.
+	 * @throws NoSuchPassengerIdException if the passenger id does not exist.
+	 */
 	public boolean passengerHasItineraries(int id) throws NoSuchPassengerIdException {
 		return _trainCompany.passengerHasItineraries(id);
 	}
 
+	/**
+	 * Looks up all itineraries in the TrainCompany.
+	 *
+	 * @return all itineraries in the TrainCompany.
+	 */
 	public String showAllItineraries() {
 		return _trainCompany.showAllItineraries();
 	}
 
+	/**
+	 * Updates all itinerary id's by one.
+	 */
 	public void updateListId(ArrayList<Itinerary> itineraryOptions) {
-	
 		_trainCompany.updateListId(itineraryOptions);
 	}
 }

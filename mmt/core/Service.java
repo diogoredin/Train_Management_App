@@ -189,13 +189,21 @@ public class Service implements java.io.Serializable, Visitable {
 		return result;
 	}
 
+	/**
+	 * Returns the Starting TrainStops of this service.
+	 *
+	 * @return a collection of the trainstops that start in this service.
+	 */
 	Collection<TrainStop> getStartTrainStops() {
-
 		return Collections.unmodifiableCollection(_startTrainStops);
 	}
 
+	/**
+	 * Returns the Ending TrainStops of this service.
+	 *
+	 * @return a collection of the trainstops that end in this service.
+	 */
 	Collection<TrainStop> getEndTrainStops() {
-
 		return Collections.unmodifiableCollection(_endTrainStops);
 	}
 
