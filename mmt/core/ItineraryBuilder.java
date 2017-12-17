@@ -55,13 +55,7 @@ public class ItineraryBuilder implements Visitor {
 
 	/** Possible itineraries */
 	private ArrayList<ArrayList<TrainStop>> _result = new ArrayList<ArrayList<TrainStop>>();
-
-	/** Services the Itinerary passes through */
-	private ArrayList<Service> _services = new ArrayList<Service>();
-
-	/** Stations where the passenger gets on or off */
-	private ArrayList<String> _switchStation = new ArrayList<String>();
-
+	
 	/** Built Itineraries to be returned. */
 	private ArrayList<Itinerary> _itineraries = new ArrayList<Itinerary>();
 
