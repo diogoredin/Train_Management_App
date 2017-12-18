@@ -1,4 +1,4 @@
-# Train Management App in Java for the course of Object Oriented Programming.
+# Train Management App
 
 ## How to Run the Project
 You should be in the root folder of the project (PO_Project).
